@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <div>
+            <h1>PokeAPI</h1>
+        </div>
+        <div class="nav">
+            <a onclick="changeSection(1)" class="btnNav">Pokedex</a>
+            <a onclick="changeSection(2)" class="btnNav">Equipe</a>
+            <a onclick="changeSection(3)" class="btnNav">Batalha</a>
+        </div>
+    </header>
+    <main>
+        <section class="pokedex_section">
+            <div class="pokeinfo_container">
+                <div class="idnomePokemon">
+                    <h1 id="idPokemon"></h1>
+                    <h1 id="nomePokemon"></h1>
+                </div>
+                <div class="imgPokemon_container">
+                        <img src="" alt="" id="imgPokemon">
+                </div>
+                <div class="especificacoes_container">
+                    <p>Tipo:<span id="tipoPokemon"></span></p>
+                    <p>Altura:<span id="altPokemon"></span></p>
+                    <p>Peso:<span id="pesoPokemon"></span></p>
+                </div>
+                <div class="searchPokedex">
+                    <input type="text" id="inputSearch" name="inputSearch">
+                    <button onclick="searchPokemon(1)">Buscar</button>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="equipe_section">
+            <div class="equipe_pokemons">
+                <div class="pokemon_container" id="pokemonUm" >
+                    <input type="radio" value="pokemonUm" id="" onclick="selectPokemonContainer(1)" checked name="pokeCont">
+                    <label for="pokemonUm">
+                        <div class="nomeidPokemon">
+                            <h2 id="id1"></h2>
+                            <h2 id="nome1"></h2>
+                        </div>
+                        <div>
+                            <img src="" id="img1">
+                        </div>
+                        <div class="progressVida_container">
+                            <progress value="" max="" id="vida1"></progress>
+                            <p id="hp1"></p>
+                        </div>
+                        <div class="descEquipe_container">
+                            <div class="habilidades_container">
+                                <h2>Habilidades</h2>
+                                <div>
+                                    <p id="hab1-1"></p>
+                                    <p id="hab2-1"></p>
+                                </div>
+                            </div>
+                            <div class="status_container">
+                                <h2>Status</h2>
+                                <div>
+                                    <p id="atk1"></p>
+                                    <p id="def1"></p>
+                                    <p id="satk1"></p>
+                                    <p id="sdef1"></p>
+                                    <p id="spd1"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="movimentos_container">
+                            <h2>Movimentos</h2>
+                            <div>
+                                <select name="" id="selectMoves1-1" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves2-1" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves3-1" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves4-1" style="position: sticky;"><option value=""></option></select>
+                                
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                <div class="pokemon_container" id="pokemonDois" >
+                    <input type="radio" value="pokemonDois" id="" onclick="selectPokemonContainer(2)" name="pokeCont">
+                    <label for="pokemonDois">
+                        <div class="nomeidPokemon">
+                            <h2 id="id2"></h2>
+                            <h2 id="nome2"></h2>
+                        </div>
+                        <div>
+                            <img src="" id="img2">
+                        </div>
+                        <div class="progressVida_container">
+                            <progress value="" max="" id="vida2"></progress>
+                            <p id="hp2"></p>
+                        </div>
+                        <div class="descEquipe_container">
+                            <div class="habilidades_container">
+                                <h2>Habilidades</h2>
+                                <div>
+                                    <p id="hab1-2"></p>
+                                    <p id="hab2-2"></p>
+                                </div>
+                            </div>
+                            <div class="status_container">
+                                <h2>Status</h2>
+                                <div>
+                                    <p id="atk2"></p>
+                                    <p id="def2"></p>
+                                    <p id="satk2"></p>
+                                    <p id="sdef2"></p>
+                                    <p id="spd2"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="movimentos_container">
+                            <h2>Movimentos</h2>
+                            <div>
+                                <select name="" id="selectMoves1-2" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves2-2" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves3-2" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves4-2" style="position: sticky;"><option value=""></option></select>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                <div class="pokemon_container" id="pokemonTres" >
+                    <input type="radio" value="pokemonTres" id="" onclick="selectPokemonContainer(3)" name="pokeCont">
+                    <label for="pokemonTres">
+                        <div class="nomeidPokemon">
+                            <h2 id="id3"></h2>
+                            <h2 id="nome3"></h2>
+                        </div>
+                        <div>
+                            <img src="" id="img3">
+                        </div>
+                        <div class="progressVida_container">
+                            <progress value="" max="" id="vida3"></progress>
+                            <p id="hp3"></p>
+                        </div>
+                        <div class="descEquipe_container">
+                            <div class="habilidades_container">
+                                <h2>Habilidades</h2>
+                                <div>
+                                    <p id="hab1-3"></p>
+                                    <p id="hab2-3"></p>
+                                </div>
+                            </div>
+                            <div class="status_container">
+                                <h2>Status</h2>
+                                <div>
+                                    <p id="atk3"></p>
+                                    <p id="def3"></p>
+                                    <p id="satk3"></p>
+                                    <p id="sdef3"></p>
+                                    <p id="spd3"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="movimentos_container">
+                            <h2>Movimentos</h2>
+                            <div>
+                                <select name="" id="selectMoves1-3" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves2-3" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves3-3" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves4-3" style="position: sticky;"><option value=""></option></select>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                <div class="pokemon_container" id="pokemonQuatro" >
+                    <input type="radio" value="pokemonQuatro" id="" onclick="selectPokemonContainer(4)" name="pokeCont">
+                    <label for="pokemonQuatro">
+                        <div class="nomeidPokemon">
+                            <h2 id="id4"></h2>
+                            <h2 id="nome4"></h2>
+                        </div>
+                        <div>
+                            <img src="" id="img4">
+                        </div>
+                        <div class="progressVida_container">
+                            <progress value="" max="" id="vida4"></progress>
+                            <p id="hp4"></p>
+                        </div>
+                        <div class="descEquipe_container">
+                            <div class="habilidades_container">
+                                <h2>Habilidades</h2>
+                                <div>
+                                    <p id="hab1-4"></p>
+                                    <p id="hab2-4"></p>
+                                </div>
+                            </div>
+                            <div class="status_container">
+                                <h2>Status</h2>
+                                <div>
+                                    <p id="atk4"></p>
+                                    <p id="def4"></p>
+                                    <p id="satk4"></p>
+                                    <p id="sdef4"></p>
+                                    <p id="spd4"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="movimentos_container">
+                            <h2>Movimentos</h2>
+                            <div>
+                                <select name="" id="selectMoves1-4" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves2-4" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves3-4" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves4-4" style="position: sticky;"><option value=""></option></select>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                <div class="pokemon_container" id="pokemonCinco" >
+                    <input type="radio" value="pokemonCinco" id="" onclick="selectPokemonContainer(5)" name="pokeCont">
+                    <label for="pokemonCinco">
+                        <div class="nomeidPokemon">
+                            <h2 id="id5"></h2>
+                            <h2 id="nome5"></h2>
+                        </div>
+                        <div>
+                            <img src="" id="img5">
+                        </div>
+                        <div class="progressVida_container">
+                            <progress value="" max="" id="vida5"></progress>
+                            <p id="hp5"></p>
+                        </div>
+                        <div class="descEquipe_container">
+                            <div class="habilidades_container">
+                                <h2>Habilidades</h2>
+                                <div>
+                                    <p id="hab1-5"></p>
+                                    <p id="hab2-5"></p>
+                                </div>
+                            </div>
+                            <div class="status_container">
+                                <h2>Status</h2>
+                                <div>
+                                    <p id="atk5"></p>
+                                    <p id="def5"></p>
+                                    <p id="satk5"></p>
+                                    <p id="sdef5"></p>
+                                    <p id="spd5"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="movimentos_container">
+                            <h2>Movimentos</h2>
+                            <div>
+                                <select name="" id="selectMoves1-5" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves2-5" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves3-5" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves4-5" style="position: sticky;"><option value=""></option></select>     
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                <div class="pokemon_container" id="pokemonSeis" >
+                    <input type="radio" value="pokemonSeis" id="" onclick="selectPokemonContainer(6)" name="pokeCont">
+                    <label for="pokemonSeis">
+                        <div class="nomeidPokemon">
+                            <h2 id="id6"></h2>
+                            <h2 id="nome6"></h2>
+                        </div>
+                        <div>
+                            <img src="" id="img6">
+                        </div>
+                        <div class="progressVida_container">
+                            <progress value="" max="" id="vida6"></progress>
+                            <p id="hp6"></p>
+                        </div>
+                        <div class="descEquipe_container">
+                            <div class="habilidades_container">
+                                <h2>Habilidades</h2>
+                                <div>
+                                    <p id="hab1-6"></p>
+                                    <p id="hab2-6"></p>
+                                </div>
+                            </div>
+                            <div class="status_container">
+                                <h2>Status</h2>
+                                <div>
+                                    <p id="atk6"></p>
+                                    <p id="def6"></p>
+                                    <p id="satk6"></p>
+                                    <p id="sdef6"></p>
+                                    <p id="spd6"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="movimentos_container">
+                            <h2>Movimentos</h2>
+                            <div>
+                                <select name="" id="selectMoves1-6" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves2-6" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves3-6" style="position: sticky;"><option value=""></option></select>
+                                <select name="" id="selectMoves4-6" style="position: sticky;"><option value=""></option></select>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="searchPokemon">
+                    <input type="text" id="inputSearchEquipe" name="inputSearch">
+                    <button onclick="searchPokemon(2)">Buscar</button>
+            </div>
+        </section>
+        <section class="batalha_section"></section>
+    </main>
+    <footer>
+
+    </footer>
+    <script src="./script.js"></script>
+</body>
+</html>

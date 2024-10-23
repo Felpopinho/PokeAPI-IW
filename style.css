@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+*{
+    margin: 0;
+}
+body{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+header{
+    width: 100%;
+    height: 15vh;
+    background-color: gray;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.nav{
+    min-width: 300px;
+    display: flex;
+    justify-content: space-between;
+}
+.btnNav{
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+}
+main{
+    width: 100%;
+    height: 85vh;
+}
+.pokedex_section{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pokeinfo_container{
+    width: 40%;
+    height: auto;
+    padding: 20px;
+    background-color: rgb(167, 45, 45);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.idnomePokemon{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    z-index: 2;
+}
+#nomePokemon, #idPokemon{
+    text-transform: capitalize;
+    font-family: "Bangers", system-ui;
+    letter-spacing: 2.5px;
+    z-index: 2;
+}
+.imgPokemon_container{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('./assets/background_img.jpg');
+    background-position: bottom;
+    z-index: 2;
+}
+.imgPokemon_container img{
+    width: 30%;
+    min-width: 50px;
+}
+.searchPokedex{
+    z-index: 2;
+    width: 100%;
+}
+.especificacoes_container{
+    z-index: 2;
+}
+.especificacoes_container p{
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 5;
+}
+.especificacoes_container p span{
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-left: 6px;
+}
+.equipe_section{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+.equipe_pokemons{
+    display: grid;
+    width: 80%;
+    height: 80%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    padding: 20px;
+    gap: 20px;
+}
+.pokemon_container{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pokemon_container label{
+    display: inline-block;
+    height: 90%;
+    width: 90%;
+    flex-direction: column;
+    border-radius: 30px;
+    transition: all 0.2s ease;
+    background-color: rgb(189, 189, 189);
+    padding: 10px;
+}
+.pokemon_container input{
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    opacity: 0%;
+}
+.pokemon_container input:checked + label{
+    border: solid 1px;
+}
+.movimentos_container{
+    display: none;
+}
+.movimentos_container div{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.pokemon_container input:checked + label .movimentos_container{
+    display: block;
+}
+.nomeidPokemon{
+    display: flex;
+    justify-content: space-between;
+}
+.progressVida_container{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.progressVida_container progress{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 30px;
+    background: rgb(106, 155, 91);
+    border-radius: 10px;
+}
+.progressVida_container progress::-webkit-progress-bar{
+    background: rgb(106, 155, 91);
+    border-radius: 10px;
+    
+}
+.progressVida_container progress::-webkit-progress-value{
+    background: rgb(106, 155, 91);
+    border-radius: 10px;
+    
+}
+.progressVida_container p{
+    position: absolute;
+    z-index: 2;
+}
+.habilidades_container div{
+    display: flex;
+    justify-content: space-between;
+}
+.status_container div{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+.status_container span{
+    font-weight: bold;
+}
+
+
+.batalha_section{
+    display: none;
+}
