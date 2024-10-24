@@ -34,6 +34,8 @@ async function searchPokemon(section){
         } else{
             adicionarPokemon(pokemon)
         }
+        iSearch.value = ""
+        inputEquipeSearch = ""
     } catch (error) {
         console.log(error.message);
     }
@@ -52,8 +54,6 @@ function adicionarPokemon(pokemon){
     const id = document.getElementById(`id${pokemonAtualCont}`)
     const nome = document.getElementById(`nome${pokemonAtualCont}`)
     const img = document.getElementById(`img${pokemonAtualCont}`)
-    const hab1 = document.getElementById(`hab1-${pokemonAtualCont}`)
-    const hab2 = document.getElementById(`hab2-${pokemonAtualCont}`)
     const hp = document.getElementById(`hp${pokemonAtualCont}`)
     const vida = document.getElementById(`vida${pokemonAtualCont}`)
     const atk = document.getElementById(`atk${pokemonAtualCont}`)
@@ -64,8 +64,6 @@ function adicionarPokemon(pokemon){
     id.innerText = `${pokemon.id}`
     nome.innerText = `${pokemon.name}`
     img.src = `${pokemon.sprites.other.showdown.front_default}`
-    hab1.innerText = `${pokemon.abilities[0].ability.name}`
-    hab2.innerText = `${pokemon.abilities[1].ability.name}`
     vida.value = `${pokemon.stats[0].base_stat}`
     vida.setAttribute("max", `${pokemon.stats[0].base_stat}`)
     hp.innerHTML = `${pokemon.stats[0].base_stat}/${pokemon.stats[0].base_stat}`
@@ -74,6 +72,12 @@ function adicionarPokemon(pokemon){
     satk.innerHTML = `<span>S. Atq:</span>${pokemon.stats[3].base_stat}`
     sdef.innerHTML = `<span>S. Def:</span>${pokemon.stats[4].base_stat}`
     spd.innerHTML = `<span>Velocidade:</span>${pokemon.stats[5].base_stat}`
+
+    pokemon.abilities.map(hab => {
+        let tHab = document.createElement("p")
+        tHab.innerHTML = `${hab.ability.name}`
+        document.getElementById(`habilidades${pokemonAtualCont}`).appendChild(tHab)
+    })
 
 }
 
