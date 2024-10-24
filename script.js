@@ -9,10 +9,6 @@ const pesoPokemon = document.getElementById("pesoPokemon")
 const inputEquipeSearch = document.getElementById("inputSearchEquipe")
 const pokemonUm = document.getElementById("pokemonUm")
 const pokemonDois = document.getElementById("pokemonDois")
-const pokemonTres = document.getElementById("pokemonTres")
-const pokemonQuatro = document.getElementById("pokemonQuatro")
-const pokemonCinco = document.getElementById("pokemonCinco")
-const pokemonSeis = document.getElementById("pokemonSeis")
 
 var pokemonAtualCont = 1
 
@@ -79,10 +75,6 @@ function adicionarPokemon(pokemon){
     sdef.innerHTML = `<span>S. Def:</span>${pokemon.stats[4].base_stat}`
     spd.innerHTML = `<span>Velocidade:</span>${pokemon.stats[5].base_stat}`
 
-    buscarMovimentos(pokemon)
-    //tipoPokemon.innerText = `${pokemon.types.map(type => type.type.name).join(', ')}`
-    //altPokemon.innerText = `${pokemon.height / 10}`
-    //pesoPokemon.innerText = `${pokemon.weight / 10}`
 }
 
 function changeSection(n){
@@ -104,40 +96,7 @@ function changeSection(n){
 function selectPokemonContainer(n){
     if(n === 1){
         pokemonAtualCont = "1"
-    }else if(n===2){
-        pokemonAtualCont = "2"
-    }else if(n===3){
-        pokemonAtualCont = "3"
-    }else if(n===4){
-        pokemonAtualCont = "4"
-    }else if(n===5){
-        pokemonAtualCont = "5"
     }else{
-        pokemonAtualCont = "6"
+        pokemonAtualCont = "2"
     }
-}
-
-function buscarMovimentos(pokemon){
-    const selectMoves1 = document.getElementById(`selectMoves1-${pokemonAtualCont}`)
-    const selectMoves2 = document.getElementById(`selectMoves2-${pokemonAtualCont}`)
-    const selectMoves3 = document.getElementById(`selectMoves3-${pokemonAtualCont}`)
-    const selectMoves4 = document.getElementById(`selectMoves4-${pokemonAtualCont}`)
-    pokemon.moves.map(move => {
-        let nome1 = document.createElement("option")
-        let nome2 = document.createElement("option")
-        let nome3 = document.createElement("option")
-        let nome4 = document.createElement("option")
-        nome1.innerHTML = move.move.name
-        nome2.innerHTML = move.move.name
-        nome3.innerHTML = move.move.name
-        nome4.innerHTML = move.move.name
-        nome1.value = move.move.name
-        nome2.value = move.move.name
-        nome3.value = move.move.name
-        nome4.value = move.move.name
-        selectMoves1.appendChild(nome1)
-        selectMoves2.appendChild(nome2)
-        selectMoves3.appendChild(nome3)
-        selectMoves4.appendChild(nome4)
-    })
 }

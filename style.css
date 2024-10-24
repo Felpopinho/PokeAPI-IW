@@ -100,28 +100,29 @@ main{
     height: 100%;
 }
 .equipe_pokemons{
-    display: grid;
+    display: flex;
     width: 80%;
-    height: 80%;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    padding: 20px;
-    gap: 20px;
+    height: 100%;
+    justify-content: space-between;
+}
+.searchPokemon{
+    position: absolute;
 }
 .pokemon_container{
     position: relative;
-    height: 100%;
-    width: 100%;
+    height: auto;
+    width: 45%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .pokemon_container label{
-    display: inline-block;
+    display: flex;
     height: 90%;
     width: 90%;
     flex-direction: column;
-    border-radius: 30px;
+    justify-content: center;
+    row-gap: 10px;
     transition: all 0.2s ease;
     background-color: rgb(189, 189, 189);
     padding: 10px;
@@ -137,19 +138,13 @@ main{
 .pokemon_container input:checked + label{
     border: solid 1px;
 }
-.movimentos_container{
-    display: none;
-}
-.movimentos_container div{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-.pokemon_container input:checked + label .movimentos_container{
-    display: block;
-}
 .nomeidPokemon{
     display: flex;
-    justify-content: space-between;
+    column-gap: 15px;
+    justify-content: start;
+}
+#nome1, #nome2{
+    text-transform: capitalize;
 }
 .progressVida_container{
     position: relative;
@@ -176,11 +171,23 @@ main{
 .progressVida_container progress::-webkit-progress-value{
     background: rgb(106, 155, 91);
     border-radius: 10px;
-    
 }
 .progressVida_container p{
     position: absolute;
     z-index: 2;
+}
+.pokemonImg_container{
+    position: relative;
+    background-image: url('assets/background_pokemon.avif');
+    background-position: bottom;
+    padding: 10px;
+    border-radius: 10px;
+}
+.pokemonImg_container img{
+    position: static;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% -50%);
 }
 .habilidades_container div{
     display: flex;
