@@ -15,6 +15,8 @@ var pokemonAtualCont = 1
 var pokemonUmSelecionado = false;
 var pokemonDoisSelecionado = false;
 
+const pokemonBatalha = ["", ""];
+
 async function searchPokemon(section){
 
     if(iSearch.value === ""){
@@ -55,7 +57,7 @@ function visualizarPokemon(data){
 
 function adicionarPokemon(pokemon){
 
-    console.log(pokemonAtualCont)
+    pokemonBatalha[pokemonAtualCont-1] = pokemon
 
     if(pokemonAtualCont === 1 || pokemonAtualCont === "1" ){
         pokemonUmSelecionado = true
@@ -129,9 +131,9 @@ function changeSection(n){
 
 function selectPokemonContainer(n){
     if(n === 1){
-        pokemonAtualCont = "1"
+        pokemonAtualCont = 1
     }else{
-        pokemonAtualCont = "2"
+        pokemonAtualCont = 2
     }
 }
 
@@ -141,12 +143,33 @@ function iniciarBatalha(){
     document.querySelector(".searchPokemon").style.display = "none"
     document.querySelector(".batalha_pokemon").style.display = "flex"
 
+    let seuPokemon = pokemonBatalha[0]
+    let pokemonInimigo = pokemonBatalha[1]
+
     var musica = new Audio('./assets/music.mp3')
     musica.play()
+
+    document.getElementById("inimigoImg").src = pokemonInimigo.sprites.front_default
+    document.getElementById("seuImg").src = seuPokemon.sprites.back_default
+    document.getElementById("inimigoVida").innerHTML = pokemonInimigo.name
+    document.getElementById("seuVida").innerHTML = seuPokemon.name
+    document.getElementById("inimigoBarra").value = `${pokemonInimigo.stats[0].base_stat}`
+    document.getElementById("inimigoBarra").setAttribute("max", `${pokemonInimigo.stats[0].base_stat}`)
+    document.getElementById("seuBarra").value = `${seuPokemon.stats[0].base_stat}`
+    document.getElementById("seuBarra").setAttribute("max", `${seuPokemon.stats[0].base_stat}`)
+    document.getElementById("seuVidaText").innerHTML = `${seuPokemon.stats[0].base_stat}/${seuPokemon.stats[0].base_stat}`
 }
 
 function abrirAtaques(){
-    
+
+    let atq = pokemonBatalha[0].stats[1].base_stat
+    let def = pokemonBatalha[1].stats[2].base_stat
+
+    let sAtq = pokemonBatalha[0].stats[3].base_stat
+
+    pokemonBatalha[0].types.forEach(type => {type.type.name})
+
+    console.log(((((1 * 2/5) + 2) * sAtq * atq/def)/50 + 2) * 1.5 * 1/2 * 85/100)
 }
 function abrirMochila(){
 
