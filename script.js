@@ -12,6 +12,9 @@ const pokemonDois = document.getElementById("pokemonDois")
 
 var pokemonAtualCont = 1
 
+var pokemonUmSelecionado = false;
+var pokemonDoisSelecionado = false;
+
 async function searchPokemon(section){
 
     if(iSearch.value === ""){
@@ -44,13 +47,37 @@ async function searchPokemon(section){
 function visualizarPokemon(data){
     idPokemon.innerText = `${data.id}`
     nomePokemon.innerText = `${data.name}`
-    imgPokemon.src = `${data.sprites.other.showdown.front_default}`
+    imgPokemon.src = `${data.sprites.front_default}`
     tipoPokemon.innerText = `${data.types.map(type => type.type.name).join(', ')}`
     altPokemon.innerText = `${data.height / 10}`
     pesoPokemon.innerText = `${data.weight / 10}`
 }
 
 function adicionarPokemon(pokemon){
+
+    console.log(pokemonAtualCont)
+
+    if(pokemonAtualCont === 1 || pokemonAtualCont === "1" ){
+        pokemonUmSelecionado = true
+    } else{
+        pokemonDoisSelecionado = true
+    }
+
+    const inicialContainer = document.getElementById(`inicial${pokemonAtualCont}`)
+    inicialContainer.style.display = "none"
+
+    const containers = document.querySelectorAll(`.contIEquipe${pokemonAtualCont}`)
+    containers.forEach(e =>{
+        e.classList.remove(`contIEquipe${pokemonAtualCont}`)
+        e.classList.add(`contSEquipe${pokemonAtualCont}`)
+    })
+    
+
+    const habCont = document.getElementById(`habilidades${pokemonAtualCont}`)
+    while (habCont.firstChild) {
+        habCont.removeChild(habCont.firstChild);
+    }
+
     const id = document.getElementById(`id${pokemonAtualCont}`)
     const nome = document.getElementById(`nome${pokemonAtualCont}`)
     const img = document.getElementById(`img${pokemonAtualCont}`)
@@ -79,20 +106,23 @@ function adicionarPokemon(pokemon){
         document.getElementById(`habilidades${pokemonAtualCont}`).appendChild(tHab)
     })
 
+    console.log(pokemonDoisSelecionado)
+    console.log(pokemonUmSelecionado)
+
+    if (pokemonUmSelecionado === true && pokemonDoisSelecionado === true){
+        document.getElementById("btnStartBattle").style.display = "flex"
+    } else{
+        document.getElementById("btnStartBattle").style.display = "none"
+    }
+
 }
 
 function changeSection(n){
     if(n === 1){
-        document.querySelector(".equipe_section").style.display = "none"
         document.querySelector(".batalha_section").style.display = "none"
         document.querySelector(".pokedex_section").style.display = "flex"
-    } else if (n === 2){
-        document.querySelector(".pokedex_section").style.display = "none"
-        document.querySelector(".batalha_section").style.display = "none"
-        document.querySelector(".equipe_section").style.display = "flex"
     } else{
         document.querySelector(".pokedex_section").style.display = "none"
-        document.querySelector(".equipe_section").style.display = "none"
         document.querySelector(".batalha_section").style.display = "flex"
     }
 }
@@ -103,4 +133,21 @@ function selectPokemonContainer(n){
     }else{
         pokemonAtualCont = "2"
     }
+}
+
+function iniciarBatalha(){
+    document.querySelector(".equipe_pokemons").style.display = "none"
+    document.getElementById("btnStartBattle").style.display = "none"
+    document.querySelector(".searchPokemon").style.display = "none"
+    document.querySelector(".batalha_pokemon").style.display = "flex"
+
+    var musica = new Audio('./assets/music.mp3')
+    musica.play()
+}
+
+function abrirAtaques(){
+    
+}
+function abrirMochila(){
+
 }

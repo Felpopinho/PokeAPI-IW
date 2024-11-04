@@ -13,8 +13,8 @@
         </div>
         <div class="nav">
             <a onclick="changeSection(1)" class="btnNav">Pokedex</a>
-            <a onclick="changeSection(2)" class="btnNav">Equipe</a>
-            <a onclick="changeSection(3)" class="btnNav">Batalha</a>
+            <a onclick="changeSection(2)" class="btnNav">Batalha</a>
+            <a onclick="changeSection(3)" class="btnNav">????</a>
         </div>
     </header>
     <main>
@@ -40,23 +40,31 @@
         </section>
 
 
-        <section class="equipe_section">
+        <section class="batalha_section">
+            <div class="searchPokemon">
+                <h2>Escolher pokémon</h2>
+                <div>
+                    <input type="text" id="inputSearchEquipe" name="inputSearch">
+                    <button onclick="searchPokemon(2)">Buscar</button>
+                </div>
+            </div>
             <div class="equipe_pokemons">
                 <div class="pokemon_container" id="pokemonUm" >
                     <input type="radio" value="pokemonUm" id="" onclick="selectPokemonContainer(1)" checked name="pokeCont">
-                    <label for="pokemonUm">
-                        <div class="nomeidPokemon">
+                    <label for="pokemonUm" class="selecionado">
+                        <div id="inicial1"><h2>Selecione seu pokemon</h2></div>
+                        <div class="nomeidPokemon contIEquipe1">
                             <h2 id="id1"></h2>
                             <h2 id="nome1"></h2>
                         </div>
-                        <div class="pokemonImg_container">
+                        <div class="pokemonImg_container contIEquipe1">
                             <img src="" id="img1">
                         </div>
-                        <div class="progressVida_container">
-                            <progress value="" max="" id="vida1"></progress>
+                        <div class="progressVida_container contIEquipe1">
+                            <progress value="" max="" id="vida1" class="contIEquipe1"></progress>
                             <p id="hp1"></p>
                         </div>
-                        <div class="descEquipe_container">
+                        <div class="descEquipe_container contIEquipe1">
                             <div class="habilidades_container">
                                 <h2>Habilidades</h2>
                                 <div id="habilidades1">
@@ -76,21 +84,25 @@
                         </div>
                     </label>
                 </div>
+                <div class="versus_container">
+                    <img src="./assets/versus.png">
+                </div>
                 <div class="pokemon_container" id="pokemonDois" >
                     <input type="radio" value="pokemonDois" id="" onclick="selectPokemonContainer(2)" name="pokeCont">
-                    <label for="pokemonDois">
-                        <div class="nomeidPokemon">
+                    <label for="pokemonDois" class="selecionado">
+                        <div id="inicial2"><h2>Selecione o pokemon inimigo</h2></div>
+                        <div class="nomeidPokemon contIEquipe2">
                             <h2 id="id2"></h2>
                             <h2 id="nome2"></h2>
                         </div>
-                        <div class="pokemonImg_container">
+                        <div class="pokemonImg_container contIEquipe2">
                             <img src="" id="img2">
                         </div>
-                        <div class="progressVida_container">
-                            <progress value="" max="" id="vida2"></progress>
+                        <div class="progressVida_container contIEquipe2">
+                            <progress value="" max="" id="vida2" class="contIEquipe2"></progress>
                             <p id="hp2"></p>
                         </div>
-                        <div class="descEquipe_container">
+                        <div class="descEquipe_container contIEquipe2">
                             <div class="habilidades_container">
                                 <h2>Habilidades</h2>
                                 <div id="habilidades2">
@@ -111,15 +123,39 @@
                     </label>
                 </div>
             </div>
-            <div class="searchPokemon">
-                <h2>Escolher pokémon</h2>
-                <div>
-                    <input type="text" id="inputSearchEquipe" name="inputSearch">
-                    <button onclick="searchPokemon(2)">Buscar</button>
+            <div class="btnStartBattle" id="btnStartBattle">
+                <button onclick="iniciarBatalha()">Iniciar batalha</button>
+            </div>
+
+            <div class="batalha_pokemon">
+                <div class="display_pokemons">
+                    <div class="pokemonInimigo">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="">
+                    </div>
+                    <div class="seuPokemon">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/25.png" alt="">
+                    </div>
+                    <div class="status_inimigo">
+                        <h1>Bulbasaur</h1>
+                        <div class="Vida">
+                            <progress value="10" max="10"></progress>
+                        </div>
+                    </div>
+                    <div class="status_seuPokemon">
+                        <h1>Pikachu</h1>
+                        <div class="Vida">
+                            <progress value="10" max="10"></progress>
+                            <p>10/10</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="acoes_pokemon">
+                    <button onclick="abrirAtaques()">Atacar</button>
+                    <button onclick="abrirMochila()">Mochila</button>
                 </div>
             </div>
+            <section class="batalha_section"></section>
         </section>
-        <section class="batalha_section"></section>
     </main>
     <footer>
 

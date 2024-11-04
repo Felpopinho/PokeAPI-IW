@@ -91,7 +91,7 @@ main{
     font-weight: 500;
     margin-left: 6px;
 }
-.equipe_section{
+.batalha_section{
     display: none;
     align-items: center;
     justify-content: center;
@@ -104,10 +104,12 @@ main{
     width: 80%;
     height: 100%;
     justify-content: space-between;
+    position: relative;
 }
 .searchPokemon{
+    display: block;
     position: absolute;
-    bottom: 10%;
+    top: 20%;
     background-color: rgb(51, 51, 51);
     padding: 20px;
     border-radius: 5px;
@@ -124,8 +126,9 @@ main{
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 2;
 }
-.pokemon_container label{
+.selecionado{
     display: flex;
     height: auto;
     min-height: 300px;
@@ -136,6 +139,23 @@ main{
     transition: all 0.2s ease;
     background-color: rgb(189, 189, 189);
     padding: 10px;
+    position: relative;
+}
+#inicial1, #inicial2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+#inicial1 h2, #inicial2 h2{
+    text-align: center;
+}
+.contIEquipe1, .contIEquipe2{
+    display: none;
+}
+.contSEquipe1, .contSEquipe2{
+    display: block;
 }
 .pokemon_container input{
     width: 100%;
@@ -146,13 +166,13 @@ main{
     opacity: 0%;
     z-index: 3;
 }
-.pokemon_container input:checked + label{
+.pokemon_container input:checked + .selecionado{
     border: solid 1px;
 }
 .nomeidPokemon{
     display: flex;
     column-gap: 15px;
-    justify-content: start;
+    justify-content: center;
 }
 #nome1, #nome2{
     text-transform: capitalize;
@@ -218,8 +238,155 @@ main{
 .status_container span{
     font-weight: bold;
 }
-
-
-.batalha_section{
+.versus_container{
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.versus_container img{
+    width: 100%;
+    height: 100%;
+}
+.btnStartBattle{
     display: none;
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    position: absolute;
+    bottom: 10%;
+}
+.btnStartBattle button{
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    background-color: rgb(65, 65, 65);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: 0;
+    transition: all 0.1s ease-in-out;
+}
+.btnStartBattle button:active{
+    box-shadow: inset 0 7px 5px black;
+}
+.batalha_pokemon{
+    display: none;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+}
+.display_pokemons{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-image: url('./assets/d9spuwer2c491.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1;
+}
+.pokemonInimigo{
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    width: 40%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.pokemonInimigo img{
+    transform: scale(4.5);
+}
+.seuPokemon{
+    position: absolute;
+    left: 0%;
+    bottom: 10%;
+    width: 40%;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    height: 70%;
+    z-index: 0;
+}
+.seuPokemon img{
+    transform: scale(6);
+}
+.status_inimigo{
+    position: absolute;
+    left: 50px;
+    top: 50px;
+    background-color: rgb(231, 231, 231);
+    padding: 10px;
+    width: 30%;
+    border: 5px solid rgb(68, 68, 68);
+    box-shadow: -5px 5px rgb(138, 138, 138);
+    border-radius: 10px 20px;
+}
+.status_inimigo h1{
+    padding: 5px;
+}
+.status_seuPokemon{
+    width: 30%;
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    background-color: rgb(231, 231, 231);
+    padding: 10px;
+    border: 5px solid rgb(68, 68, 68);
+    box-shadow: 5px 5px rgb(138, 138, 138);
+    border-radius: 20px 10px;
+}
+.status_seuPokemon h1{
+    padding: 5px;
+}
+.Vida{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Vida progress{
+    z-index: 1;
+    width: 100%;
+    height: 30px;
+    background: rgb(106, 155, 91);
+    border-radius: 10px;
+}
+.Vida progress::-webkit-progress-bar{
+    background: rgb(106, 155, 91);
+    border-radius: 10px;
+    
+}
+.Vida progress::-webkit-progress-value{
+    background: rgb(106, 155, 91);
+    border-radius: 10px;
+}
+.Vida p{
+    position: absolute;
+    z-index: 2;
+}
+.acoes_pokemon{
+    width: 100%;
+    height: 30%;
+    z-index: 2;
+    background-color: rgb(48, 48, 48);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.acoes_pokemon button{
+    width: 47%;
+    height: 80%;
+    font-size: 3rem;
+    font-weight: bold;
 }
