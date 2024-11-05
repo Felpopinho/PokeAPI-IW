@@ -17,6 +17,8 @@ var pokemonDoisSelecionado = false;
 
 const pokemonBatalha = ["", ""];
 
+var seuTurno = true;
+
 async function searchPokemon(section){
 
     if(iSearch.value === ""){
@@ -138,6 +140,8 @@ function selectPokemonContainer(n){
 }
 
 function iniciarBatalha(){
+    seuTurno = true;
+
     document.querySelector(".equipe_pokemons").style.display = "none"
     document.getElementById("btnStartBattle").style.display = "none"
     document.querySelector(".searchPokemon").style.display = "none"
@@ -160,31 +164,49 @@ function iniciarBatalha(){
     document.getElementById("seuVidaText").innerHTML = `${seuPokemon.stats[0].base_stat}/${seuPokemon.stats[0].base_stat}`
 }
 
+var tipoAtacante;
+var tipoVitima;
+
 function abrirAtaques(){
+
+    var vida;
+    if(seuTurno === true){
+        vida = document.getElementById("inimigoBarra").value
+        tipoAtacante = pokemonBatalha[0].types[0].type.name
+        tipoVitima = pokemonBatalha[1].types[0].type.name
+        seuTurno = false
+    } else{
+        vida = document.getElementById("seuBarra").value
+        tipoAtacante = pokemonBatalha[1].types[0].type.name
+        tipoVitima = pokemonBatalha[0].types[0].type.name
+        seuTurno = true
+    }
 
     let atq = pokemonBatalha[0].stats[1].base_stat
     let def = pokemonBatalha[1].stats[2].base_stat
 
     let sAtq = pokemonBatalha[0].stats[3].base_stat
 
-    let stab = pokemonBatalha[0].types[0] === pokemonBatalha[1].types[0] ? 1.5 : 1
+    let stab = pokemonBatalha[0].types[0].type.name === pokemonBatalha[1].types[0].type.name ? 1.5 : 1
 
-    let bonus = setBonus()
+    let bonus = setBonus();
 
-    let dano = (((((1 * 2/5) + 2) * sAtq * atq/def)/50 + 2) * stab * bonus * 85/100)
+    let na = Math.floor(Math.random() * (100 - 85 + 1)) + 85
 
-    console.log(dano)
+    console.log(na)
+
+    let dano = (((((1 * 2/5) + 2) * sAtq * atq/def)/50 + 2) * stab * bonus * na/100)
+
+    vida.value = vida - dano
 }
 
 function setBonus(){
-    let seuTipo = pokemonBatalha[0].types[0]
-    let inimigoTipo = pokemonBatalha[1].types[0]
 
     //normal
-    if(seuTipo === "normal"){
-        if(inimigoTipo === "rock" || inimigoTipo === "steel"){
+    if(tipoAtacante === "normal"){
+        if(tipoVitima === "rock" || tipoVitima === "steel"){
             return 1/2
-        } else if(inimigoTipo === "ghost"){
+        } else if(tipoVitima === "ghost"){
             return 0
         } else{
             return 1
@@ -192,10 +214,10 @@ function setBonus(){
     }
 
     //fire
-    if(seuTipo === "fire"){
-        if(inimigoTipo === "fire" || inimigoTipo === "water" || inimigoTipo === "rock" || inimigoTipo === "dragon"){
+    if(tipoAtacante === "fire"){
+        if(tipoVitima === "fire" || tipoVitima === "water" || tipoVitima === "rock" || tipoVitima === "dragon"){
             return 1/2
-        } else if(inimigoTipo === "grass" || inimigoTipo === "ice" || inimigoTipo === "bug" || inimigoTipo === "steel"){
+        } else if(tipoVitima === "grass" || tipoVitima === "ice" || tipoVitima === "bug" || tipoVitima === "steel"){
             return 2
         } else{
             return 1
@@ -203,10 +225,10 @@ function setBonus(){
     }
 
     //water
-    if(seuTipo === "water"){
-        if(inimigoTipo === "water" || inimigoTipo === "grass" || inimigoTipo === "dragon"){
+    if(tipoAtacante === "water"){
+        if(tipoVitima === "water" || tipoVitima === "grass" || tipoVitima === "dragon"){
             return 1/2
-        } else if(inimigoTipo === "fire" || inimigoTipo === "ground" || inimigoTipo === "rock"){
+        } else if(tipoVitima === "fire" || tipoVitima === "ground" || tipoVitima === "rock"){
             return 2
         } else{
             return 1
@@ -214,12 +236,12 @@ function setBonus(){
     }
 
     //eletric
-    if(seuTipo === "eletric"){
-        if(inimigoTipo === "eletric" || inimigoTipo === "grass" || inimigoTipo === "dragon"){
+    if(tipoAtacante === "eletric"){
+        if(tipoVitima === "eletric" || tipoVitima === "grass" || tipoVitima === "dragon"){
             return 1/2
-        } else if(inimigoTipo === "water" || inimigoTipo === "flying"){
+        } else if(tipoVitima === "water" || tipoVitima === "flying"){
             return 2
-        } else if(inimigoTipo === "ground"){
+        } else if(tipoVitima === "ground"){
             return 0
         } else{
             return 1
@@ -227,10 +249,10 @@ function setBonus(){
     }
 
     //grass
-    if(seuTipo === "grass"){
-        if(inimigoTipo === "fire" || inimigoTipo === "grass" || inimigoTipo === "poison" || inimigoTipo === "flying" || inimigoTipo === "bug" || inimigoTipo === "dragon" || inimigoTipo === "steel"){
+    if(tipoAtacante === "grass"){
+        if(tipoVitima === "fire" || tipoVitima === "grass" || tipoVitima === "poison" || tipoVitima === "flying" || tipoVitima === "bug" || tipoVitima === "dragon" || tipoVitima === "steel"){
             return 1/2
-        } else if(inimigoTipo === "water" || inimigoTipo === "ground" || inimigoTipo === "rock"){
+        } else if(tipoVitima === "water" || tipoVitima === "ground" || tipoVitima === "rock"){
             return 2
         } else{
             return 1
@@ -238,10 +260,10 @@ function setBonus(){
     }
 
     //ice
-    if(seuTipo === "ice"){
-        if(inimigoTipo === "fire" || inimigoTipo === "water" || inimigoTipo === "ice" || inimigoTipo === "steel"){
+    if(tipoAtacante === "ice"){
+        if(tipoVitima === "fire" || tipoVitima === "water" || tipoVitima === "ice" || tipoVitima === "steel"){
             return 1/2
-        } else if(inimigoTipo === "grass" || inimigoTipo === "ground" || inimigoTipo === "flying" || inimigoTipo === "dragon"){
+        } else if(tipoVitima === "grass" || tipoVitima === "ground" || tipoVitima === "flying" || tipoVitima === "dragon"){
             return 2
         } else{
             return 1
@@ -249,12 +271,12 @@ function setBonus(){
     }
 
     //fighting
-    if(seuTipo === "fighting"){
-        if(inimigoTipo === "poison" || inimigoTipo === "flying" || inimigoTipo === "psychic" || inimigoTipo === "bug" || inimigoTipo === "fairy"){
+    if(tipoAtacante === "fighting"){
+        if(tipoVitima === "poison" || tipoVitima === "flying" || tipoVitima === "psychic" || tipoVitima === "bug" || tipoVitima === "fairy"){
             return 1/2
-        } else if(inimigoTipo === "normal" || inimigoTipo === "ice" || inimigoTipo === "rock" || inimigoTipo === "dark" || inimigoTipo === "steel"){
+        } else if(tipoVitima === "normal" || tipoVitima === "ice" || tipoVitima === "rock" || tipoVitima === "dark" || tipoVitima === "steel"){
             return 2
-        } else if(inimigoTipo === "ghost"){
+        } else if(tipoVitima === "ghost"){
             return 0
         } else{
             return 1
@@ -262,12 +284,12 @@ function setBonus(){
     }
 
     //poison
-    if(seuTipo === "poison"){
-        if(inimigoTipo === "poison" || inimigoTipo === "ground" || inimigoTipo === "rock" || inimigoTipo === "ghost"){
+    if(tipoAtacante === "poison"){
+        if(tipoVitima === "poison" || tipoVitima === "ground" || tipoVitima === "rock" || tipoVitima === "ghost"){
             return 1/2
-        } else if(inimigoTipo === "grass" || inimigoTipo === "fire"){
+        } else if(tipoVitima === "grass" || tipoVitima === "fire"){
             return 2
-        } else if(inimigoTipo === "steel"){
+        } else if(tipoVitima === "steel"){
             return 0
         } else{
             return 1
@@ -275,12 +297,12 @@ function setBonus(){
     }
 
     //ground
-    if(seuTipo === "ground"){
-        if(inimigoTipo === "grass" || inimigoTipo === "bug"){
+    if(tipoAtacante === "ground"){
+        if(tipoVitima === "grass" || tipoVitima === "bug"){
             return 1/2
-        } else if(inimigoTipo === "fire" || inimigoTipo === "eletric" || inimigoTipo === "poison" || inimigoTipo === "rock" || inimigoTipo === "steel"){
+        } else if(tipoVitima === "fire" || tipoVitima === "eletric" || tipoVitima === "poison" || tipoVitima === "rock" || tipoVitima === "steel"){
             return 2
-        } else if(inimigoTipo === "flying"){
+        } else if(tipoVitima === "flying"){
             return 0
         } else{
             return 1
@@ -288,10 +310,10 @@ function setBonus(){
     }
 
     //flying
-    if(seuTipo === "flying"){
-        if(inimigoTipo === "eletric" || inimigoTipo === "rock" || inimigoTipo === "steel"){
+    if(tipoAtacante === "flying"){
+        if(tipoVitima === "eletric" || tipoVitima === "rock" || tipoVitima === "steel"){
             return 1/2
-        } else if(inimigoTipo === "grass" || inimigoTipo === "fighting" || inimigoTipo === "bug"){
+        } else if(tipoVitima === "grass" || tipoVitima === "fighting" || tipoVitima === "bug"){
             return 2
         } else{
             return 1
@@ -299,12 +321,12 @@ function setBonus(){
     }
 
     //psychic
-    if(seuTipo === "psychic"){
-        if(inimigoTipo === "psychic" || inimigoTipo === "steel"){
+    if(tipoAtacante === "psychic"){
+        if(tipoVitima === "psychic" || tipoVitima === "steel"){
             return 1/2
-        } else if(inimigoTipo === "fighting" || inimigoTipo === "poison"){
+        } else if(tipoVitima === "fighting" || tipoVitima === "poison"){
             return 2
-        } else if(inimigoTipo === "dark"){
+        } else if(tipoVitima === "dark"){
             return 0
         } else{
             return 1
@@ -312,10 +334,10 @@ function setBonus(){
     }
 
     //bug
-    if(seuTipo === "bug"){
-        if(inimigoTipo === "fire" || inimigoTipo === "fighting" || inimigoTipo === "poison" || inimigoTipo === "flying" || inimigoTipo === "ghost" || inimigoTipo === "steel" || inimigoTipo === "fairy"){
+    if(tipoAtacante === "bug"){
+        if(tipoVitima === "fire" || tipoVitima === "fighting" || tipoVitima === "poison" || tipoVitima === "flying" || tipoVitima === "ghost" || tipoVitima === "steel" || tipoVitima === "fairy"){
             return 1/2
-        } else if(inimigoTipo === "grass" || inimigoTipo === "psychic" || inimigoTipo === "dark"){
+        } else if(tipoVitima === "grass" || tipoVitima === "psychic" || tipoVitima === "dark"){
             return 2
         } else{
             return 1
@@ -323,10 +345,10 @@ function setBonus(){
     }
 
     //rock
-    if(seuTipo === "rock"){
-        if(inimigoTipo === "fighting" || inimigoTipo === "ground" || inimigoTipo === "steel"){
+    if(tipoAtacante === "rock"){
+        if(tipoVitima === "fighting" || tipoVitima === "ground" || tipoVitima === "steel"){
             return 1/2
-        } else if(inimigoTipo === "fire" || inimigoTipo === "ice" || inimigoTipo === "flying" || inimigoTipo === "bug"){
+        } else if(tipoVitima === "fire" || tipoVitima === "ice" || tipoVitima === "flying" || tipoVitima === "bug"){
             return 2
         } else{
             return 1
@@ -334,12 +356,12 @@ function setBonus(){
     }
 
     //ghost
-    if(seuTipo === "ghost"){
-        if(inimigoTipo === "dark"){
+    if(tipoAtacante === "ghost"){
+        if(tipoVitima === "dark"){
             return 1/2
-        } else if(inimigoTipo === "psychic" || inimigoTipo === "ghost"){
+        } else if(tipoVitima === "psychic" || tipoVitima === "ghost"){
             return 2
-        } else if(inimigoTipo === "normal"){
+        } else if(tipoVitima === "normal"){
             return 0
         } else{
             return 1
@@ -347,12 +369,12 @@ function setBonus(){
     }
 
     //dragon
-    if(seuTipo === "dragon"){
-        if(inimigoTipo === "steel"){
+    if(tipoAtacante === "dragon"){
+        if(tipoVitima === "steel"){
             return 1/2
-        } else if(inimigoTipo === "dragon"){
+        } else if(tipoVitima === "dragon"){
             return 2
-        } else if(inimigoTipo === "fairy"){
+        } else if(tipoVitima === "fairy"){
             return 0
         } else{
             return 1
@@ -360,10 +382,10 @@ function setBonus(){
     }
 
     //dark
-    if(seuTipo === "dark"){
-        if(inimigoTipo === "fighting" || inimigoTipo === "dark" || inimigoTipo === "fairy"){
+    if(tipoAtacante === "dark"){
+        if(tipoVitima === "fighting" || tipoVitima === "dark" || tipoVitima === "fairy"){
             return 1/2
-        } else if(inimigoTipo === "psychic" || inimigoTipo === "ghost"){
+        } else if(tipoVitima === "psychic" || tipoVitima === "ghost"){
             return 2
         } else{
             return 1
@@ -371,10 +393,10 @@ function setBonus(){
     }
 
     //steel
-    if(seuTipo === "steel"){
-        if(inimigoTipo === "fire" || inimigoTipo === "water" || inimigoTipo === "eletric" || inimigoTipo === "steel"){
+    if(tipoAtacante === "steel"){
+        if(tipoVitima === "fire" || tipoVitima === "water" || tipoVitima === "eletric" || tipoVitima === "steel"){
             return 1/2
-        } else if(inimigoTipo === "bug" || inimigoTipo === "ice" || inimigoTipo === "fairy"){
+        } else if(tipoVitima === "bug" || tipoVitima === "ice" || tipoVitima === "fairy"){
             return 2
         } else{
             return 1
@@ -382,10 +404,10 @@ function setBonus(){
     }
 
     //fairy
-    if(seuTipo === "fire"){
-        if(inimigoTipo === "fire" || inimigoTipo === "poison" || inimigoTipo === "steel"){
+    if(tipoAtacante === "fire"){
+        if(tipoVitima === "fire" || tipoVitima === "poison" || tipoVitima === "steel"){
             return 1/2
-        } else if(inimigoTipo === "fighting" || inimigoTipo === "dragon" || inimigoTipo === "dark"){
+        } else if(tipoVitima === "fighting" || tipoVitima === "dragon" || tipoVitima === "dark"){
             return 2
         } else{
             return 1
