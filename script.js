@@ -171,13 +171,227 @@ function abrirAtaques(){
 
     let bonus = setBonus()
 
-    let dano = (((((1 * 2/5) + 2) * sAtq * atq/def)/50 + 2) * stab * 1/2 * 85/100)
+    let dano = (((((1 * 2/5) + 2) * sAtq * atq/def)/50 + 2) * stab * bonus * 85/100)
 
     console.log(dano)
 }
 
 function setBonus(){
-    
+    let seuTipo = pokemonBatalha[0].types[0]
+    let inimigoTipo = pokemonBatalha[1].types[0]
+
+    //normal
+    if(seuTipo === "normal"){
+        if(inimigoTipo === "rock" || inimigoTipo === "steel"){
+            return 1/2
+        } else if(inimigoTipo === "ghost"){
+            return 0
+        } else{
+            return 1
+        }
+    }
+
+    //fire
+    if(seuTipo === "fire"){
+        if(inimigoTipo === "fire" || inimigoTipo === "water" || inimigoTipo === "rock" || inimigoTipo === "dragon"){
+            return 1/2
+        } else if(inimigoTipo === "grass" || inimigoTipo === "ice" || inimigoTipo === "bug" || inimigoTipo === "steel"){
+            return 2
+        } else{
+            return 1
+        }
+    }
+
+    //water
+    if(seuTipo === "water"){
+        if(inimigoTipo === "water" || inimigoTipo === "grass" || inimigoTipo === "dragon"){
+            return 1/2
+        } else if(inimigoTipo === "fire" || inimigoTipo === "ground" || inimigoTipo === "rock"){
+            return 2
+        } else{
+            return 1
+        }
+    }
+
+    //eletric
+    if(seuTipo === "eletric"){
+        if(inimigoTipo === "eletric" || inimigoTipo === "grass" || inimigoTipo === "dragon"){
+            return 1/2
+        } else if(inimigoTipo === "water" || inimigoTipo === "flying"){
+            return 2
+        } else if(inimigoTipo === "ground"){
+            return 0
+        } else{
+            return 1
+        }
+    }
+
+    //grass
+    if(seuTipo === "grass"){
+        if(inimigoTipo === "fire" || inimigoTipo === "grass" || inimigoTipo === "poison" || inimigoTipo === "flying" || inimigoTipo === "bug" || inimigoTipo === "dragon" || inimigoTipo === "steel"){
+            return 1/2
+        } else if(inimigoTipo === "water" || inimigoTipo === "ground" || inimigoTipo === "rock"){
+            return 2
+        } else{
+            return 1
+        }
+    }
+
+    //ice
+    if(seuTipo === "ice"){
+        if(inimigoTipo === "fire" || inimigoTipo === "water" || inimigoTipo === "ice" || inimigoTipo === "steel"){
+            return 1/2
+        } else if(inimigoTipo === "grass" || inimigoTipo === "ground" || inimigoTipo === "flying" || inimigoTipo === "dragon"){
+            return 2
+        } else{
+            return 1
+        }
+    }
+
+    //fighting
+    if(seuTipo === "fighting"){
+        if(inimigoTipo === "poison" || inimigoTipo === "flying" || inimigoTipo === "psychic" || inimigoTipo === "bug" || inimigoTipo === "fairy"){
+            return 1/2
+        } else if(inimigoTipo === "normal" || inimigoTipo === "ice" || inimigoTipo === "rock" || inimigoTipo === "dark" || inimigoTipo === "steel"){
+            return 2
+        } else if(inimigoTipo === "ghost"){
+            return 0
+        } else{
+            return 1
+        }
+    }
+
+    //poison
+    if(seuTipo === "poison"){
+        if(inimigoTipo === "poison" || inimigoTipo === "ground" || inimigoTipo === "rock" || inimigoTipo === "ghost"){
+            return 1/2
+        } else if(inimigoTipo === "grass" || inimigoTipo === "fire"){
+            return 2
+        } else if(inimigoTipo === "steel"){
+            return 0
+        } else{
+            return 1
+        }
+    }
+
+    //ground
+    if(seuTipo === "ground"){
+        if(inimigoTipo === "grass" || inimigoTipo === "bug"){
+            return 1/2
+        } else if(inimigoTipo === "fire" || inimigoTipo === "eletric" || inimigoTipo === "poison" || inimigoTipo === "rock" || inimigoTipo === "steel"){
+            return 2
+        } else if(inimigoTipo === "flying"){
+            return 0
+        } else{
+            return 1
+        }
+    }
+
+    //flying
+    if(seuTipo === "flying"){
+        if(inimigoTipo === "eletric" || inimigoTipo === "rock" || inimigoTipo === "steel"){
+            return 1/2
+        } else if(inimigoTipo === "grass" || inimigoTipo === "fighting" || inimigoTipo === "bug"){
+            return 2
+        } else{
+            return 1
+        }
+    }
+
+    //psychic
+    if(seuTipo === "psychic"){
+        if(inimigoTipo === "psychic" || inimigoTipo === "steel"){
+            return 1/2
+        } else if(inimigoTipo === "fighting" || inimigoTipo === "poison"){
+            return 2
+        } else if(inimigoTipo === "dark"){
+            return 0
+        } else{
+            return 1
+        }
+    }
+
+    //bug
+    if(seuTipo === "bug"){
+        if(inimigoTipo === "fire" || inimigoTipo === "fighting" || inimigoTipo === "poison" || inimigoTipo === "flying" || inimigoTipo === "ghost" || inimigoTipo === "steel" || inimigoTipo === "fairy"){
+            return 1/2
+        } else if(inimigoTipo === "grass" || inimigoTipo === "psychic" || inimigoTipo === "dark"){
+            return 2
+        } else{
+            return 1
+        }
+    }
+
+    //rock
+    if(seuTipo === "rock"){
+        if(inimigoTipo === "fighting" || inimigoTipo === "ground" || inimigoTipo === "steel"){
+            return 1/2
+        } else if(inimigoTipo === "fire" || inimigoTipo === "ice" || inimigoTipo === "flying" || inimigoTipo === "bug"){
+            return 2
+        } else{
+            return 1
+        }
+    }
+
+    //ghost
+    if(seuTipo === "ghost"){
+        if(inimigoTipo === "dark"){
+            return 1/2
+        } else if(inimigoTipo === "psychic" || inimigoTipo === "ghost"){
+            return 2
+        } else if(inimigoTipo === "normal"){
+            return 0
+        } else{
+            return 1
+        }
+    }
+
+    //dragon
+    if(seuTipo === "dragon"){
+        if(inimigoTipo === "steel"){
+            return 1/2
+        } else if(inimigoTipo === "dragon"){
+            return 2
+        } else if(inimigoTipo === "fairy"){
+            return 0
+        } else{
+            return 1
+        }
+    }
+
+    //dark
+    if(seuTipo === "dark"){
+        if(inimigoTipo === "fighting" || inimigoTipo === "dark" || inimigoTipo === "fairy"){
+            return 1/2
+        } else if(inimigoTipo === "psychic" || inimigoTipo === "ghost"){
+            return 2
+        } else{
+            return 1
+        }
+    }
+
+    //steel
+    if(seuTipo === "steel"){
+        if(inimigoTipo === "fire" || inimigoTipo === "water" || inimigoTipo === "eletric" || inimigoTipo === "steel"){
+            return 1/2
+        } else if(inimigoTipo === "bug" || inimigoTipo === "ice" || inimigoTipo === "fairy"){
+            return 2
+        } else{
+            return 1
+        }
+    }
+
+    //fairy
+    if(seuTipo === "fire"){
+        if(inimigoTipo === "fire" || inimigoTipo === "poison" || inimigoTipo === "steel"){
+            return 1/2
+        } else if(inimigoTipo === "fighting" || inimigoTipo === "dragon" || inimigoTipo === "dark"){
+            return 2
+        } else{
+            return 1
+        }
+    }
+
 }
 
 function abrirMochila(){
