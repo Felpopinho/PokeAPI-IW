@@ -167,10 +167,19 @@ function abrirAtaques(){
 
     let sAtq = pokemonBatalha[0].stats[3].base_stat
 
-    pokemonBatalha[0].types.forEach(type => {type.type.name})
+    let stab = pokemonBatalha[0].types[0] === pokemonBatalha[1].types[0] ? 1.5 : 1
 
-    console.log(((((1 * 2/5) + 2) * sAtq * atq/def)/50 + 2) * 1.5 * 1/2 * 85/100)
+    let bonus = setBonus()
+
+    let dano = (((((1 * 2/5) + 2) * sAtq * atq/def)/50 + 2) * stab * 1/2 * 85/100)
+
+    console.log(dano)
 }
+
+function setBonus(){
+    
+}
+
 function abrirMochila(){
 
 }
