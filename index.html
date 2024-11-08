@@ -150,8 +150,13 @@
                     </div>
                 </div>
                 <div class="acoes_pokemon">
-                    <button onclick="abrirAtaques()">Atacar</button>
-                    <button onclick="abrirMochila()">Mochila</button>
+                    <div id="seuTurno" class="seu_turno">
+                        <button onclick="abrirAtaques()">Atacar</button>
+                        <button onclick="abrirMochila()">Mochila</button>
+                    </div>
+                    <div class="desc_acao" id="descAcao">
+                        <p id="descricao"></p>
+                    </div>
                 </div>
             </div>
             <section class="batalha_section"></section>

@@ -355,11 +355,16 @@ main{
     align-items: center;
     justify-content: center;
 }
+.Vida progress{
+    padding: 20px;
+    width: 95%;
+}
 
 .Vida p{
     position: absolute;
     z-index: 2;
 }
+
 .acoes_pokemon{
     width: 100%;
     height: 30%;
@@ -367,11 +372,27 @@ main{
     background-color: rgb(48, 48, 48);
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+.seu_turno{
+    display: flex;
+    align-items: center;
     justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
 }
 .acoes_pokemon button{
     width: 47%;
     height: 80%;
     font-size: 3rem;
     font-weight: bold;
+}
+.desc_acao{
+    display: none;
+    width: 80%;
+    height: 80%;
+    background-color: white;
+}
+.desc_acao p{
+    padding: 20px;
 }

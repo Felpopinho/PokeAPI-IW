@@ -205,7 +205,48 @@ function abrirAtaques(){
     if (document.getElementById(vida).value <= 0){
         fimBatalha()
     }
+    if (seuTurno === false){
+        document.getElementById("seuTurno").style.display = "none"
+        document.getElementById("descAcao").style.display = "flex"
 
+        const desc = document.getElementById("descricao")
+        desc.innerHTML = `O ${pokemonBatalha[0].name} ataca`
+        const textoArray = desc.innerHTML.split('');
+        desc.innerHTML = ' ';
+
+        textoArray.forEach(function(letra, i){   
+            setTimeout(function(){
+                desc.innerHTML += letra;
+            }, 75 * i)
+        })
+        setTimeout(() => {
+            turnoOponente()
+        }, "5000");
+    } else{
+        document.getElementById("descAcao").style.display = "none"
+        document.getElementById("seuTurno").style.display = "flex"
+    }
+
+}
+
+function turnoOponente(){
+    document.getElementById("seuTurno").style.display = "none"
+    document.getElementById("descAcao").style.display = "flex"
+
+    const desc = document.getElementById("descricao")
+    desc.innerHTML = `O ${pokemonBatalha[1].name} ataca`
+    const textoArray = desc.innerHTML.split('');
+    desc.innerHTML = ' ';
+
+    textoArray.forEach(function(letra, i){   
+        setTimeout(function(){
+            desc.innerHTML += letra;
+        }, 75 * i)
+    })
+
+    setTimeout(() => {
+        abrirAtaques()
+    }, "5000");
 }
 
 function fimBatalha(){
