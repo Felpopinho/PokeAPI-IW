@@ -166,26 +166,29 @@ function iniciarBatalha(){
 
 var tipoAtacante;
 var tipoVitima;
+let atq;
+let def;
+let sAtq;
 
 function abrirAtaques(){
 
-    var vida;
     if(seuTurno === true){
-        vida = document.getElementById("inimigoBarra").value
-        tipoAtacante = pokemonBatalha[0].types[0].type.name
-        tipoVitima = pokemonBatalha[1].types[0].type.name
+        vida = "inimigoBarra";
+        tipoAtacante = pokemonBatalha[0].types[0].type.name;
+        tipoVitima = pokemonBatalha[1].types[0].type.name;
+        atq = pokemonBatalha[0].stats[1].base_stat;
+        def = pokemonBatalha[1].stats[2].base_stat;
+        sAtq = pokemonBatalha[0].stats[3].base_stat;
         seuTurno = false
     } else{
-        vida = document.getElementById("seuBarra").value
-        tipoAtacante = pokemonBatalha[1].types[0].type.name
-        tipoVitima = pokemonBatalha[0].types[0].type.name
+        vida = "seuBarra";
+        tipoAtacante = pokemonBatalha[1].types[0].type.name;
+        tipoVitima = pokemonBatalha[0].types[0].type.name;
+        atq = pokemonBatalha[1].stats[1].base_stat;
+        def = pokemonBatalha[0].stats[2].base_stat;
+        sAtq = pokemonBatalha[1].stats[3].base_stat;
         seuTurno = true
     }
-
-    let atq = pokemonBatalha[0].stats[1].base_stat
-    let def = pokemonBatalha[1].stats[2].base_stat
-
-    let sAtq = pokemonBatalha[0].stats[3].base_stat
 
     let stab = pokemonBatalha[0].types[0].type.name === pokemonBatalha[1].types[0].type.name ? 1.5 : 1
 
@@ -193,11 +196,20 @@ function abrirAtaques(){
 
     let na = Math.floor(Math.random() * (100 - 85 + 1)) + 85
 
-    console.log(na)
-
     let dano = (((((1 * 2/5) + 2) * sAtq * atq/def)/50 + 2) * stab * bonus * na/100)
 
-    vida.value = vida - dano
+    console.log(dano)
+
+    document.getElementById(vida).value = document.getElementById(vida).value - dano;
+
+    if (document.getElementById(vida).value <= 0){
+        fimBatalha()
+    }
+
+}
+
+function fimBatalha(){
+
 }
 
 function setBonus(){
