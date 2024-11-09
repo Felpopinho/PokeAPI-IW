@@ -161,8 +161,13 @@ function selectPokemonContainer(n){
     }
 }
 var musicBatalhaRandon;
+var suasPocoes;
+var inimigoPocoes;
 function iniciarBatalha(){
     seuTurno = true;
+
+    suasPocoes = 2;
+    inimigoPocoes = 2;
 
     document.querySelectorAll(".batalha").forEach(e =>{
         e.style.display = "flex"
@@ -187,7 +192,9 @@ function iniciarBatalha(){
     document.getElementById("inimigoImg").src = pokemonInimigo.sprites.other.showdown.front_default
     document.getElementById("seuImg").src = seuPokemon.sprites.other.showdown.back_default
     document.getElementById("inimigoVida").innerHTML = pokemonInimigo.name
+    document.getElementById("inimigoTipo").innerHTML = pokemonInimigo.types[0].type.name
     document.getElementById("seuVida").innerHTML = seuPokemon.name
+    document.getElementById("seuTipo").innerHTML = seuPokemon.types[0].type.name
     document.getElementById("inimigoBarra").value = `${pokemonInimigo.stats[0].base_stat}`
     document.getElementById("inimigoBarra").setAttribute("max", `${pokemonInimigo.stats[0].base_stat}`)
     document.getElementById("seuBarra").value = `${seuPokemon.stats[0].base_stat}`
@@ -325,6 +332,10 @@ function turnoOponente(){
     document.getElementById("seuTurno").style.display = "none"
     document.getElementById("descAcao").style.display = "flex"
 
+    if(document.getElementById("inimigoBarra").value <= (pokemonBatalha[1].stats[0].base_stat/3)){
+        return usarPocao()
+    }
+
     desc.innerHTML = `O inimigo ataca com o ${pokemonBatalha[1].name}`
     const textoArray = desc.innerHTML.split('');
     desc.innerHTML = ' ';
@@ -374,7 +385,7 @@ function fimBatalha(vencedor){
     } else{
         perdedor = pokemonBatalha[0]
         derrotaMusic.play()
-        desc.innerHTML = `Oh não! Infelizmente você perdeu a batalha contra ${perdedor.name}`
+        desc.innerHTML = `Oh não! Infelizmente você perdeu a batalha contra ${vencedor.name}`
         const textoArray = desc.innerHTML.split('');
         desc.innerHTML = ' ';
 
@@ -617,7 +628,71 @@ function setBonus(){
 }
 
 function abrirMochila(){
+    document.getElementById("seuTurno").style.display = "none"
+    document.getElementById("descAcao").style.display = "none"
+    document.querySelector(".mochila").style.display = "flex"
+}
 
+function usarPocao(){
+    document.getElementById("seuTurno").style.display = "none"
+    document.querySelector(".mochila").style.display = "none"
+    document.getElementById("descAcao").style.display = "flex"
+
+    if(seuTurno === true){
+        if(suasPocoes <= 0){
+            desc.innerHTML = `Você não tem mais poções`
+            const textoArray = desc.innerHTML.split('');
+            desc.innerHTML = ' ';
+
+            textoArray.forEach(function(letra, i){   
+                setTimeout(function(){
+                    desc.innerHTML += letra;
+                }, 75 * i)
+            })
+            setTimeout(()=>{
+                document.getElementById("descAcao").style.display = "none"
+                document.querySelector(".mochila").style.display = "none"
+                document.getElementById("seuTurno").style.display = "flex"
+            },"3000")
+        }
+        suasPocoes = suasPocoes - 1
+        document.getElementById("quantPocoes").innerHTML = `${suasPocoes}x`
+        desc.innerHTML = `Você usou uma poção no ${pokemonBatalha[0].name}`
+        const textoArray = desc.innerHTML.split('');
+        desc.innerHTML = ' ';
+
+        textoArray.forEach(function(letra, i){   
+            setTimeout(function(){
+                desc.innerHTML += letra;
+            }, 75 * i)
+        })
+        seuTurno = false
+        setTimeout(()=>{
+            document.getElementById("seuBarra").value = parseInt(document.getElementById("seuBarra").value + 20);
+            document.getElementById("seuVidaText").innerHTML = `${document.getElementById("seuBarra").value}/${pokemonBatalha[0].stats[0].base_stat}`
+            turnoOponente()
+        },"3000")
+    } else{
+        if(inimigoPocoes <= 0){
+            return atacar()
+        }
+        inimigoPocoes = inimigoPocoes - 1
+        desc.innerHTML = `O inimigo usou uma poção no ${pokemonBatalha[1].name}`
+        const textoArray = desc.innerHTML.split('');
+        desc.innerHTML = ' ';
+
+        textoArray.forEach(function(letra, i){   
+            setTimeout(function(){
+                desc.innerHTML += letra;
+            }, 75 * i)
+        })
+        seuTurno = true
+        setTimeout(()=>{
+            document.getElementById("inimigoBarra").value = parseInt(document.getElementById("inimigoBarra").value + 20)
+            document.getElementById("seuTurno").style.display = "flex"
+            document.getElementById("descAcao").style.display = "none"
+        },"3000")
+    }
 }
 
 function resetBattle(){

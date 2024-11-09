@@ -381,6 +381,7 @@ main{
 }
 .status_inimigo h1{
     padding: 5px;
+    text-transform: capitalize;
 }
 .status_seuPokemon{
     width: 30%;
@@ -396,21 +397,39 @@ main{
 }
 .status_seuPokemon h1{
     padding: 5px;
+    text-transform: capitalize;
 }
 .Vida{
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 40px;
+    border-radius: 20px;
 }
-.Vida progress{
-    padding: 20px;
+.Vida progress::-webkit-progress-value{
+    border-radius: 20px;
+    background: linear-gradient(45deg, rgb(83, 156, 128), green);
+}
+.Vida progress::-webkit-progress-bar{
+    border-radius: 20px;
+}
+.Vida progress[value]{
     width: 95%;
+    height: 100%;
+    border-radius: 20px;
 }
 
 .Vida p{
     position: absolute;
     z-index: 2;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.infoPoke{
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
 }
 
 .acoes_pokemon{
@@ -464,4 +483,22 @@ main{
 }
 #pokemonVencedor{
     transform: scale(4);
+}
+.mochila{
+    display: none;
+    width: 90%;
+    height: 80%;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+.mochila button{
+    width: 100%;
+    height: 100%;
+}
+.mochila p{
+    position: absolute;
+    right: 6%;
+    bottom: 15%;
+    font-size: 2rem;
 }
