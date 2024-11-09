@@ -23,6 +23,7 @@ var seuTurno = true;
 
 var atackSound = new Audio("./assets/JumpKick.wav")
 var erroSound = new Audio("./assets/Cut.wav")
+var potionSound = new Audio("./assets/potionSound.mp3")
 var batalhaMusic1 = new Audio("./assets/batalha1.mp3")
 var batalhaMusic2 = new Audio("./assets/batalha2.mp3")
 var batalhaMusic3 = new Audio("./assets/batalha3.mp3")
@@ -68,15 +69,55 @@ async function searchPokemon(section){
     } catch (error) {
         console.log(error.message);
     }
+    if(parseInt(idPokemon.innerText) <= 1){
+        document.getElementById("antPokemon").setAttribute("disabled",  "")
+        document.getElementById("proxPokemon").removeAttribute("disabled")
+    } else if(parseInt(idPokemon.innerText) >= 1025){
+        document.getElementById("antPokemon").removeAttribute("disabled")
+        document.getElementById("proxPokemon").setAttribute("disabled",  "")
+    } else{
+        document.getElementById("antPokemon").removeAttribute("disabled")
+        document.getElementById("proxPokemon").removeAttribute("disabled")
+    }
 }
 
 function visualizarPokemon(data){
     idPokemon.innerText = `${data.id}`
     nomePokemon.innerText = `${data.name}`
-    imgPokemon.src = `${data.sprites.front_default}`
+    imgPokemon.src = `${data.sprites.other.showdown.front_default}`
     tipoPokemon.innerText = `${data.types.map(type => type.type.name).join(', ')}`
     altPokemon.innerText = `${data.height / 10}`
     pesoPokemon.innerText = `${data.weight / 10}`
+}
+
+async function changePokemon(n){
+    var url;
+    if (n===1){
+        url = `https://pokeapi.co/api/v2/pokemon/${parseInt(idPokemon.innerText)-1}`;
+    } else{
+        url = `https://pokeapi.co/api/v2/pokemon/${parseInt(idPokemon.innerText)+1}`;
+    }
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Pokémon not found');
+        }
+        const pokemon = await response.json();
+        console.log(pokemon);
+        visualizarPokemon(pokemon);
+    } catch (error) {
+        console.log(error.message);
+    }
+    if(parseInt(idPokemon.innerText) <= 1){
+        document.getElementById("antPokemon").setAttribute("disabled",  "")
+        document.getElementById("proxPokemon").removeAttribute("disabled")
+    } else if(parseInt(idPokemon.innerText) >= 1025){
+        document.getElementById("antPokemon").removeAttribute("disabled")
+        document.getElementById("proxPokemon").setAttribute("disabled",  "")
+    } else{
+        document.getElementById("antPokemon").removeAttribute("disabled")
+        document.getElementById("proxPokemon").removeAttribute("disabled")
+    }
 }
 
 function adicionarPokemon(pokemon){
@@ -106,6 +147,7 @@ function adicionarPokemon(pokemon){
 
     const id = document.getElementById(`id${pokemonAtualCont}`)
     const nome = document.getElementById(`nome${pokemonAtualCont}`)
+    const tipo = document.getElementById(`tipo${pokemonAtualCont}`)
     const img = document.getElementById(`img${pokemonAtualCont}`)
     const hp = document.getElementById(`hp${pokemonAtualCont}`)
     const vida = document.getElementById(`vida${pokemonAtualCont}`)
@@ -116,6 +158,7 @@ function adicionarPokemon(pokemon){
     const spd = document.getElementById(`spd${pokemonAtualCont}`)
     id.innerText = `${pokemon.id}`
     nome.innerText = `${pokemon.name}`
+    tipo.innerText = `${pokemon.types.map(type => type.type.name).join(', ')}`
     img.src = `${pokemon.sprites.other.showdown.front_default}`
     vida.value = `${pokemon.stats[0].base_stat}`
     vida.setAttribute("max", `${pokemon.stats[0].base_stat}`)
@@ -212,6 +255,9 @@ let evasion;
 
 function atacar(){
 
+    document.getElementById("seuTurno").style.display = "none"
+    document.getElementById("descAcao").style.display = "flex"
+
     var vida;
     if(seuTurno === true){
         vida = "inimigoBarra";
@@ -222,9 +268,6 @@ function atacar(){
         sAtq = pokemonBatalha[0].stats[3].base_stat;
         accuracy = pokemonBatalha[0].stats[5].base_stat;
         evasion = pokemonBatalha[1].stats[4].base_stat
-
-        document.getElementById("seuTurno").style.display = "none"
-        document.getElementById("descAcao").style.display = "flex"
         desc.innerHTML = `Você ataca com o ${pokemonBatalha[0].name}`
         const textoArray = desc.innerHTML.split('');
         desc.innerHTML = ' ';
@@ -263,6 +306,7 @@ function atacar(){
             erroSound.play()
             seuTurno === false ? document.querySelector(".pokemonInimigo").style.right= "80px" : document.querySelector(".seuPokemon").style.left= "100px"
             seuTurno === false ? document.getElementById("gifatkInimigo").style.left= "80px" : document.getElementById("gifatkSeu").style.right= "100px"
+            seuTurno === false ? document.getElementById("trainerInimigo").style.left= "80px" : document.getElementById("trainerSeu").style.right= "100px"
             document.getElementById(`${seuTurno == false ? "gifatkInimigo" : "gifatkSeu"}`).style.display = "block"
             setTimeout(()=>{
                 document.getElementById(`${seuTurno == false ? "gifatkInimigo" : "gifatkSeu"}`).style.display = "none"
@@ -272,9 +316,11 @@ function atacar(){
             setTimeout(() => {
                 if (seuTurno === false){
                     document.querySelector(".pokemonInimigo").style.right= "0px"
+                    document.getElementById("trainerInimigo").style.left= "0px"
                     return turnoOponente()
                 } else{
                     document.querySelector(".seuPokemon").style.left= "0px"
+                    document.getElementById("trainerSeu").style.right= "0px"
                     document.getElementById("descAcao").style.display = "none"
                     document.getElementById("seuTurno").style.display = "flex"
                 }
@@ -282,7 +328,11 @@ function atacar(){
             
         } else{
             let bonus = setBonus();
-            desc.innerHTML = `${seuTurno == false ? pokemonBatalha[0].name : pokemonBatalha[1].name} acerta um ataque ${bonus === 1/2 ? "pouco efetivo" : bonus === 2 ? "super efetivo" : bonus = 0 ? "sem efeito" : ""}`
+            let stab = pokemonBatalha[0].types[0].type.name === pokemonBatalha[1].types[0].type.name ? 1.5 : 1
+            let na = Math.floor(Math.random() * (100 - 85 + 1)) + 85
+            let dano = (((((1 * 2/5) + 2) * sAtq * atq/def)/50 + 2) * stab * bonus * na/100)
+
+            desc.innerHTML = `${seuTurno === false ? pokemonBatalha[0].name : pokemonBatalha[1].name} acerta um ataque ${bonus === 1/2 ? "pouco efetivo" : bonus === 2 ? "super efetivo" : bonus === 0 ? "sem efeito" : ""}`
             const textoArray = desc.innerHTML.split('');
             desc.innerHTML = ' ';
             textoArray.forEach(function(letra, i){   
@@ -290,9 +340,8 @@ function atacar(){
                     desc.innerHTML += letra;
                 }, 75 * i)
             });
-            let stab = pokemonBatalha[0].types[0].type.name === pokemonBatalha[1].types[0].type.name ? 1.5 : 1
-            let na = Math.floor(Math.random() * (100 - 85 + 1)) + 85
-            let dano = (((((1 * 2/5) + 2) * sAtq * atq/def)/50 + 2) * stab * bonus * na/100)
+
+            console.log(bonus)
 
             atackSound.play()
             document.getElementById(`${seuTurno == false ? "gifatkInimigo" : "gifatkSeu"}`).style.display = "block"
@@ -302,7 +351,7 @@ function atacar(){
             
             setTimeout(()=>{
                 if(vida === "inimigoBarra"){
-                        document.getElementById(vida).value = parseInt(document.getElementById(vida).value - dano);
+                    document.getElementById(vida).value = parseInt(document.getElementById(vida).value - dano);
                 } else{
                     document.getElementById(vida).value = parseInt(document.getElementById(vida).value - dano);
                     document.getElementById("seuVidaText").innerHTML = `${document.getElementById(vida).value}/${pokemonBatalha[0].stats[0].base_stat}`
@@ -333,19 +382,21 @@ function turnoOponente(){
     document.getElementById("descAcao").style.display = "flex"
 
     if(document.getElementById("inimigoBarra").value <= (pokemonBatalha[1].stats[0].base_stat/3)){
-        return usarPocao()
+        usarPocao()
+    } else{
+        desc.innerHTML = `O inimigo ataca com o ${pokemonBatalha[1].name}`
+        const textoArray = desc.innerHTML.split('');
+        desc.innerHTML = ' ';
+
+        textoArray.forEach(function(letra, i){   
+            setTimeout(function(){
+                desc.innerHTML += letra;
+            }, 75 * i)
+        })
+        setTimeout(()=>{
+            atacar()
+        }, "2000")
     }
-
-    desc.innerHTML = `O inimigo ataca com o ${pokemonBatalha[1].name}`
-    const textoArray = desc.innerHTML.split('');
-    desc.innerHTML = ' ';
-
-    textoArray.forEach(function(letra, i){   
-        setTimeout(function(){
-            desc.innerHTML += letra;
-        }, 75 * i)
-    })
-    atacar()
 }
 
 let musicVitoriaRandon;
@@ -413,6 +464,8 @@ function acertarAtaque(){
 }
 
 function setBonus(){
+    console.log(tipoAtacante)
+    console.log(tipoVitima)
     //normal
     if(tipoAtacante === "normal"){
         if(tipoVitima === "rock" || tipoVitima === "steel"){
@@ -654,44 +707,67 @@ function usarPocao(){
                 document.querySelector(".mochila").style.display = "none"
                 document.getElementById("seuTurno").style.display = "flex"
             },"3000")
-        }
-        suasPocoes = suasPocoes - 1
-        document.getElementById("quantPocoes").innerHTML = `${suasPocoes}x`
-        desc.innerHTML = `Você usou uma poção no ${pokemonBatalha[0].name}`
-        const textoArray = desc.innerHTML.split('');
-        desc.innerHTML = ' ';
+        } else{
+            suasPocoes = suasPocoes - 1
+            document.getElementById("quantPocoes").innerHTML = `${suasPocoes}x`
+            desc.innerHTML = `Você usou uma poção no ${pokemonBatalha[0].name}`
+            const textoArray = desc.innerHTML.split('');
+            desc.innerHTML = ' ';
 
-        textoArray.forEach(function(letra, i){   
-            setTimeout(function(){
-                desc.innerHTML += letra;
-            }, 75 * i)
-        })
-        seuTurno = false
-        setTimeout(()=>{
-            document.getElementById("seuBarra").value = parseInt(document.getElementById("seuBarra").value + 20);
-            document.getElementById("seuVidaText").innerHTML = `${document.getElementById("seuBarra").value}/${pokemonBatalha[0].stats[0].base_stat}`
-            turnoOponente()
-        },"3000")
+            textoArray.forEach(function(letra, i){   
+                setTimeout(function(){
+                    desc.innerHTML += letra;
+                }, 75 * i)
+            })
+            document.getElementById("trainerSeu").style.transform="scale(5) translate(0px, 0px)";
+            potionSound.play()
+            setTimeout(()=>{
+                document.getElementById("trainerSeu").style.transform="scale(5) translate(-50px, 0px)";
+            }, "1000")
+            setTimeout(()=>{
+                seuTurno = false
+                document.getElementById("seuBarra").value = parseInt(document.getElementById("seuBarra").value + 20);
+                document.getElementById("seuVidaText").innerHTML = `${document.getElementById("seuBarra").value}/${pokemonBatalha[0].stats[0].base_stat}`
+                turnoOponente()
+            },"3000")
+        }
     } else{
         if(inimigoPocoes <= 0){
-            return atacar()
-        }
-        inimigoPocoes = inimigoPocoes - 1
-        desc.innerHTML = `O inimigo usou uma poção no ${pokemonBatalha[1].name}`
-        const textoArray = desc.innerHTML.split('');
-        desc.innerHTML = ' ';
+            desc.innerHTML = `O inimigo ataca com o ${pokemonBatalha[1].name}`
+            const textoArray = desc.innerHTML.split('');
+            desc.innerHTML = ' ';
 
-        textoArray.forEach(function(letra, i){   
-            setTimeout(function(){
-                desc.innerHTML += letra;
-            }, 75 * i)
-        })
-        seuTurno = true
-        setTimeout(()=>{
-            document.getElementById("inimigoBarra").value = parseInt(document.getElementById("inimigoBarra").value + 20)
-            document.getElementById("seuTurno").style.display = "flex"
-            document.getElementById("descAcao").style.display = "none"
-        },"3000")
+            textoArray.forEach(function(letra, i){   
+                setTimeout(function(){
+                    desc.innerHTML += letra;
+                }, 75 * i)
+            })
+            setTimeout(()=>{
+                atacar()
+            }, "3000")
+        } else{
+            inimigoPocoes = inimigoPocoes - 1
+            desc.innerHTML = `O inimigo usou uma poção no ${pokemonBatalha[1].name}`
+            const textoArray = desc.innerHTML.split('');
+            desc.innerHTML = ' ';
+
+            textoArray.forEach(function(letra, i){   
+                setTimeout(function(){
+                    desc.innerHTML += letra;
+                }, 75 * i)
+            })
+            document.getElementById("trainerInimigo").style.transform="scale(1.5) translate(0px, 0px)";
+            setTimeout(()=>{
+                document.getElementById("trainerInimigo").style.transform="scale(1.5) translate(30%, 0px)";
+            }, "1000")
+            potionSound.play()
+            setTimeout(()=>{
+                seuTurno = true
+                document.getElementById("inimigoBarra").value = parseInt(document.getElementById("inimigoBarra").value + 20)
+                document.getElementById("seuTurno").style.display = "flex"
+                document.getElementById("descAcao").style.display = "none"
+            },"3000")
+        }
     }
 }
 
