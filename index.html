@@ -8,14 +8,19 @@
 </head>
 <body>
     <header>
-        <div>
-            <h1>PokeAPI</h1>
+        <div class="poketitle">
+            <img src="./assets/pokeTitle.png">
+            <h1>API</h1>
+        </div>
+        <div class="pokelogo">
+            <img src="./assets/pokeLogo.png">
         </div>
         <div class="nav">
             <a onclick="changeSection(1)" class="btnNav">Pokedex</a>
             <a onclick="changeSection(2)" class="btnNav">Batalha</a>
             <a onclick="changeSection(3)" class="btnNav">????</a>
         </div>
+        
     </header>
     <main>
         <section class="pokedex_section">
@@ -129,37 +134,44 @@
 
             <div class="batalha_pokemon">
                 <div class="display_pokemons">
-                    <div class="pokemonInimigo">
-                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" id="inimigoImg">
+                    <div class="pokemonInimigo batalha">
+                        <img src="" id="inimigoImg">
+                        <img src="./assets/ataqueGif.gif" class="ataque_gif" id="gifatkInimigo">
                     </div>
-                    <div class="seuPokemon">
-                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/25.png" id="seuImg">
+                    <div class="seuPokemon batalha">
+                        <img src="" id="seuImg">
+                        <img src="./assets/ataqueGif.gif" class="ataque_gif" id="gifatkSeu">
                     </div>
-                    <div class="status_inimigo">
+                    <div class="status_inimigo batalha">
                         <h1 id="inimigoVida">Bulbasaur</h1>
                         <div class="Vida">
                             <progress value="" max="" id="inimigoBarra"></progress>
                         </div>
                     </div>
-                    <div class="status_seuPokemon">
+                    <div class="status_seuPokemon batalha">
                         <h1 id="seuVida">Pikachu</h1>
                         <div class="Vida">
                             <progress value="" max="" id="seuBarra"></progress>
                             <p id="seuVidaText"></p>
                         </div>
                     </div>
+                    <div class="fim_batalha" id="fimBatalha">
+                        <div>
+                            <img src="" id="pokemonVencedor">
+                        </div>
+                    </div>
                 </div>
                 <div class="acoes_pokemon">
                     <div id="seuTurno" class="seu_turno">
-                        <button onclick="abrirAtaques()">Atacar</button>
+                        <button onclick="atacar()">Atacar</button>
                         <button onclick="abrirMochila()">Mochila</button>
                     </div>
                     <div class="desc_acao" id="descAcao">
                         <p id="descricao"></p>
+                        <button onclick="resetBattle()" id="btnFinalizar">Finalizar</button>
                     </div>
                 </div>
             </div>
-            <section class="batalha_section"></section>
         </section>
     </main>
     <footer>

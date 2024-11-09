@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&family=Pixelify+Sans:wght@400..700&display=swap');
 
 *{
     margin: 0;
@@ -9,20 +10,53 @@ body{
 header{
     width: 100%;
     height: 15vh;
-    background-color: gray;
+    background-color: rgb(216, 85, 85);
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
 }
+.poketitle{
+    display: flex;
+    align-items: center;
+}
+.poketitle h1{
+    color: rgb(219, 201, 94);
+    font-size: 2.5rem;
+    font-weight: 900;
+    -webkit-text-stroke-width: 2px;
+    filter:drop-shadow(0px 3px rgb(19, 49, 131));
+    -webkit-text-stroke-color: rgb(38, 92, 240);
+}
+.poketitle img{
+    width: 250px;
+}
+.pokelogo{
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pokelogo img{
+    width: 80px;
+}
 .nav{
+    width: 25%;
     min-width: 300px;
     display: flex;
     justify-content: space-between;
 }
 .btnNav{
     padding: 10px;
-    background-color: white;
+    background-color: rgb(67, 115, 179);
     border-radius: 10px;
+    color: rgb(255, 255, 255);
+    font-size: 1.6rem;
+    font-weight: 900;
+    box-shadow: 0px 5px rgb(19, 49, 131);
+}
+.btnNav:active{
+    transform: translate(0,5px);
+    box-shadow: inset 0px 3px 5px rgb(11, 29, 77);
 }
 main{
     width: 100%;
@@ -260,6 +294,7 @@ main{
     border-radius: 20px;
     position: absolute;
     bottom: 10%;
+    z-index: 4;
 }
 .btnStartBattle button{
     width: 100px;
@@ -293,6 +328,7 @@ main{
     background-repeat: no-repeat;
     background-size: cover;
     z-index: 1;
+    user-select: none;
 }
 .pokemonInimigo{
     position: absolute;
@@ -303,23 +339,33 @@ main{
     display: flex;
     align-items: center;
     justify-content: start;
+    transition: all 0.5s ease;
 }
 .pokemonInimigo img{
-    transform: scale(4.5);
+    transform: scale(3);
 }
 .seuPokemon{
     position: absolute;
-    left: 0%;
+    left: 0px;
     bottom: 10%;
-    width: 40%;
+    width: 35%;
     display: flex;
     align-items: end;
     justify-content: end;
     height: 70%;
     z-index: 0;
+    transition: all 0.5s ease;
 }
 .seuPokemon img{
-    transform: scale(6);
+    transform: scale(4);
+}
+.ataque_gif{
+    position: absolute;
+    width: 100px;
+    display: none;
+}
+#gifatkSeu{
+    transform: translate(10px 0) scale(4);
 }
 .status_inimigo{
     position: absolute;
@@ -331,6 +377,7 @@ main{
     border: 5px solid rgb(68, 68, 68);
     box-shadow: -5px 5px rgb(138, 138, 138);
     border-radius: 10px 20px;
+    flex-direction: column;
 }
 .status_inimigo h1{
     padding: 5px;
@@ -345,6 +392,7 @@ main{
     border: 5px solid rgb(68, 68, 68);
     box-shadow: 5px 5px rgb(138, 138, 138);
     border-radius: 20px 10px;
+    flex-direction: column;
 }
 .status_seuPokemon h1{
     padding: 5px;
@@ -392,7 +440,28 @@ main{
     width: 80%;
     height: 80%;
     background-color: white;
+    position: relative;
 }
 .desc_acao p{
     padding: 20px;
+    font-size: 3rem;
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+.desc_acao button{
+    display: none;
+    position: absolute;
+    font-size: 1.5rem;
+    padding: 10px;
+    width: auto;
+    height: auto;
+    bottom: 7%;
+    right: 3%;
+}
+.fim_batalha{
+    display: none;
+}
+#pokemonVencedor{
+    transform: scale(4);
 }
