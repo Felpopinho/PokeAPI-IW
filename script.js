@@ -145,6 +145,8 @@ function adicionarPokemon(pokemon){
         habCont.removeChild(habCont.firstChild);
     }
 
+    setBackground(pokemon);
+
     const id = document.getElementById(`id${pokemonAtualCont}`)
     const nome = document.getElementById(`nome${pokemonAtualCont}`)
     const tipo = document.getElementById(`tipo${pokemonAtualCont}`)
@@ -159,7 +161,7 @@ function adicionarPokemon(pokemon){
     id.innerText = `${pokemon.id}`
     nome.innerText = `${pokemon.name}`
     tipo.innerText = `${pokemon.types.map(type => type.type.name).join(', ')}`
-    img.src = `${pokemon.sprites.other.showdown.front_default}`
+    img.src = pokemon.sprites.other.showdown.front_default === "null" ? pokemon.sprites.front_default : pokemon.sprites.other.showdown.front_default
     vida.value = `${pokemon.stats[0].base_stat}`
     vida.setAttribute("max", `${pokemon.stats[0].base_stat}`)
     hp.innerHTML = `${pokemon.stats[0].base_stat}/${pokemon.stats[0].base_stat}`
@@ -184,6 +186,42 @@ function adicionarPokemon(pokemon){
         document.getElementById("btnStartBattle").style.display = "none"
     }
 
+}
+
+function setBackground(pokemon){
+    if(pokemon.types[0].type.name === "normal"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "gray"
+    } else if (pokemon.types[0].type.name === "fire"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "orange"
+    }else if (pokemon.types[0].type.name === "water"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "lightblue"
+    }else if (pokemon.types[0].type.name === "electric"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "rgb(207, 176, 0)"
+    }else if (pokemon.types[0].type.name === "grass"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "green"
+    }else if (pokemon.types[0].type.name === "fighting"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "darkred"
+    }else if (pokemon.types[0].type.name === "poison"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "purple"
+    }else if (pokemon.types[0].type.name === "ground"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "rgb(109, 82, 47)"
+    }else if (pokemon.types[0].type.name === "flying"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "rgb(199, 199, 199)"
+    }else if (pokemon.types[0].type.name === "psychic"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "rgb(160, 74, 182)"
+    }else if (pokemon.types[0].type.name === "bug"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "lightgreen"
+    }else if (pokemon.types[0].type.name === "rock"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "rgb(72, 88, 0)"
+    }else if (pokemon.types[0].type.name === "ghost"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "rgb(61, 39, 104)"
+    }else if (pokemon.types[0].type.name === "dragon"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "blue"
+    }else if (pokemon.types[0].type.name === "steel"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "rgb(59, 59, 59)"
+    }else if (pokemon.types[0].type.name === "fairy"){
+        document.querySelector(`.equipe${pokemonAtualCont}`).style.backgroundColor = "pink"
+    }
 }
 
 function changeSection(n){
@@ -668,7 +706,7 @@ function setBonus(){
     }
 
     //fairy
-    if(tipoAtacante === "fire"){
+    if(tipoAtacante === "fairy"){
         if(tipoVitima === "fire" || tipoVitima === "poison" || tipoVitima === "steel"){
             return 1/2
         } else if(tipoVitima === "fighting" || tipoVitima === "dragon" || tipoVitima === "dark"){
@@ -683,12 +721,12 @@ function setBonus(){
 function abrirMochila(){
     document.getElementById("seuTurno").style.display = "none"
     document.getElementById("descAcao").style.display = "none"
-    document.querySelector(".mochila").style.display = "flex"
+    document.querySelector(".mochila_container").style.display = "grid"
 }
 
 function usarPocao(){
     document.getElementById("seuTurno").style.display = "none"
-    document.querySelector(".mochila").style.display = "none"
+    document.querySelector(".mochila_container").style.display = "none"
     document.getElementById("descAcao").style.display = "flex"
 
     if(seuTurno === true){
@@ -704,7 +742,7 @@ function usarPocao(){
             })
             setTimeout(()=>{
                 document.getElementById("descAcao").style.display = "none"
-                document.querySelector(".mochila").style.display = "none"
+                document.querySelector(".mochila_container").style.display = "none"
                 document.getElementById("seuTurno").style.display = "flex"
             },"3000")
         } else{

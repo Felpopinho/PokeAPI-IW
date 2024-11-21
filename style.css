@@ -62,7 +62,7 @@ header{
 main{
     width: 100%;
     height: 85vh;
-    background-color: rgb(86, 114, 158);
+    background-color: rgb(112, 149, 209);
 }
 .pokedex_section{
     width: 100%;
@@ -107,8 +107,7 @@ main{
     z-index: 2;
 }
 .imgPokemon_container img{
-    width: 30%;
-    min-width: 50px;
+    transform: scale(1.5);
 }
 .searchPokedex{
     z-index: 2;
@@ -168,15 +167,17 @@ main{
 .selecionado{
     display: flex;
     height: auto;
-    min-height: 300px;
-    width: 90%;
+    width: 100%;
     flex-direction: column;
     justify-content: center;
     row-gap: 10px;
     transition: all 0.2s ease;
-    background-color: rgb(189, 189, 189);
+    background-color: rgb(71, 107, 150);
     padding: 10px;
     position: relative;
+    padding: 50px;
+    color: white;
+    border-radius: 20px;
 }
 #inicial1, #inicial2{
     display: flex;
@@ -204,7 +205,7 @@ main{
     z-index: 3;
 }
 .pokemon_container input:checked + .selecionado{
-    filter: drop-shadow(0px 0px 10px rgb(255, 0, 0));
+    filter: drop-shadow(0px 0px 16px rgb(0, 62, 119));
 }
 .nomeidPokemon{
     display: flex;
@@ -222,7 +223,7 @@ main{
     width: 100%;
     height: 50px;
     margin: 10px 0;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
 }
@@ -506,21 +507,44 @@ main{
 #pokemonVencedor{
     transform: scale(4);
 }
-.mochila{
+.mochila_container{
     display: none;
-    width: 90%;
+    width: 85%;
     height: 80%;
-    position: relative;
     align-items: center;
     justify-content: center;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 50% 50%;
+    gap: 10px;
 }
-.mochila button{
-    width: 100%;
+.item_container{
+    background-color: white;
+    position: relative;
     height: 100%;
 }
-.mochila p{
+.item_container button{
+    width: 70%;
+    height: 100%;
+    background-color: transparent;
+    border: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+.item_container img{
+    width: 50px;
+}
+.item_container p{
     position: absolute;
     right: 6%;
     bottom: 15%;
-    font-size: 2rem;
+    font-size: 1.7rem;
+}
+.btn_voltar{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50px;
 }
