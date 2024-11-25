@@ -97,6 +97,13 @@
                             </div>
                         </div>
                     </label>
+                    <div class="moves contIEquipe1">
+                        <h2>Movimentos</h2>
+                        <div>
+                            <select id="move1-1"><option value=""></option></select>
+                            <select id="move2-1"><option value=""></option></select>
+                        </div>
+                    </div>
                 </div>
                 <div class="versus_container">
                     <img src="./assets/versus.png">
@@ -140,6 +147,13 @@
                             </div>
                         </div>
                     </label>
+                    <div class="moves contIEquipe2">
+                        <h2>Movimentos</h2>
+                        <div>
+                            <select id="move1-2"><option value=""></option></select>
+                            <select id="move2-2"><option value=""></option></select>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="btnStartBattle" id="btnStartBattle">
@@ -185,42 +199,59 @@
                 </div>
                 <div class="acoes_pokemon">
                     <div id="seuTurno" class="seu_turno">
-                        <button onclick="atacar()">Atacar</button>
-                        <button onclick="abrirMochila()">Mochila</button>
+                        <button onclick="movimentos(1)">Atacar</button>
+                        <button onclick="mochila(1)">Mochila</button>
                     </div>
                     <div class="desc_acao" id="descAcao">
                         <p id="descricao"></p>
                         <button onclick="resetBattle()" id="btnFinalizar">Finalizar</button>
                     </div>
+                    <div class="moves_container">
+                        <button class="btn_voltar" onclick="movimentos(2)">&lt;</button>
+                        <button class="movimento" onclick="atcar(0)">
+                            <h2 id="nomeMove1"></h2>
+                            <div>
+                                <p id="tipoMove1"></p>
+                                <span id="ppMove1"></p>
+                            </div>
+                        </button>
+                        <button class="movimento" onclick="atacar(1)">
+                            <h2 id="nomeMove2"></h2>
+                            <div>
+                                <p id="tipoMove2"></p>
+                                <span id="ppMove2"></p>
+                            </div>
+                        </button>
+                    </div>
                     <div class="mochila_container">
-                        <button class="btn_voltar">&lt;</button>
+                        <button class="btn_voltar" onclick="mochila(2)">&lt;</button>
                         <div class="item_container">
-                            <button onclick="usarItem()">
+                            <button onclick="usarPocao()">
                                 <img src="./assets/potion.png" alt="">
                                 <span>Poção</span>
+                                <p id="quantPocoes">2x</p>
                             </button>
-                            <p id="quantPocoes">2x</p>
                         </div>
                         <div class="item_container">
-                            <button onclick="usarItem()">
+                            <button onclick="usarItem(2)">
                                 <img src="./assets/x_attack.png" alt="">
                                 <span>X Attack</span>
+                                <p id="quantAttack">2x</p>
                             </button>
-                            <p id="quantPocoes">2x</p>
                         </div>
                         <div class="item_container">
-                            <button onclick="usarItem()">
+                            <button onclick="usarItem(3)">
                                 <img src="./assets/x_special.png" alt="">
                                 <span>X S. Defend</span>
+                                <p id="quantDefend">2x</p>
                             </button>
-                            <p id="quantPocoes">2x</p>
                         </div>
                         <div class="item_container">
-                            <button onclick="usarItem()">
+                            <button onclick="usarItem(1)">
                                 <img src="./assets/x_speed.png" alt="">
                                 <span>X S. Speed</span>
+                                <p id="quantSpeed">2x</p>
                             </button>
-                            <p id="quantPocoes">2x</p>
                         </div>
                     </div>
                 </div>
