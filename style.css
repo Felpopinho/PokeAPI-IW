@@ -400,13 +400,13 @@ main{
     position: absolute;
     transition: all 0.5s ease;
 }
-#trainerInimigo{
+#trainerInimigo-1{
     top: 0%;
     left: 0px;
     transform: scale(1.5) translate(30%, 0px);
     z-index: 0;
 }
-#trainerSeu{
+#trainerSeu-1{
     right: 0px;
     transform: scale(5) translate(-50px, 0px);
 }

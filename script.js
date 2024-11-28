@@ -11,8 +11,6 @@ const inputLigaSearch = document.getElementById("inputSearchLiga")
 const pokemonUm = document.getElementById("pokemonUm")
 const pokemonDois = document.getElementById("pokemonDois")
 
-const desc = document.getElementById("descricao")
-
 var pokemonAtualCont = 1
 
 var pokemonUmSelecionado = false;
@@ -358,7 +356,7 @@ async function iniciarBatalha(n){
     })
 
     document.getElementById(`btnFinalizar-${n}`).style.display = "none"
-    document.getElementById("seuTurno").style.display = "flex"
+    document.getElementById(`seuTurno-${n}`).style.display = "flex"
     document.getElementById(`descAcao-${n}`).style.display = "none"
 
     document.querySelector(".equipe_pokemons").style.display = "none"
@@ -399,32 +397,32 @@ var sAtq;
 
 function movimentos(n, s){
     if(n === 1){
-        document.getElementById("seuTurno").style.display = "none"
+        document.getElementById(`seuTurno-${s}`).style.display = "none"
         document.getElementById(`descAcao-${s}`).style.display = "none"
-        document.querySelector(".moves_container").style.display = "flex"
+        document.getElementById(`movesContainer-${s}`).style.display = "flex"
     } else{
         document.getElementById(`descAcao-${s}`).style.display = "none"
-        document.querySelector(".moves_container").style.display = "none"
-        document.getElementById("seuTurno").style.display = "flex"
+        document.getElementById(`movesContainer-${s}`).style.display = "none"
+        document.getElementById(`seuTurno-${s}`).style.display = "flex"
     }
 }
 
 function atacar(n, s){
-
-    document.getElementById("seuTurno").style.display = "none"
-    document.getElementById("movesContainer").style.display = "none"
+    const desc = document.getElementById(`descricao-${s}`)
+    document.getElementById(`seuTurno-${s}`).style.display = "none"
+    document.getElementById(`movesContainer-${s}`).style.display = "none"
     document.getElementById(`descAcao-${s}`).style.display = "flex"
 
     var vida;
     if(seuTurno === true){
-        vida = "inimigoBarra";
+        vida = `inimigoBarra-${s}`;
         tipoAtacante = moveSeu[n].type.name;
         tipoVitima = pokemonBatalha[1].types[0].type.name;
         def = pokemonBatalha[1].stats[2].base_stat;
         sAtq = pokemonBatalha[0].stats[3].base_stat;
         ppSeu[n] = ppSeu[n] - 1
         console.log(ppSeu)
-        document.getElementById(`ppMove${n+1}`).innerHTML  = `${ppSeu[n]}/${moveSeu[n].pp}`
+        document.getElementById(`ppMove${n+1}-${s}`).innerHTML  = `${ppSeu[n]}/${moveSeu[n].pp}`
         desc.innerHTML = `Você usa ${moveSeu[n].name} com ${pokemonBatalha[0].name}`
         const textoArray = desc.innerHTML.split('');
         desc.innerHTML = ' ';
@@ -436,7 +434,7 @@ function atacar(n, s){
         });
         seuTurno = false
     } else{
-        vida = "seuBarra";
+        vida = `seuBarra-${s}`;
         tipoAtacante = moveInimigo[n].type.name;
         tipoVitima = pokemonBatalha[0].types[0].type.name;
         def = pokemonBatalha[0].stats[2].base_stat;
@@ -460,24 +458,24 @@ function atacar(n, s){
 
             erroSound.play()
             seuTurno === false ? document.querySelector(".pokemonInimigo").style.right= "80px" : document.querySelector(".seuPokemon").style.left= "100px"
-            seuTurno === false ? document.getElementById("gifatkInimigo").style.left= "80px" : document.getElementById("gifatkSeu").style.right= "100px"
-            seuTurno === false ? document.getElementById("trainerInimigo").style.left= "80px" : document.getElementById("trainerSeu").style.right= "100px"
-            document.getElementById(`${seuTurno == false ? "gifatkInimigo" : "gifatkSeu"}`).style.display = "block"
+            seuTurno === false ? document.getElementById(`gifatkInimigo-${s}`).style.left= "80px" : document.getElementById(`gifatkSeu-${s}`).style.right= "100px"
+            seuTurno === false ? document.getElementById(`trainerInimigo-${s}`).style.left= "80px" : document.getElementById(`trainerSeu-${s}`).style.right= "100px"
+            document.getElementById(`${seuTurno == false ? 'gifatkInimigo-'+s : 'gifatkSeu-'+s}`).style.display = "block"
             setTimeout(()=>{
-                document.getElementById(`${seuTurno == false ? "gifatkInimigo" : "gifatkSeu"}`).style.display = "none"
-                seuTurno === false ? document.getElementById("gifatkInimigo").style.left= "0px" : document.getElementById("gifatkSeu").style.right= "0px"
+                document.getElementById(`${seuTurno == false ? 'gifatkInimigo'+s : 'gifatkSeu'+s}`).style.display = "none"
+                seuTurno === false ? document.getElementById(`gifatkInimigo-${s}`).style.left= "0px" : document.getElementById(`gifatkSeu-${s}`).style.right= "0px"
             }, "1000")
             
             setTimeout(() => {
                 if (seuTurno === false){
                     document.querySelector(".pokemonInimigo").style.right= "0px"
-                    document.getElementById("trainerInimigo").style.left= "0px"
+                    document.getElementById(`trainerInimigo-${s}`).style.left= "0px"
                     return turnoOponente(s)
                 } else{
                     document.querySelector(".seuPokemon").style.left= "0px"
-                    document.getElementById("trainerSeu").style.right= "0px"
+                    document.getElementById(`trainerSeu-${s}`).style.right= "0px"
                     document.getElementById(`descAcao-${s}`).style.display = "none"
-                    document.getElementById("seuTurno").style.display = "flex"
+                    document.getElementById(`seuTurno-${s}`).style.display = "flex"
                 }
             }, "4000")
             
@@ -499,31 +497,31 @@ function atacar(n, s){
             console.log(bonus)
 
             atackSound.play()
-            document.getElementById(`${seuTurno == false ? "gifatkInimigo" : "gifatkSeu"}`).style.display = "block"
+            document.getElementById(`${seuTurno == false ? `gifatkInimigo-${s}` : `gifatkSeu-${s}`}`).style.display = "block"
             setTimeout(()=>{
-                document.getElementById(`${seuTurno == false ? "gifatkInimigo" : "gifatkSeu"}`).style.display = "none"
+                document.getElementById(`${seuTurno == false ? `gifatkInimigo-${s}` : `gifatkSeu-${s}`}`).style.display = "none"
             }, "1000")
             
             setTimeout(()=>{
-                if(vida === "inimigoBarra"){
+                if(vida === `inimigoBarra-${s}`){
                     document.getElementById(vida).value = parseInt(document.getElementById(vida).value - dano);
                 } else{
                     document.getElementById(vida).value = parseInt(document.getElementById(vida).value - dano);
-                    document.getElementById("seuVidaText").innerHTML = `${document.getElementById(vida).value}/${pokemonBatalha[0].stats[0].base_stat}`
+                    document.getElementById(`seuVidaText-${s}`).innerHTML = `${document.getElementById(vida).value}/${pokemonBatalha[0].stats[0].base_stat}`
                 }
 
-                if (document.getElementById("seuBarra").value <= 0 || document.getElementById("inimigoBarra").value <= 0){
+                if (document.getElementById(`seuBarra-${s}`).value <= 0 || document.getElementById(`inimigoBarra-${s}`).value <= 0){
                     if (seuTurno === false){
-                        return fimBatalha(pokemonBatalha[0])
+                        return fimBatalha(pokemonBatalha[0], s)
                     } else{
-                        return fimBatalha(pokemonBatalha[1])
+                        return fimBatalha(pokemonBatalha[1], s)
                     }
                 } else{
                     if (seuTurno === false){
                         turnoOponente(s)
                     } else{
                         document.getElementById(`descAcao-${s}`).style.display = "none"
-                        document.getElementById("seuTurno").style.display = "flex"
+                        document.getElementById(`seuTurno-${s}`).style.display = "flex"
                     }
                 }
             }, "4000")
@@ -533,14 +531,15 @@ function atacar(n, s){
 }
 
 function turnoOponente(s){
-    document.getElementById("seuTurno").style.display = "none"
+    const desc = document.getElementById(`descricao-${s}`)
+    document.getElementById(`seuTurno-${s}`).style.display = "none"
     document.getElementById(`descAcao-${s}`).style.display = "flex"
 
     var nAleatorio = Math.floor(Math.random()*100)
     var nMove;
     if(nAleatorio > 45){nMove = 1}else{nMove = 0}
 
-    if(document.getElementById("inimigoBarra").value <= (pokemonBatalha[1].stats[0].base_stat/3)){
+    if(document.getElementById(`inimigoBarra-${s}`).value <= (pokemonBatalha[1].stats[0].base_stat/3)){
         usarPocao(nMove, s)
     } else if(nAleatorio >= 70){
         usarItem(nMove, s)
@@ -800,18 +799,19 @@ function setBonus(){
 
 function mochila(n, s){
     if(n === 1){
-        document.getElementById("seuTurno").style.display = "none"
+        document.getElementById(`seuTurno-${s}`).style.display = "none"
         document.getElementById(`descAcao-${s}`).style.display = "none"
         document.querySelector(".mochila_container").style.display = "grid"
     } else{
         document.getElementById(`descAcao-${s}`).style.display = "none"
         document.querySelector(".mochila_container").style.display = "none"
-        document.getElementById("seuTurno").style.display = "flex"
+        document.getElementById(`seuTurno-${s}`).style.display = "flex"
     }
 }
 
 function usarItem(n, s){
-    document.getElementById("seuTurno").style.display = "none"
+    const desc = document.getElementById(`descricao-${s}`)
+    document.getElementById(`seuTurno-${s}`).style.display = "none"
     document.querySelector(".mochila_container").style.display = "none"
     document.getElementById(`descAcao-${s}`).style.display = "flex"
 
@@ -820,7 +820,7 @@ function usarItem(n, s){
     if(seuTurno === true){
         if(n === 1){
             if(suasSpeed <= 0){
-                return semItem("X Speed")
+                return semItem("X Speed", s)
             } else{
                 suasSpeed = suasSpeed - 1
                 item = ["X Speed", "quantSpeed", suasSpeed]
@@ -828,7 +828,7 @@ function usarItem(n, s){
             }
         } else if (n===2){
             if(suasAttack <= 0){
-                return semItem("X Attack")
+                return semItem("X Attack", s)
             } else{
                 suasAttack = suasAttack - 1
                 item = ["X Attack", "quantAttack", suasAttack]
@@ -836,7 +836,7 @@ function usarItem(n, s){
             }
         } else{
             if(suasDefend <= 0){
-                return semItem("X Defend")
+                return semItem("X Defend", s)
             } else{
                 suasDefend = suasDefend - 1
                 item = ["X Defend", "quantDefend", suasDefend]
@@ -867,7 +867,7 @@ function usarItem(n, s){
         var nAleatorio = Math.floor(Math.random()*99)
         if(nAleatorio <= 33){
             if(inimigoSpeed <= 0){
-                return semItem("X Speed")
+                return semItem("X Speed", s)
             } else{
                 inimigoSpeed = inimigoSpeed - 1
                 item = ["X Speed", "quantSpeed", suasSpeed]
@@ -875,7 +875,7 @@ function usarItem(n, s){
             }
         } else if(nAleatorio >= 66){
             if(inimigoAttack <= 0){
-                return semItem("X Attack")
+                return semItem("X Attack", s)
             } else{
                 inimigoAttack = inimigoAttack - 1
                 item = ["X Attack", "quantAttack", suasAttack]
@@ -883,7 +883,7 @@ function usarItem(n, s){
             }  
         } else{
             if(inimigoDefend <= 0){
-                return semItem("X Defend")
+                return semItem("X Defend", s)
             } else{
                 inimigoDefend = inimigoDefend - 1
                 item = ["X Defend", "quantDefend", suasDefend]
@@ -906,7 +906,7 @@ function usarItem(n, s){
         }, "1000")
         setTimeout(()=>{
             seuTurno = true
-            document.getElementById("seuTurno").style.display = "flex"
+            document.getElementById(`seuTurno-${s}`).style.display = "flex"
             document.getElementById(`descAcao-${n}`).style.display = "none"
         },"4500")
     }    
@@ -914,13 +914,14 @@ function usarItem(n, s){
 }
 
 function usarPocao(n, s){
-    document.getElementById("seuTurno").style.display = "none"
+    const desc = document.getElementById(`descricao-${s}`)
+    document.getElementById(`seuTurno-${s}`).style.display = "none"
     document.querySelector(".mochila_container").style.display = "none"
     document.getElementById(`descAcao-${n}`).style.display = "flex"
 
     if(seuTurno === true){
         if(suasPocoes <= 0){
-            semItem("poções")
+            semItem("poções", s)
         } else{
             suasPocoes = suasPocoes - 1
             document.getElementById("quantPocoes").innerHTML = `${suasPocoes}x`
@@ -978,13 +979,14 @@ function usarPocao(n, s){
             setTimeout(()=>{
                 seuTurno = true
                 document.getElementById("inimigoBarra").value = parseInt(document.getElementById("inimigoBarra").value + 20)
-                document.getElementById("seuTurno").style.display = "flex"
+                document.getElementById(`seuTurno-${n}`).style.display = "flex"
                 document.getElementById(`descAcao-${n}`).style.display = "none"
             },"4500")
         }
     }
 }
-function semItem(item){
+function semItem(item, n){
+    const desc = document.getElementById(`descricao-${n}`)
     desc.innerHTML = `Você não tem mais ${item}`
     const textoArray = desc.innerHTML.split('');
     desc.innerHTML = ' ';
@@ -996,29 +998,30 @@ function semItem(item){
     setTimeout(()=>{
         document.getElementById(`descAcao-${n}`).style.display = "none"
         document.querySelector(".mochila_container").style.display = "none"
-        document.getElementById("seuTurno").style.display = "flex"
+        document.getElementById(`seuTurno-${n}`).style.display = "flex"
     },"3000")
 }
 
 let musicVitoriaRandon;
 
-function fimBatalha(vencedor){
+function fimBatalha(vencedor, s){
+    const desc = document.getElementById(`descricao-${s}`)
     let perdedor;
     musicVitoriaRandon = Math.floor(Math.random()*(2.9 - 0)+0)
     vitoriaMusicArr[musicVitoriaRandon].currentTime = 0
     document.querySelectorAll(".batalha").forEach(e =>{
         e.style.display = "none"
     })
-    document.getElementById("fimBatalha").style.display = "flex"
-    document.getElementById("pokemonVencedor").src = vencedor.sprites.other.showdown.front_default
+    document.getElementById(`fimBatalha-${s}`).style.display = "flex"
+    document.getElementById(`pokemonVencedor-${s}`).src = vencedor.sprites.other.showdown.front_default
 
-    document.getElementById("seuTurno").style.display = "none"
-    document.getElementById(`descAcao-${n}`).style.display = "flex"
+    document.getElementById(`seuTurno-${s}`).style.display = "none"
+    document.getElementById(`descAcao-${s}`).style.display = "flex"
 
     document.querySelector(".display_pokemons").style.backgroundImage = "url('./assets/background_pokemon.avif')"
     document.querySelector(".display_pokemons").style.backgroundPosition = "bottom"
 
-    document.getElementById(`btnFinalizar-${n}`).style.display = "block"
+    document.getElementById(`btnFinalizar-${s}`).style.display = "block"
 
     batalhaMusicArr[musicBatalhaRandon].pause()
 
@@ -1058,10 +1061,10 @@ function resetBattle(n){
     document.querySelector(".equipe_pokemons").style.display = "flex"
     document.querySelector(".searchPokemon").style.display = "block"
 
-    document.getElementById("fimBatalha").style.display = "none"
-    document.getElementById("pokemonVencedor").src = ""
+    document.getElementById(`fimBatalha-${n}`).style.display = "none"
+    document.getElementById(`pokemonVencedor-${n}`).src = ""
 
-    document.getElementById("seuTurno").style.display = "none"
+    document.getElementById(`seuTurno-${n}`).style.display = "none"
     document.getElementById(`descAcao-${n}`).style.display = "none"
 
     document.querySelector(".display_pokemons").style.backgroundImage = "url('./assets/d9spuwer2c491.webp')"
