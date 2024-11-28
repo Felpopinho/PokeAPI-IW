@@ -178,20 +178,20 @@ main{
     border-radius: 20px;
     position: relative;
 }
-#inicial1, #inicial2{
+#inicial1-1, #inicial2-1,#inicial1-2, #inicial2-2{
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
 }
-#inicial1 h2, #inicial2 h2{
+#inicial1-1 h2, #inicial2-1 h2, #inicial1-2 h2, #inicial2-2 h2{
     text-align: center;
 }
-.contIEquipe1, .contIEquipe2{
+.contIEquipe1-1, .contIEquipe2-1, .contIEquipe1-2, .contIEquipe2-2{
     display: none;
 }
-.contSEquipe1, .contSEquipe2{
+.contSEquipe1-1, .contSEquipe2-1, .contSEquipe1-2, .contSEquipe2-2{
     display: block;
 }
 .pokemon_container input{
@@ -213,7 +213,7 @@ main{
     display: flex;
     column-gap: 15px;
 }
-#nome1, #nome2{
+#nome1-1, #nome2-1, #nome1-2, #nome2-2{
     text-transform: capitalize;
 }
 .progressVida_container{
@@ -602,4 +602,57 @@ main{
     border-radius: 50px;
     left: 20px;
     top: 20px;
+}
+
+
+.liga_section{
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+.suaEquipe{
+    width: 65%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.oponenteEquipe{
+    width: 35%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.oponente_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    background-color: rgb(59, 59, 59);
+    padding: 25px;
+    border-radius: 20px;
+}
+.oponente_container h1{
+    margin-bottom: 2vh;
+    color: white;
+    font-size: 2rem;
+}
+.elite_container{
+    background-image: url("./assets/fundoLiga.jpg");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: auto;
+    border-radius: 10px;
+}
+.elite_container img{
+    width: 15vw;
 }

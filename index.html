@@ -18,7 +18,7 @@
         <div class="nav">
             <a onclick="changeSection(1)" class="btnNav">Pokedex</a>
             <a onclick="changeSection(2)" class="btnNav">Batalha</a>
-            <a onclick="changeSection(3)" class="btnNav">????</a>
+            <a onclick="changeSection(3)" class="btnNav">Liga Elite</a>
         </div>
         
     </header>
@@ -41,7 +41,7 @@
                     <button onclick="changePokemon(1)" disabled id="antPokemon">&lt;</button>
                     <div>
                         <input type="text" id="inputSearch" name="inputSearch">
-                        <button onclick="searchPokemon(1)">Buscar</button>
+                        <button onclick="searchPokemon(1, 0)">Buscar</button>
                     </div>
                     <button onclick="changePokemon(2)" id="proxPokemon">&gt;</button>
                 </div>
@@ -54,54 +54,54 @@
                 <h2>Escolher pokémon</h2>
                 <div>
                     <input type="text" id="inputSearchEquipe" name="inputSearch">
-                    <button onclick="searchPokemon(2)">Buscar</button>
+                    <button onclick="searchPokemon(2, 1)">Buscar</button>
                 </div>
             </div>
             <div class="equipe_pokemons">
                 <div class="pokemon_container" id="pokemonUm" >
-                    <input type="radio" value="pokemonUm" id="" onclick="selectPokemonContainer(1)" checked name="pokeCont">
-                    <label for="pokemonUm" class="selecionado equipe1">
-                        <div id="inicial1"><h2>Selecione seu pokemon</h2></div>
-                        <div class="nomeidPokemon contIEquipe1">
+                    <input type="radio" value="pokemonUm" onclick="selectPokemonContainer(1)" checked name="pokeCont">
+                    <label for="pokemonUm" class="selecionado equipe1-1">
+                        <div id="inicial1-1"><h2>Selecione seu pokemon</h2></div>
+                        <div class="nomeidPokemon contIEquipe1-1">
                             <div>
-                                <h2 id="id1"></h2>
-                                <h2 id="nome1"></h2>
+                                <h2 id="id1-1"></h2>
+                                <h2 id="nome1-1"></h2>
                             </div>
                             <div>
-                                <h2 id= "tipo1"></h2>
+                                <h2 id= "tipo1-1"></h2>
                             </div>
                         </div>
-                        <div class="pokemonImg_container contIEquipe1">
-                            <img src="" id="img1">
+                        <div class="pokemonImg_container contIEquipe1-1">
+                            <img src="" id="img1-1">
                         </div>
-                        <div class="progressVida_container contIEquipe1">
-                            <progress value="" max="" id="vida1" class="contIEquipe1"></progress>
-                            <p id="hp1"></p>
+                        <div class="progressVida_container contIEquipe1-1">
+                            <progress value="" max="" id="vida1-1" class="contIEquipe1-1"></progress>
+                            <p id="hp1-1"></p>
                         </div>
-                        <div class="descEquipe_container contIEquipe1">
+                        <div class="descEquipe_container contIEquipe1-1">
                             <div class="habilidades_container">
                                 <h2>Habilidades</h2>
-                                <div id="habilidades1">
+                                <div id="habilidades1-1">
                                     
                                 </div>
                             </div>
                             <div class="status_container">
                                 <h2>Status</h2>
                                 <div>
-                                    <p id="atk1"></p>
-                                    <p id="def1"></p>
-                                    <p id="satk1"></p>
-                                    <p id="sdef1"></p>
-                                    <p id="spd1"></p>
+                                    <p id="atk1-1"></p>
+                                    <p id="def1-1"></p>
+                                    <p id="satk1-1"></p>
+                                    <p id="sdef1-1"></p>
+                                    <p id="spd1-1"></p>
                                 </div>
                             </div>
                         </div>
                     </label>
-                    <div class="moves contIEquipe1">
+                    <div class="moves contIEquipe1-1">
                         <h2>Movimentos</h2>
                         <div>
-                            <select id="move1-1"><option value=""></option></select>
-                            <select id="move2-1"><option value=""></option></select>
+                            <select id="move1-1-1"><option value=""></option></select>
+                            <select id="move2-1-1"><option value=""></option></select>
                         </div>
                     </div>
                 </div>
@@ -110,48 +110,48 @@
                 </div>
                 <div class="pokemon_container" id="pokemonDois" >
                     <input type="radio" value="pokemonDois" id="" onclick="selectPokemonContainer(2)" name="pokeCont">
-                    <label for="pokemonDois" class="selecionado equipe2">
-                        <div id="inicial2"><h2>Selecione o pokemon inimigo</h2></div>
-                        <div class="nomeidPokemon contIEquipe2">
+                    <label for="pokemonDois" class="selecionado equipe2-1">
+                        <div id="inicial2-1"><h2>Selecione o pokemon inimigo</h2></div>
+                        <div class="nomeidPokemon contIEquipe2-1">
                             <div>
-                                <h2 id="id2"></h2>
-                                <h2 id="nome2"></h2>
+                                <h2 id="id2-1"></h2>
+                                <h2 id="nome2-1"></h2>
                             </div>
                             <div>
-                                <h2 id= "tipo2"></h2>
+                                <h2 id= "tipo2-1"></h2>
                             </div>
                         </div>
-                        <div class="pokemonImg_container contIEquipe2">
-                            <img src="" id="img2">
+                        <div class="pokemonImg_container contIEquipe2-1">
+                            <img src="" id="img2-1">
                         </div>
-                        <div class="progressVida_container contIEquipe2">
-                            <progress value="" max="" id="vida2" class="contIEquipe2"></progress>
-                            <p id="hp2"></p>
+                        <div class="progressVida_container contIEquipe2-1">
+                            <progress value="" max="" id="vida2-1" class="contIEquipe2-1"></progress>
+                            <p id="hp2-1"></p>
                         </div>
-                        <div class="descEquipe_container contIEquipe2">
+                        <div class="descEquipe_container contIEquipe2-1">
                             <div class="habilidades_container">
                                 <h2>Habilidades</h2>
-                                <div id="habilidades2">
+                                <div id="habilidades2-1">
                                     
                                 </div>
                             </div>
                             <div class="status_container">
                                 <h2>Status</h2>
                                 <div>
-                                    <p id="atk2"></p>
-                                    <p id="def2"></p>
-                                    <p id="satk2"></p>
-                                    <p id="sdef2"></p>
-                                    <p id="spd2"></p>
+                                    <p id="atk2-1"></p>
+                                    <p id="def2-1"></p>
+                                    <p id="satk2-1"></p>
+                                    <p id="sdef2-1"></p>
+                                    <p id="spd2-1"></p>
                                 </div>
                             </div>
                         </div>
                     </label>
-                    <div class="moves contIEquipe2">
+                    <div class="moves contIEquipe2-1">
                         <h2>Movimentos</h2>
                         <div>
-                            <select id="move1-2"><option value=""></option></select>
-                            <select id="move2-2"><option value=""></option></select>
+                            <select id="move1-2-1"><option value=""></option></select>
+                            <select id="move2-2-1"><option value=""></option></select>
                         </div>
                     </div>
                 </div>
@@ -206,9 +206,9 @@
                         <p id="descricao"></p>
                         <button onclick="resetBattle()" id="btnFinalizar">Finalizar</button>
                     </div>
-                    <div class="moves_container">
+                    <div class="moves_container" id="movesContainer">
                         <button class="btn_voltar" onclick="movimentos(2)">&lt;</button>
-                        <button class="movimento" onclick="atcar(0)">
+                        <button class="movimento" onclick="atacar(0)">
                             <h2 id="nomeMove1"></h2>
                             <div>
                                 <p id="tipoMove1"></p>
@@ -253,6 +253,120 @@
                                 <p id="quantSpeed">2x</p>
                             </button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="liga_section">
+            <div class="suaEquipe">
+                <div class="searchPokemon">
+                    <h2>Escolher pokémon</h2>
+                    <div>
+                        <input type="text" id="inputSearchLiga" name="inputSearch" >
+                        <button onclick="searchPokemon(2, 2)">Buscar</button>
+                    </div>
+                </div>
+                <div class="pokemon_container">
+                    <input type="radio" value="pokemonUm" checked name="pokeLiga" onclick="selectPokemonContainer(1)">
+                    <label for="pokemonUm" class="selecionado equipe1-2">
+                        <div id="inicial1-2"><h2>Selecione um pokemon</h2></div>
+                        <div class="nomeidPokemon contIEquipe1-2">
+                            <div>
+                                <h2 id="id1-2"></h2>
+                                <h2 id="nome1-2"></h2>
+                            </div>
+                            <div>
+                                <h2 id="tipo1-2"></h2>
+                            </div>
+                        </div>
+                        <div class="pokemonImg_container contIEquipe1-2">
+                            <img src="" id="img1-2">
+                        </div>
+                        <div class="progressVida_container contIEquipe1-2">
+                            <progress value="" max="" id="vida1-2" class="contIEquipe1-2"></progress>
+                            <p id="hp1-2"></p>
+                        </div>
+                        <div class="descEquipe_container contIEquipe1-2">
+                            <div class="habilidades_container">
+                                <h2>Habilidades</h2>
+                                <div id="habilidades1-2">
+                                    
+                                </div>
+                            </div>
+                            <div class="status_container">
+                                <h2>Status</h2>
+                                <div>
+                                    <p id="atk1-2"></p>
+                                    <p id="def1-2"></p>
+                                    <p id="satk1-2"></p>
+                                    <p id="sdef1-2"></p>
+                                    <p id="spd1-2"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                    <div class="moves contIEquipe1-2">
+                        <h2>Movimentos</h2>
+                        <div>
+                            <select id="move1-1-2"><option value=""></option></select>
+                            <select id="move1-2-2"><option value=""></option></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="pokemon_container">
+                    <input type="radio" value="pokemonDois" name="pokeLiga" onclick="selectPokemonContainer(2)">
+                    <label for="pokemonDois" class="selecionado equipe2-2">
+                        <div id="inicial2-2"><h2>Selecione um pokemon</h2></div>
+                        <div class="nomeidPokemon contIEquipe2-2">
+                            <div>
+                                <h2 id="id2-2"></h2>
+                                <h2 id="nome2-2"></h2>
+                            </div>
+                            <div>
+                                <h2 id="tipo2-2"></h2>
+                            </div>
+                        </div>
+                        <div class="pokemonImg_container contIEquipe2-2">
+                            <img src="" id="img2-2">
+                        </div>
+                        <div class="progressVida_container contIEquipe2-2">
+                            <progress value="" max="" id="vida2-2" class="contIEquipe2-2"></progress>
+                            <p id="hp2-2"></p>
+                        </div>
+                        <div class="descEquipe_container contIEquipe2-2">
+                            <div class="habilidades_container">
+                                <h2>Habilidades</h2>
+                                <div id="habilidades2-2">
+                                    
+                                </div>
+                            </div>
+                            <div class="status_container">
+                                <h2>Status</h2>
+                                <div>
+                                    <p id="atk2-2"></p>
+                                    <p id="def2-2"></p>
+                                    <p id="satk2-2"></p>
+                                    <p id="sdef2-2"></p>
+                                    <p id="spd2-2"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                    <div class="moves contIEquipe2-2">
+                        <h2>Movimentos</h2>
+                        <div>
+                            <select id="move2-1-2"><option value=""></option></select>
+                            <select id="move2-2-2"><option value=""></option></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="oponenteEquipe">
+                <div class="oponente_container">
+                    <h1>Elite Lorelei</h1>
+                    <div class="elite_container">
+                        <img src="./assets/lorelei.png">
                     </div>
                 </div>
             </div>

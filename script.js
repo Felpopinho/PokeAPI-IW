@@ -7,6 +7,7 @@ const altPokemon = document.getElementById("altPokemon")
 const pesoPokemon = document.getElementById("pesoPokemon")
 
 const inputEquipeSearch = document.getElementById("inputSearchEquipe")
+const inputLigaSearch = document.getElementById("inputSearchLiga")
 const pokemonUm = document.getElementById("pokemonUm")
 const pokemonDois = document.getElementById("pokemonDois")
 
@@ -42,12 +43,16 @@ vitoriaMusicArr.forEach(audio => {
     audio.loop = true
 })
 
-async function searchPokemon(section){
+async function searchPokemon(section, n){
 
-    if(iSearch.value === ""){
+    
+
+    if(n===0){
+        var input = iSearch.value
+    }else if(n===1){
         var input = inputEquipeSearch.value
     }else{
-        var input = iSearch.value
+        var input = inputLigaSearch.value
     }
     
     const url = `https://pokeapi.co/api/v2/pokemon/${input.toLowerCase()}`;
@@ -62,10 +67,8 @@ async function searchPokemon(section){
         if(section === 1){
             visualizarPokemon(pokemon);
         } else{
-            adicionarPokemon(pokemon)
+            adicionarPokemon(pokemon, n)
         }
-        iSearch.value = ""
-        inputEquipeSearch = ""
     } catch (error) {
         console.log(error.message);
     }
@@ -120,7 +123,10 @@ async function changePokemon(n){
     }
 }
 
-function adicionarPokemon(pokemon){
+function adicionarPokemon(pokemon, n){
+
+    document.getElementById(`move1-${pokemonAtualCont}-${n}`).innerHTML = "<option></option>"
+    document.getElementById(`move2-${pokemonAtualCont}-${n}`).innerHTML = "<option></option>"
 
     pokemonBatalha[pokemonAtualCont-1] = pokemon
 
@@ -130,34 +136,34 @@ function adicionarPokemon(pokemon){
         pokemonDoisSelecionado = true
     }
 
-    const inicialContainer = document.getElementById(`inicial${pokemonAtualCont}`)
+    const inicialContainer = document.getElementById(`inicial${pokemonAtualCont}-${n}`)
     inicialContainer.style.display = "none"
 
-    const containers = document.querySelectorAll(`.contIEquipe${pokemonAtualCont}`)
+    const containers = document.querySelectorAll(`.contIEquipe${pokemonAtualCont}-${n}`)
     containers.forEach(e =>{
-        e.classList.remove(`contIEquipe${pokemonAtualCont}`)
-        e.classList.add(`contSEquipe${pokemonAtualCont}`)
+        e.classList.remove(`contIEquipe${pokemonAtualCont}-${n}`)
+        e.classList.add(`contSEquipe${pokemonAtualCont}-${n}`)
     })
     
 
-    const habCont = document.getElementById(`habilidades${pokemonAtualCont}`)
+    const habCont = document.getElementById(`habilidades${pokemonAtualCont}-${n}`)
     while (habCont.firstChild) {
         habCont.removeChild(habCont.firstChild);
     }
 
-    setBackground(pokemon, document.querySelector(`.equipe${pokemonAtualCont}`), "");
+    setBackground(pokemon, document.querySelector(`.equipe${pokemonAtualCont}-${n}`), "");
 
-    const id = document.getElementById(`id${pokemonAtualCont}`)
-    const nome = document.getElementById(`nome${pokemonAtualCont}`)
-    const tipo = document.getElementById(`tipo${pokemonAtualCont}`)
-    const img = document.getElementById(`img${pokemonAtualCont}`)
-    const hp = document.getElementById(`hp${pokemonAtualCont}`)
-    const vida = document.getElementById(`vida${pokemonAtualCont}`)
-    const atk = document.getElementById(`atk${pokemonAtualCont}`)
-    const def = document.getElementById(`def${pokemonAtualCont}`)
-    const satk = document.getElementById(`satk${pokemonAtualCont}`)
-    const sdef = document.getElementById(`sdef${pokemonAtualCont}`)
-    const spd = document.getElementById(`spd${pokemonAtualCont}`)
+    const id = document.getElementById(`id${pokemonAtualCont}-${n}`)
+    const nome = document.getElementById(`nome${pokemonAtualCont}-${n}`)
+    const tipo = document.getElementById(`tipo${pokemonAtualCont}-${n}`)
+    const img = document.getElementById(`img${pokemonAtualCont}-${n}`)
+    const hp = document.getElementById(`hp${pokemonAtualCont}-${n}`)
+    const vida = document.getElementById(`vida${pokemonAtualCont}-${n}`)
+    const atk = document.getElementById(`atk${pokemonAtualCont}-${n}`)
+    const def = document.getElementById(`def${pokemonAtualCont}-${n}`)
+    const satk = document.getElementById(`satk${pokemonAtualCont}-${n}`)
+    const sdef = document.getElementById(`sdef${pokemonAtualCont}-${n}`)
+    const spd = document.getElementById(`spd${pokemonAtualCont}-${n}`)
     id.innerText = `${pokemon.id}`
     nome.innerText = `${pokemon.name}`
     tipo.innerText = `${pokemon.types.map(type => type.type.name).join(', ')}`
@@ -174,7 +180,7 @@ function adicionarPokemon(pokemon){
     pokemon.abilities.map(hab => {
         let tHab = document.createElement("p")
         tHab.innerHTML = `${hab.ability.name}`
-        document.getElementById(`habilidades${pokemonAtualCont}`).appendChild(tHab)
+        document.getElementById(`habilidades${pokemonAtualCont}-${n}`).appendChild(tHab)
     })
 
     pokemon.moves.map(async move =>{
@@ -192,12 +198,11 @@ function adicionarPokemon(pokemon){
         } catch (error) {
             alert(error)
         }
-        
         if (movimento.power != null){
             move1.innerHTML = `${move.move.name}`
             move2.innerHTML = `${move.move.name}`
-            document.getElementById(`move1-${pokemonAtualCont}`).appendChild(move1)
-            document.getElementById(`move2-${pokemonAtualCont}`).appendChild(move2)
+            document.getElementById(`move1-${pokemonAtualCont}-${n}`).appendChild(move1)
+            document.getElementById(`move2-${pokemonAtualCont}-${n}`).appendChild(move2)
         }
         if (pokemonUmSelecionado === true && pokemonDoisSelecionado === true){
             document.getElementById("btnStartBattle").style.display = "flex"
@@ -212,7 +217,7 @@ function setBackground(pokemon, element, attack){
     if(attack === ""){
         e = pokemon.types[0].type.name
     } else{
-        e = attack.type.name
+        e = attack
     }
     if(e === "normal"){
         element.style.backgroundColor = "gray"
@@ -254,10 +259,16 @@ function setBackground(pokemon, element, attack){
 function changeSection(n){
     if(n === 1){
         document.querySelector(".batalha_section").style.display = "none"
+        document.querySelector(".liga_section").style.display = "none"
         document.querySelector(".pokedex_section").style.display = "flex"
+    } else if (n===2){
+        document.querySelector(".pokedex_section").style.display = "none"
+        document.querySelector(".liga_section").style.display = "none"
+        document.querySelector(".batalha_section").style.display = "flex"
     } else{
         document.querySelector(".pokedex_section").style.display = "none"
-        document.querySelector(".batalha_section").style.display = "flex"
+        document.querySelector(".batalha_section").style.display = "none"
+        document.querySelector(".liga_section").style.display = "flex"
     }
 }
 
@@ -286,6 +297,8 @@ var atqSeu;
 var atqInimigo;
 var moveSeu;
 var moveInimigo;
+var ppSeu = [];
+var ppInimigo = [];
 
 async function iniciarBatalha(){
     seuTurno = true;
@@ -298,14 +311,12 @@ async function iniciarBatalha(){
     inimigoSpeed = 2;
     inimigoAttack = 2;
     inimigoDefend = 2
-    accuracySeu = pokemonBatalha[0].stats[5].base_stat;
-    evasionSeu = pokemonBatalha[0].stats[4].base_stat;
-    accuracyInimigo = pokemonBatalha[1].stats[5].base_stat
-    evasionInimigo = pokemonBatalha[1].stats[4].base_stat
-    atqSeu = pokemonBatalha[0].stats[1].base_stat;
-    atqInimigo = pokemonBatalha[1].stats[1].base_stat;
+    evasionSeu = 1;
+    evasionInimigo = 1;
     moveSeu = [document.getElementById(`move1-1`).value , document.getElementById(`move2-1`).value];
     moveInimigo  = [document.getElementById(`move1-2`).value, document.getElementById(`move2-2`).value];
+    atqSeu = pokemonBatalha[0].stats[1].base_stat;
+    atqInimigo = pokemonBatalha[1].stats[1].base_stat;
 
     const url = "https://pokeapi.co/api/v2/move//"
 
@@ -330,6 +341,9 @@ async function iniciarBatalha(){
             throw new Error('Move not found');
         }
         moveInimigo[1] = await res4.json();
+
+        ppSeu = [moveSeu[0].pp, moveSeu[1].pp]
+        ppInimigo = [moveInimigo[0].pp, moveInimigo[1].pp]
     } catch (error) {
         alert(error)
     }
@@ -398,6 +412,7 @@ function movimentos(n){
 function atacar(n){
 
     document.getElementById("seuTurno").style.display = "none"
+    document.getElementById("movesContainer").style.display = "none"
     document.getElementById("descAcao").style.display = "flex"
 
     var vida;
@@ -407,7 +422,10 @@ function atacar(n){
         tipoVitima = pokemonBatalha[1].types[0].type.name;
         def = pokemonBatalha[1].stats[2].base_stat;
         sAtq = pokemonBatalha[0].stats[3].base_stat;
-        desc.innerHTML = `Você ataca com o ${pokemonBatalha[0].name}`
+        ppSeu[n] = ppSeu[n] - 1
+        console.log(ppSeu)
+        document.getElementById(`ppMove${n+1}`).innerHTML  = `${ppSeu[n]}/${moveSeu[n].pp}`
+        desc.innerHTML = `Você usa ${moveSeu[n].name} com ${pokemonBatalha[0].name}`
         const textoArray = desc.innerHTML.split('');
         desc.innerHTML = ' ';
 
@@ -423,10 +441,11 @@ function atacar(n){
         tipoVitima = pokemonBatalha[0].types[0].type.name;
         def = pokemonBatalha[0].stats[2].base_stat;
         sAtq = pokemonBatalha[1].stats[3].base_stat;
+        ppInimigo[n] = ppInimigo[n] - 1
         seuTurno = true
     }
 
-    let acerta = acertarAtaque()
+    let acerta = acertarAtaque(n)
 
     setTimeout(() => {
         if (acerta===false){
@@ -464,10 +483,10 @@ function atacar(n){
             
         } else{
             let bonus = setBonus();
-            let stab = pokemonBatalha[0].types[0].type.name === pokemonBatalha[1].types[0].type.name ? 1.5 : 1
+            let stab = moveSeu[n].type.name === pokemonBatalha[1].types[0].type.name ? 1.5 : 1
             let na = Math.floor(Math.random() * (100 - 85 + 1)) + 85
-            let dano = (((((1 * 2/5) + 2) * atqSeu * atqSeu/def)/50 + 2) * stab * bonus * na/100)
-
+            let atkPower = moveSeu[n].power
+            let dano = ((((2*1/5+2) * atqSeu * atkPower/def)/50 + 2) * stab * bonus * na/100)
             desc.innerHTML = `${seuTurno === false ? pokemonBatalha[0].name : pokemonBatalha[1].name} acerta um ataque ${bonus === 1/2 ? "pouco efetivo" : bonus === 2 ? "super efetivo" : bonus === 0 ? "sem efeito" : ""}`
             const textoArray = desc.innerHTML.split('');
             desc.innerHTML = ' ';
@@ -518,13 +537,15 @@ function turnoOponente(){
     document.getElementById("descAcao").style.display = "flex"
 
     var nAleatorio = Math.floor(Math.random()*100)
+    var nMove;
+    if(nAleatorio > 45){nMove = 1}else{nMove = 0}
 
     if(document.getElementById("inimigoBarra").value <= (pokemonBatalha[1].stats[0].base_stat/3)){
-        usarPocao()
+        usarPocao(nMove)
     } else if(nAleatorio >= 70){
-        usarItem()
+        usarItem(nMove)
     }else{
-        desc.innerHTML = `O inimigo ataca com o ${pokemonBatalha[1].name}`
+        desc.innerHTML = `O inimigo usa ${moveInimigo[nMove].name} com o ${pokemonBatalha[1].name}`
         const textoArray = desc.innerHTML.split('');
         desc.innerHTML = ' ';
 
@@ -534,41 +555,35 @@ function turnoOponente(){
             }, 75 * i)
         })
         setTimeout(()=>{
-            atacar()
+            atacar(nMove)
         }, "2000")
     }
 }
 
-function acertarAtaque(){
-    let calcMultiplicador = (Math.random()*(2 - 0.3) + 0.3).toString()
-    let multiplicador = parseFloat(calcMultiplicador.slice(0, 4))
+function acertarAtaque(n){
     var accuracy;
     var evasion;
 
     if(seuTurno===false){
-        accuracy = parseInt(accuracySeu)
+        accuracy = moveSeu[n].accuracy
         evasion = parseInt(evasionInimigo)
     } else{
-        accuracy = parseInt(accuracyInimigo)
+        accuracy = moveInimigo[n].accuracy
         evasion = parseInt(evasionSeu)
     }
 
-    console.log(accuracy)
+    let chanceAcerto = accuracy * (1/1)
 
-    let chanceAcerto = multiplicador * (accuracy/evasion)
+    let randonNumber = Math.floor(Math.random()*100)
 
-    console.log(chanceAcerto)
-
-    if(chanceAcerto >= 1){
-        return true
-    } else{
+    if(chanceAcerto < randonNumber){
         return false
+    } else{
+        return true
     }
 }
 
 function setBonus(){
-    console.log(tipoAtacante)
-    console.log(tipoVitima)
     //normal
     if(tipoAtacante === "normal"){
         if(tipoVitima === "rock" || tipoVitima === "steel"){
@@ -846,7 +861,7 @@ function usarItem(n){
         setTimeout(()=>{
             seuTurno = false;
             return turnoOponente()
-        },"3000")
+        },"4500")
         
     } else{
         var nAleatorio = Math.floor(Math.random()*99)
@@ -893,12 +908,12 @@ function usarItem(n){
             seuTurno = true
             document.getElementById("seuTurno").style.display = "flex"
             document.getElementById("descAcao").style.display = "none"
-        },"3000")
+        },"4500")
     }    
     
 }
 
-function usarPocao(){
+function usarPocao(n){
     document.getElementById("seuTurno").style.display = "none"
     document.querySelector(".mochila_container").style.display = "none"
     document.getElementById("descAcao").style.display = "flex"
@@ -928,11 +943,11 @@ function usarPocao(){
                 document.getElementById("seuBarra").value = parseInt(document.getElementById("seuBarra").value + 20);
                 document.getElementById("seuVidaText").innerHTML = `${document.getElementById("seuBarra").value}/${pokemonBatalha[0].stats[0].base_stat}`
                 turnoOponente()
-            },"3000")
+            },"4500")
         }
     } else{
         if(inimigoPocoes <= 0){
-            desc.innerHTML = `O inimigo ataca com o ${pokemonBatalha[1].name}`
+            desc.innerHTML = `O inimigo usa ${moveInimigo[n].name} com ${pokemonBatalha[1].name}`
             const textoArray = desc.innerHTML.split('');
             desc.innerHTML = ' ';
 
@@ -942,8 +957,8 @@ function usarPocao(){
                 }, 75 * i)
             })
             setTimeout(()=>{
-                atacar()
-            }, "3000")
+                atacar(n)
+            }, "4500")
         } else{
             inimigoPocoes = inimigoPocoes - 1
             desc.innerHTML = `O inimigo usou uma poção no ${pokemonBatalha[1].name}`
@@ -965,7 +980,7 @@ function usarPocao(){
                 document.getElementById("inimigoBarra").value = parseInt(document.getElementById("inimigoBarra").value + 20)
                 document.getElementById("seuTurno").style.display = "flex"
                 document.getElementById("descAcao").style.display = "none"
-            },"3000")
+            },"4500")
         }
     }
 }
