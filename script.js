@@ -917,7 +917,7 @@ function usarPocao(n, s){
     const desc = document.getElementById(`descricao-${s}`)
     document.getElementById(`seuTurno-${s}`).style.display = "none"
     document.querySelector(".mochila_container").style.display = "none"
-    document.getElementById(`descAcao-${n}`).style.display = "flex"
+    document.getElementById(`descAcao-${s}`).style.display = "flex"
 
     if(seuTurno === true){
         if(suasPocoes <= 0){
