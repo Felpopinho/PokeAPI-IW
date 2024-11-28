@@ -199,50 +199,55 @@ function adicionarPokemon(pokemon){
             document.getElementById(`move1-${pokemonAtualCont}`).appendChild(move1)
             document.getElementById(`move2-${pokemonAtualCont}`).appendChild(move2)
         }
-        
+        if (pokemonUmSelecionado === true && pokemonDoisSelecionado === true){
+            document.getElementById("btnStartBattle").style.display = "flex"
+        } else{
+            document.getElementById("btnStartBattle").style.display = "none"
+        }
     })
-
-    if (pokemonUmSelecionado === true && pokemonDoisSelecionado === true){
-        document.getElementById("btnStartBattle").style.display = "flex"
-    } else{
-        document.getElementById("btnStartBattle").style.display = "none"
-    }
-
 }
 
 function setBackground(pokemon, element, attack){
-    if(pokemon.types[0].type.name === "normal" || attack.type.name === "normal" ){
+    var e;
+    if(attack === ""){
+        e = pokemon.types[0].type.name
+    } else{
+        e = attack.type.name
+    }
+    if(e === "normal"){
         element.style.backgroundColor = "gray"
-    } else if (pokemon.types[0].type.name === "fire" || attack.type.name === "fire"){
+    } else if (e === "fire"){
         element.style.backgroundColor = "rgb(185, 105, 0)"
-    }else if (pokemon.types[0].type.name === "water" || attack.type.name === "water"){
+    }else if (e === "water"){
         element.style.backgroundColor = "rgb(0, 97, 187)"
-    }else if (pokemon.types[0].type.name === "electric" || attack.type.name === "electric"){
+    }else if (e === "electric"){
         element.style.backgroundColor = "rgb(207, 176, 0)"
-    }else if (pokemon.types[0].type.name === "grass" || attack.type.name === "grass"){
+    }else if (e === "grass"){
         element.style.backgroundColor = "green"
-    }else if (pokemon.types[0].type.name === "fighting" || attack.type.name === "fighting"){
+    }else if (e === "fighting"){
         element.style.backgroundColor = "darkred"
-    }else if (pokemon.types[0].type.name === "poison" || attack.type.name === "poison"){
+    }else if (e === "poison"){
         element.style.backgroundColor = "purple"
-    }else if (pokemon.types[0].type.name === "ground" || attack.type.name === "ground"){
+    }else if (e === "ground"){
         element.style.backgroundColor = "rgb(109, 82, 47)"
-    }else if (pokemon.types[0].type.name === "flying" || attack.type.name === "flying"){
+    }else if (e === "flying"){
         element.style.backgroundColor = "rgb(199, 199, 199)"
-    }else if (pokemon.types[0].type.name === "psychic" || attack.type.name === "psychic"){
+    }else if (e === "psychic"){
         element.style.backgroundColor = "rgb(160, 74, 182)"
-    }else if (pokemon.types[0].type.name === "bug" || attack.type.name === "bug"){
-        element.style.backgroundColor = "lightgreen"
-    }else if (pokemon.types[0].type.name === "rock" || attack.type.name === "rock"){
+    }else if (e === "bug"){
+        element.style.backgroundColor = "rgb(129, 189, 95)"
+    }else if (e === "rock"){
         element.style.backgroundColor = "rgb(72, 88, 0)"
-    }else if (pokemon.types[0].type.name === "ghost" || attack.type.name === "ghost"){
+    }else if (e === "ghost"){
         element.style.backgroundColor = "rgb(61, 39, 104)"
-    }else if (pokemon.types[0].type.name === "dragon" || attack.type.name === "dragon"){
+    }else if (e === "dragon"){
         element.style.backgroundColor = "blue"
-    }else if (pokemon.types[0].type.name === "steel" || attack.type.name === "steel"){
+    }else if (e === "steel"){
         element.style.backgroundColor = "rgb(59, 59, 59)"
-    }else if (pokemon.types[0].type.name === "fairy" || attack.type.name === "fairy"){
+    }else if (e === "fairy"){
         element.style.backgroundColor = "pink"
+    } else{
+        return
     }
 }
 
