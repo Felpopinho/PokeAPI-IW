@@ -44,9 +44,6 @@ vitoriaMusicArr.forEach(audio => {
 })
 
 async function searchPokemon(section, n){
-
-    
-
     if(n===0){
         var input = iSearch.value
     }else if(n===1){
@@ -205,9 +202,9 @@ function adicionarPokemon(pokemon, n){
             document.getElementById(`move2-${pokemonAtualCont}-${n}`).appendChild(move2)
         }
         if (pokemonUmSelecionado === true && pokemonDoisSelecionado === true){
-            document.getElementById("btnStartBattle").style.display = "flex"
+            document.getElementById(`btnStart${n}`).style.display = "flex"
         } else{
-            document.getElementById("btnStartBattle").style.display = "none"
+            document.getElementById(`btnStart${n}`).style.display = "none"
         }
     })
 }
@@ -261,14 +258,17 @@ function changeSection(n){
         document.querySelector(".batalha_section").style.display = "none"
         document.querySelector(".liga_section").style.display = "none"
         document.querySelector(".pokedex_section").style.display = "flex"
+        pokemonAtualCont = 1
     } else if (n===2){
         document.querySelector(".pokedex_section").style.display = "none"
         document.querySelector(".liga_section").style.display = "none"
         document.querySelector(".batalha_section").style.display = "flex"
+        pokemonAtualCont = 1
     } else{
         document.querySelector(".pokedex_section").style.display = "none"
         document.querySelector(".batalha_section").style.display = "none"
         document.querySelector(".liga_section").style.display = "flex"
+        pokemonAtualCont = 1
     }
 }
 
@@ -300,7 +300,7 @@ var moveInimigo;
 var ppSeu = [];
 var ppInimigo = [];
 
-async function iniciarBatalha(){
+async function iniciarBatalha(n){
     seuTurno = true;
 
     suasPocoes = 2;
@@ -313,8 +313,8 @@ async function iniciarBatalha(){
     inimigoDefend = 2
     evasionSeu = 1;
     evasionInimigo = 1;
-    moveSeu = [document.getElementById(`move1-1`).value , document.getElementById(`move2-1`).value];
-    moveInimigo  = [document.getElementById(`move1-2`).value, document.getElementById(`move2-2`).value];
+    moveSeu = [document.getElementById(`move1-1-${n}`).value , document.getElementById(`move2-1-${n}`).value];
+    moveInimigo  = [document.getElementById(`move1-2-${n}`).value, document.getElementById(`move2-2-${n}`).value];
     atqSeu = pokemonBatalha[0].stats[1].base_stat;
     atqInimigo = pokemonBatalha[1].stats[1].base_stat;
 
@@ -347,8 +347,8 @@ async function iniciarBatalha(){
     } catch (error) {
         alert(error)
     }
-    setBackground("", document.getElementById("tipoMove1"), moveSeu[0].type.name)
-    setBackground("", document.getElementById("tipoMove2"), moveSeu[1].type.name)
+    setBackground("", document.getElementById(`tipoMove1-${n}`), moveSeu[0].type.name)
+    setBackground("", document.getElementById(`tipoMove2-${n}`), moveSeu[1].type.name)
     console.log(moveSeu);
     console.log(moveInimigo);
     
@@ -357,12 +357,12 @@ async function iniciarBatalha(){
         e.style.display = "flex"
     })
 
-    document.getElementById("btnFinalizar").style.display = "none"
+    document.getElementById(`btnFinalizar-${n}`).style.display = "none"
     document.getElementById("seuTurno").style.display = "flex"
-    document.getElementById("descAcao").style.display = "none"
+    document.getElementById(`descAcao-${n}`).style.display = "none"
 
     document.querySelector(".equipe_pokemons").style.display = "none"
-    document.getElementById("btnStartBattle").style.display = "none"
+    document.getElementById(`btnStart${n}`).style.display = "none"
     document.querySelector(".searchPokemon").style.display = "none"
     document.querySelector(".batalha_pokemon").style.display = "flex"
 
@@ -373,23 +373,23 @@ async function iniciarBatalha(){
     batalhaMusicArr[musicBatalhaRandon].currentTime = 0
     batalhaMusicArr[musicBatalhaRandon].play()
 
-    document.getElementById("inimigoImg").src = pokemonInimigo.sprites.other.showdown.front_default
-    document.getElementById("seuImg").src = seuPokemon.sprites.other.showdown.back_default
-    document.getElementById("inimigoVida").innerHTML = pokemonInimigo.name
-    document.getElementById("inimigoTipo").innerHTML = pokemonInimigo.types[0].type.name
-    document.getElementById("seuVida").innerHTML = seuPokemon.name
-    document.getElementById("seuTipo").innerHTML = seuPokemon.types[0].type.name
-    document.getElementById("inimigoBarra").value = `${pokemonInimigo.stats[0].base_stat}`
-    document.getElementById("inimigoBarra").setAttribute("max", `${pokemonInimigo.stats[0].base_stat}`)
-    document.getElementById("seuBarra").value = `${seuPokemon.stats[0].base_stat}`
-    document.getElementById("seuBarra").setAttribute("max", `${seuPokemon.stats[0].base_stat}`)
-    document.getElementById("seuVidaText").innerHTML = `${seuPokemon.stats[0].base_stat}/${seuPokemon.stats[0].base_stat}`
-    document.getElementById("nomeMove1").innerHTML  = `${moveSeu[0].name}`
-    document.getElementById("nomeMove2").innerHTML  = `${moveSeu[1].name}`
-    document.getElementById("tipoMove1").innerHTML  = `${moveSeu[0].type.name}`
-    document.getElementById("tipoMove2").innerHTML  = `${moveSeu[1].type.name}`
-    document.getElementById("ppMove1").innerHTML  = `${moveSeu[0].pp}/${moveSeu[0].pp}`
-    document.getElementById("ppMove2").innerHTML  = `${moveSeu[1].pp}/${moveSeu[1].pp}`
+    document.getElementById(`inimigoImg-${n}`).src = pokemonInimigo.sprites.other.showdown.front_default
+    document.getElementById(`seuImg-${n}`).src = seuPokemon.sprites.other.showdown.back_default
+    document.getElementById(`inimigoVida-${n}`).innerHTML = pokemonInimigo.name
+    document.getElementById(`inimigoTipo-${n}`).innerHTML = pokemonInimigo.types[0].type.name
+    document.getElementById(`seuVida-${n}`).innerHTML = seuPokemon.name
+    document.getElementById(`seuTipo-${n}`).innerHTML = seuPokemon.types[0].type.name
+    document.getElementById(`inimigoBarra-${n}`).value = `${pokemonInimigo.stats[0].base_stat}`
+    document.getElementById(`inimigoBarra-${n}`).setAttribute(`max`, `${pokemonInimigo.stats[0].base_stat}`)
+    document.getElementById(`seuBarra-${n}`).value = `${seuPokemon.stats[0].base_stat}`
+    document.getElementById(`seuBarra-${n}`).setAttribute(`max`, `${seuPokemon.stats[0].base_stat}`)
+    document.getElementById(`seuVidaText-${n}`).innerHTML = `${seuPokemon.stats[0].base_stat}/${seuPokemon.stats[0].base_stat}`
+    document.getElementById(`nomeMove1-${n}`).innerHTML  = `${moveSeu[0].name}`
+    document.getElementById(`nomeMove2-${n}`).innerHTML  = `${moveSeu[1].name}`
+    document.getElementById(`tipoMove1-${n}`).innerHTML  = `${moveSeu[0].type.name}`
+    document.getElementById(`tipoMove2-${n}`).innerHTML  = `${moveSeu[1].type.name}`
+    document.getElementById(`ppMove1-${n}`).innerHTML  = `${moveSeu[0].pp}/${moveSeu[0].pp}`
+    document.getElementById(`ppMove2-${n}`).innerHTML  = `${moveSeu[1].pp}/${moveSeu[1].pp}`
 }
 
 var tipoAtacante;
@@ -397,23 +397,23 @@ var tipoVitima;
 var def;
 var sAtq;
 
-function movimentos(n){
+function movimentos(n, s){
     if(n === 1){
         document.getElementById("seuTurno").style.display = "none"
-        document.getElementById("descAcao").style.display = "none"
+        document.getElementById(`descAcao-${s}`).style.display = "none"
         document.querySelector(".moves_container").style.display = "flex"
     } else{
-        document.getElementById("descAcao").style.display = "none"
+        document.getElementById(`descAcao-${s}`).style.display = "none"
         document.querySelector(".moves_container").style.display = "none"
         document.getElementById("seuTurno").style.display = "flex"
     }
 }
 
-function atacar(n){
+function atacar(n, s){
 
     document.getElementById("seuTurno").style.display = "none"
     document.getElementById("movesContainer").style.display = "none"
-    document.getElementById("descAcao").style.display = "flex"
+    document.getElementById(`descAcao-${s}`).style.display = "flex"
 
     var vida;
     if(seuTurno === true){
@@ -472,11 +472,11 @@ function atacar(n){
                 if (seuTurno === false){
                     document.querySelector(".pokemonInimigo").style.right= "0px"
                     document.getElementById("trainerInimigo").style.left= "0px"
-                    return turnoOponente()
+                    return turnoOponente(s)
                 } else{
                     document.querySelector(".seuPokemon").style.left= "0px"
                     document.getElementById("trainerSeu").style.right= "0px"
-                    document.getElementById("descAcao").style.display = "none"
+                    document.getElementById(`descAcao-${s}`).style.display = "none"
                     document.getElementById("seuTurno").style.display = "flex"
                 }
             }, "4000")
@@ -520,9 +520,9 @@ function atacar(n){
                     }
                 } else{
                     if (seuTurno === false){
-                        turnoOponente()
+                        turnoOponente(s)
                     } else{
-                        document.getElementById("descAcao").style.display = "none"
+                        document.getElementById(`descAcao-${s}`).style.display = "none"
                         document.getElementById("seuTurno").style.display = "flex"
                     }
                 }
@@ -532,18 +532,18 @@ function atacar(n){
 
 }
 
-function turnoOponente(){
+function turnoOponente(s){
     document.getElementById("seuTurno").style.display = "none"
-    document.getElementById("descAcao").style.display = "flex"
+    document.getElementById(`descAcao-${s}`).style.display = "flex"
 
     var nAleatorio = Math.floor(Math.random()*100)
     var nMove;
     if(nAleatorio > 45){nMove = 1}else{nMove = 0}
 
     if(document.getElementById("inimigoBarra").value <= (pokemonBatalha[1].stats[0].base_stat/3)){
-        usarPocao(nMove)
+        usarPocao(nMove, s)
     } else if(nAleatorio >= 70){
-        usarItem(nMove)
+        usarItem(nMove, s)
     }else{
         desc.innerHTML = `O inimigo usa ${moveInimigo[nMove].name} com o ${pokemonBatalha[1].name}`
         const textoArray = desc.innerHTML.split('');
@@ -555,7 +555,7 @@ function turnoOponente(){
             }, 75 * i)
         })
         setTimeout(()=>{
-            atacar(nMove)
+            atacar(nMove, s)
         }, "2000")
     }
 }
@@ -798,22 +798,22 @@ function setBonus(){
 
 }
 
-function mochila(n){
+function mochila(n, s){
     if(n === 1){
         document.getElementById("seuTurno").style.display = "none"
-        document.getElementById("descAcao").style.display = "none"
+        document.getElementById(`descAcao-${s}`).style.display = "none"
         document.querySelector(".mochila_container").style.display = "grid"
     } else{
-        document.getElementById("descAcao").style.display = "none"
+        document.getElementById(`descAcao-${s}`).style.display = "none"
         document.querySelector(".mochila_container").style.display = "none"
         document.getElementById("seuTurno").style.display = "flex"
     }
 }
 
-function usarItem(n){
+function usarItem(n, s){
     document.getElementById("seuTurno").style.display = "none"
     document.querySelector(".mochila_container").style.display = "none"
-    document.getElementById("descAcao").style.display = "flex"
+    document.getElementById(`descAcao-${s}`).style.display = "flex"
 
     var item
 
@@ -907,16 +907,16 @@ function usarItem(n){
         setTimeout(()=>{
             seuTurno = true
             document.getElementById("seuTurno").style.display = "flex"
-            document.getElementById("descAcao").style.display = "none"
+            document.getElementById(`descAcao-${n}`).style.display = "none"
         },"4500")
     }    
     
 }
 
-function usarPocao(n){
+function usarPocao(n, s){
     document.getElementById("seuTurno").style.display = "none"
     document.querySelector(".mochila_container").style.display = "none"
-    document.getElementById("descAcao").style.display = "flex"
+    document.getElementById(`descAcao-${n}`).style.display = "flex"
 
     if(seuTurno === true){
         if(suasPocoes <= 0){
@@ -957,7 +957,7 @@ function usarPocao(n){
                 }, 75 * i)
             })
             setTimeout(()=>{
-                atacar(n)
+                atacar(n, s)
             }, "4500")
         } else{
             inimigoPocoes = inimigoPocoes - 1
@@ -979,7 +979,7 @@ function usarPocao(n){
                 seuTurno = true
                 document.getElementById("inimigoBarra").value = parseInt(document.getElementById("inimigoBarra").value + 20)
                 document.getElementById("seuTurno").style.display = "flex"
-                document.getElementById("descAcao").style.display = "none"
+                document.getElementById(`descAcao-${n}`).style.display = "none"
             },"4500")
         }
     }
@@ -994,7 +994,7 @@ function semItem(item){
         }, 75 * i)
     })
     setTimeout(()=>{
-        document.getElementById("descAcao").style.display = "none"
+        document.getElementById(`descAcao-${n}`).style.display = "none"
         document.querySelector(".mochila_container").style.display = "none"
         document.getElementById("seuTurno").style.display = "flex"
     },"3000")
@@ -1013,12 +1013,12 @@ function fimBatalha(vencedor){
     document.getElementById("pokemonVencedor").src = vencedor.sprites.other.showdown.front_default
 
     document.getElementById("seuTurno").style.display = "none"
-    document.getElementById("descAcao").style.display = "flex"
+    document.getElementById(`descAcao-${n}`).style.display = "flex"
 
     document.querySelector(".display_pokemons").style.backgroundImage = "url('./assets/background_pokemon.avif')"
     document.querySelector(".display_pokemons").style.backgroundPosition = "bottom"
 
-    document.getElementById("btnFinalizar").style.display = "block"
+    document.getElementById(`btnFinalizar-${n}`).style.display = "block"
 
     batalhaMusicArr[musicBatalhaRandon].pause()
 
@@ -1049,12 +1049,12 @@ function fimBatalha(vencedor){
     }
 }
 
-function resetBattle(){
+function resetBattle(n){
     vitoriaMusicArr[musicVitoriaRandon].pause()
     derrotaMusic.pause()
 
     document.querySelector(".batalha_pokemon").style.display = "none"
-    document.getElementById("btnStartBattle").style.display = "flex"
+    document.getElementById(`btnStart${n}`).style.display = "flex"
     document.querySelector(".equipe_pokemons").style.display = "flex"
     document.querySelector(".searchPokemon").style.display = "block"
 
@@ -1062,7 +1062,7 @@ function resetBattle(){
     document.getElementById("pokemonVencedor").src = ""
 
     document.getElementById("seuTurno").style.display = "none"
-    document.getElementById("descAcao").style.display = "none"
+    document.getElementById(`descAcao-${n}`).style.display = "none"
 
     document.querySelector(".display_pokemons").style.backgroundImage = "url('./assets/d9spuwer2c491.webp')"
     document.querySelector(".display_pokemons").style.backgroundPosition = "center"

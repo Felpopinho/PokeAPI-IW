@@ -319,8 +319,10 @@ main{
     height: 100px;
     border-radius: 20px;
     position: absolute;
-    bottom: 10%;
+    bottom: 5%;
     z-index: 4;
+    left: 50%;
+    transform: translate(-50%);
 }
 .btnStartBattle button{
     width: 100px;
@@ -617,6 +619,7 @@ main{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    position: relative;
 }
 .oponenteEquipe{
     width: 35%;

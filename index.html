@@ -156,101 +156,101 @@
                     </div>
                 </div>
             </div>
-            <div class="btnStartBattle" id="btnStartBattle">
-                <button onclick="iniciarBatalha()">Iniciar batalha</button>
+            <div class="btnStartBattle" id="btnStart1">
+                <button onclick="iniciarBatalha(1)">Iniciar batalha</button>
             </div>
 
             <div class="batalha_pokemon">
                 <div class="display_pokemons">
                     <div class="pokemonInimigo batalha">
                         <img src="" id="inimigoImg">
-                        <img src="./assets/ataqueGif.gif" class="ataque_gif" id="gifatkInimigo">
-                        <img src="./assets/inimigoGif.gif" class="trainer" id="trainerInimigo">
+                        <img src="./assets/ataqueGif.gif" class="ataque_gif" id="gifatkInimigo-1">
+                        <img src="./assets/inimigoGif.gif" class="trainer" id="trainerInimigo-1">
                     </div>
                     <div class="seuPokemon batalha">
                         <img src="" id="seuImg">
-                        <img src="./assets/ataqueGif.gif" class="ataque_gif" id="gifatkSeu">
-                        <img src="./assets/treinador.png" class="trainer" id="trainerSeu">
+                        <img src="./assets/ataqueGif.gif" class="ataque_gif" id="gifatkSeu-1">
+                        <img src="./assets/treinador.png" class="trainer" id="trainerSeu-1">
                     </div>
                     <div class="status_inimigo batalha">
                         <div class="infoPoke">
-                            <h1 id="inimigoVida"></h1>
-                            <h1 id="inimigoTipo"></h1>
+                            <h1 id="inimigoVida-1"></h1>
+                            <h1 id="inimigoTipo-1"></h1>
                         </div>
                         <div class="Vida">
-                            <progress value="" max="" id="inimigoBarra"></progress>
+                            <progress value="" max="" id="inimigoBarra-1"></progress>
                         </div>
                     </div>
                     <div class="status_seuPokemon batalha">
                         <div class="infoPoke">
-                            <h1 id="seuVida"></h1>
-                            <h1 id="seuTipo"></h1>
+                            <h1 id="seuVida-1"></h1>
+                            <h1 id="seuTipo-1"></h1>
                         </div>
                         <div class="Vida">
-                            <progress value="" max="" id="seuBarra"></progress>
-                            <p id="seuVidaText"></p>
+                            <progress value="" max="" id="seuBarra-1"></progress>
+                            <p id="seuVidaText-1"></p>
                         </div>
                     </div>
-                    <div class="fim_batalha" id="fimBatalha">
+                    <div class="fim_batalha" id="fimBatalha-1">
                         <div>
-                            <img src="" id="pokemonVencedor">
+                            <img src="" id="pokemonVencedor-1">
                         </div>
                     </div>
                 </div>
                 <div class="acoes_pokemon">
-                    <div id="seuTurno" class="seu_turno">
-                        <button onclick="movimentos(1)">Atacar</button>
-                        <button onclick="mochila(1)">Mochila</button>
+                    <div id="seuTurno-1" class="seu_turno">
+                        <button onclick="movimentos(1, 1)">Atacar</button>
+                        <button onclick="mochila(1, 1)">Mochila</button>
                     </div>
-                    <div class="desc_acao" id="descAcao">
-                        <p id="descricao"></p>
-                        <button onclick="resetBattle()" id="btnFinalizar">Finalizar</button>
+                    <div class="desc_acao" id="descAcao-1">
+                        <p id="descricao-1"></p>
+                        <button onclick="resetBattle(1)" id="btnFinalizar-1">Finalizar</button>
                     </div>
-                    <div class="moves_container" id="movesContainer">
-                        <button class="btn_voltar" onclick="movimentos(2)">&lt;</button>
-                        <button class="movimento" onclick="atacar(0)">
-                            <h2 id="nomeMove1"></h2>
+                    <div class="moves_container" id="movesContainer-1">
+                        <button class="btn_voltar" onclick="movimentos(2, 1)">&lt;</button>
+                        <button class="movimento" onclick="atacar(0, 1)">
+                            <h2 id="nomeMove1-1"></h2>
                             <div>
-                                <p id="tipoMove1"></p>
-                                <span id="ppMove1"></p>
+                                <p id="tipoMove1-1"></p>
+                                <span id="ppMove1-1"></p>
                             </div>
                         </button>
-                        <button class="movimento" onclick="atacar(1)">
-                            <h2 id="nomeMove2"></h2>
+                        <button class="movimento" onclick="atacar(1, 1)">
+                            <h2 id="nomeMove2-1"></h2>
                             <div>
-                                <p id="tipoMove2"></p>
-                                <span id="ppMove2"></p>
+                                <p id="tipoMove2-1"></p>
+                                <span id="ppMove2-1"></p>
                             </div>
                         </button>
                     </div>
                     <div class="mochila_container">
-                        <button class="btn_voltar" onclick="mochila(2)">&lt;</button>
+                        <button class="btn_voltar" onclick="mochila(2, 1)">&lt;</button>
                         <div class="item_container">
-                            <button onclick="usarPocao()">
+                            <button onclick="usarPocao(1)">
                                 <img src="./assets/potion.png" alt="">
                                 <span>Poção</span>
-                                <p id="quantPocoes">2x</p>
+                                <p id="quantPocoes-1">2x</p>
                             </button>
                         </div>
                         <div class="item_container">
-                            <button onclick="usarItem(2)">
+                            <button onclick="usarItem(2, 1)">
                                 <img src="./assets/x_attack.png" alt="">
                                 <span>X Attack</span>
-                                <p id="quantAttack">2x</p>
+                                <p id="quantAttack-1">2x</p>
                             </button>
                         </div>
                         <div class="item_container">
-                            <button onclick="usarItem(3)">
+                            <button onclick="usarItem(3, 1)">
                                 <img src="./assets/x_special.png" alt="">
                                 <span>X S. Defend</span>
-                                <p id="quantDefend">2x</p>
+                                <p id="quantDefend-1">2x</p>
                             </button>
                         </div>
                         <div class="item_container">
-                            <button onclick="usarItem(1)">
+                            <button onclick="usarItem(1, 1)">
                                 <img src="./assets/x_speed.png" alt="">
                                 <span>X S. Speed</span>
-                                <p id="quantSpeed">2x</p>
+                                <p id="quantSpeed-1">2x</p>
                             </button>
                         </div>
                     </div>
@@ -309,7 +309,7 @@
                         <h2>Movimentos</h2>
                         <div>
                             <select id="move1-1-2"><option value=""></option></select>
-                            <select id="move1-2-2"><option value=""></option></select>
+                            <select id="move2-1-2"><option value=""></option></select>
                         </div>
                     </div>
                 </div>
@@ -355,13 +355,15 @@
                     <div class="moves contIEquipe2-2">
                         <h2>Movimentos</h2>
                         <div>
-                            <select id="move2-1-2"><option value=""></option></select>
+                            <select id="move1-2-2"><option value=""></option></select>
                             <select id="move2-2-2"><option value=""></option></select>
                         </div>
                     </div>
                 </div>
+                <div class="btnStartBattle" id="btnStart2">
+                    <button onclick="iniciarBatalha(2)">Iniciar batalha</button>
+                </div>
             </div>
-
             <div class="oponenteEquipe">
                 <div class="oponente_container">
                     <h1>Elite Lorelei</h1>
