@@ -26,11 +26,15 @@ var potionSound = new Audio("./assets/potionSound.mp3")
 var batalhaMusic1 = new Audio("./assets/batalha1.mp3")
 var batalhaMusic2 = new Audio("./assets/batalha2.mp3")
 var batalhaMusic3 = new Audio("./assets/batalha3.mp3")
+var batalhaMusic4 = new Audio("./assets/batalha4.mp3")
 var vitoriaMusic1 = new Audio("./assets/vitoriaMusic1.mp3")
 var vitoriaMusic2 = new Audio("./assets/vitoriaMusic2.mp3")
 var vitoriaMusic3 = new Audio("./assets/vitoriaMusic3.mp3")
+var vitoriaMusic4 = new Audio("./assets/vitoriaMusic4.mp3")
 var derrotaMusic = new Audio("./assets/derrotaMusic.mp3")
 derrotaMusic.loop = true
+batalhaMusic4.loop = true
+vitoriaMusic4.loop = true
 
 const batalhaMusicArr = [batalhaMusic1, batalhaMusic2, batalhaMusic3]
 batalhaMusicArr.forEach(audio => {
@@ -41,13 +45,34 @@ vitoriaMusicArr.forEach(audio => {
     audio.loop = true
 })
 
-async function searchPokemon(section, n){
-    if(n===0){
+const pokemonLorelei = []
+const pokemonBruno = []
+const pokemonAgatha = []
+const pokemonLance = []
+
+const elitePokemons = [pokemonLorelei,pokemonBruno,pokemonAgatha,pokemonLance]
+
+async function setElitePokemons(pokemon){
+    if(pokemon.name === "jynx" || pokemon.name === "lapras"){
+        pokemonLorelei.push(pokemon)
+    } else if(pokemon.name === "onix" || pokemon.name === "machamp"){
+        pokemonBruno.push(pokemon)
+    } else if(pokemon.name === "arbok" || pokemon.name === "gengar"){
+        pokemonAgatha.push(pokemon)
+    } else{
+        pokemonLance.push(pokemon)
+    }
+}
+
+async function searchPokemon(section, s, n){
+    if(s===0){
         var input = iSearch.value
-    }else if(n===1){
+    }else if(s===1){
         var input = inputEquipeSearch.value
-    }else{
+    }else if (s===2){
         var input = inputLigaSearch.value
+    }else{
+        var input = n
     }
     
     const url = `https://pokeapi.co/api/v2/pokemon/${input.toLowerCase()}`;
@@ -61,8 +86,10 @@ async function searchPokemon(section, n){
         console.log(pokemon);
         if(section === 1){
             visualizarPokemon(pokemon);
+        } else if(section === 2){
+            adicionarPokemon(pokemon, s)
         } else{
-            adicionarPokemon(pokemon, n)
+            setElitePokemons(pokemon)
         }
     } catch (error) {
         console.log(error.message);
@@ -78,6 +105,15 @@ async function searchPokemon(section, n){
         document.getElementById("proxPokemon").removeAttribute("disabled")
     }
 }
+
+searchPokemon("", "", "Jynx")
+searchPokemon("", "", "Lapras")
+searchPokemon("", "", "Onix")
+searchPokemon("", "", "Machamp")
+searchPokemon("", "", "Arbok")
+searchPokemon("", "", "Gengar")
+searchPokemon("", "", "Dragonite")
+searchPokemon("", "", "Gyarados")
 
 function visualizarPokemon(data){
     idPokemon.innerText = `${data.id}`
@@ -298,7 +334,68 @@ var moveInimigo;
 var ppSeu = [];
 var ppInimigo = [];
 
+async function iniciarLiga(n){
+    var pokemonInimigoUm = elitePokemons[n[0]]
+    var pokemonInimigoDois = elitePokemons[n[1]]
+    var seuPokemonUm = pokemonBatalha[0]
+    var seuPokemonDois = pokemonBatalha[1]
+    var moveInimigoUm = []
+    var moveInimigoDois = []
+
+    const url = "https://pokeapi.co/api/v2/move//"
+
+    batalhaMusic4.play()
+
+    try {
+        const res1 = await fetch(url+(n===1?"psychic":n===2?"":n===3?"":""))
+        if (!res1.ok) {
+            throw new Error('Move not found');
+        }
+        moveInimigoUm[0] = await res1.json();
+        const res2 = await fetch(url+(n===1?"ice-beam":n===2?"":n===3?"":""))
+        if (!res2.ok) {
+            throw new Error('Move not found');
+        }
+        moveInimigoUm[1] = await res2.json();
+        const res3 = await fetch(url+(n===1?"water-pulse":n===2?"":n===3?"":""))
+        if (!res1.ok) {
+            throw new Error('Move not found');
+        }
+        moveInimigo[0] = await res3.json();
+        const res4 = await fetch(url+(n===1?"thunderbolt":n===2?"":n===3?"":""))
+        if (!res2.ok) {
+            throw new Error('Move not found');
+        }
+        moveInimigo[1] = await res4.json();
+
+        ppSeu = [moveSeu[0].pp, moveSeu[1].pp]
+        ppInimigo = [moveInimigo[0].pp, moveInimigo[1].pp]
+    } catch (error) {
+        alert(error)
+    }
+
+    document.getElementById(`inimigoImg-2`).src = pokemonInimigoUm.sprites.other.showdown.front_default
+    document.getElementById(`seuImg-2`).src = seuPokemonUm.sprites.other.showdown.back_default
+    document.getElementById(`inimigoVida-2`).innerHTML = pokemonInimigoUm.name
+    document.getElementById(`inimigoTipo-2`).innerHTML = pokemonInimigoUm.types[0].type.name
+    document.getElementById(`seuVida-2`).innerHTML = seuPokemonUm.name
+    document.getElementById(`seuTipo-2`).innerHTML = seuPokemonUm.types[0].type.name
+    document.getElementById(`inimigoBarra-2`).value = `${pokemonInimigoUm.stats[0].base_stat}`
+    document.getElementById(`inimigoBarra-2`).setAttribute(`max`, `${pokemonInimigoUm.stats[0].base_stat}`)
+    document.getElementById(`seuBarra-2`).value = `${seuPokemonUm.stats[0].base_stat}`
+    document.getElementById(`seuBarra-2`).setAttribute(`max`, `${seuPokemonUm.stats[0].base_stat}`)
+    document.getElementById(`seuVidaText-2`).innerHTML = `${seuPokemonUm.stats[0].base_stat}/${seuPokemonUm.stats[0].base_stat}`
+    document.getElementById(`nomeMove1-2`).innerHTML  = `${moveSeu[0].name}`
+    document.getElementById(`nomeMove2-2`).innerHTML  = `${moveSeu[1].name}`
+    document.getElementById(`tipoMove1-2`).innerHTML  = `${moveSeu[0].type.name}`
+    document.getElementById(`tipoMove2-2`).innerHTML  = `${moveSeu[1].type.name}`
+    document.getElementById(`ppMove1-2`).innerHTML  = `${moveSeu[0].pp}/${moveSeu[0].pp}`
+    document.getElementById(`ppMove2-2`).innerHTML  = `${moveSeu[1].pp}/${moveSeu[1].pp}`
+
+}
+
 async function iniciarBatalha(n){
+
     seuTurno = true;
 
     suasPocoes = 2;
@@ -345,6 +442,7 @@ async function iniciarBatalha(n){
     } catch (error) {
         alert(error)
     }
+    }
     setBackground("", document.getElementById(`tipoMove1-${n}`), moveSeu[0].type.name)
     setBackground("", document.getElementById(`tipoMove2-${n}`), moveSeu[1].type.name)
     console.log(moveSeu);
@@ -359,35 +457,40 @@ async function iniciarBatalha(n){
     document.getElementById(`seuTurno-${n}`).style.display = "flex"
     document.getElementById(`descAcao-${n}`).style.display = "none"
 
-    document.querySelector(".equipe_pokemons").style.display = "none"
+    document.getElementById(`equipePokemon-${n}`).style.display = "none"
     document.getElementById(`btnStart${n}`).style.display = "none"
-    document.querySelector(".searchPokemon").style.display = "none"
-    document.querySelector(".batalha_pokemon").style.display = "flex"
+    document.getElementById(`searchPokemon-${n}`).style.display = "none"
+    document.getElementById(`batalhaPokemon-${n}`).style.display = "flex"
 
-    let seuPokemon = pokemonBatalha[0]
-    let pokemonInimigo = pokemonBatalha[1]
+    if(n===2){
+        document.querySelector(".oponenteEquipe").style.display = "none"
+        iniciarLiga()
+    } else{
+        var seuPokemon = pokemonBatalha[0]
+        var pokemonInimigo = pokemonBatalha[1]
 
-    musicBatalhaRandon = Math.floor(Math.random()*(2.9 - 0)+0)
-    batalhaMusicArr[musicBatalhaRandon].currentTime = 0
-    batalhaMusicArr[musicBatalhaRandon].play()
+        musicBatalhaRandon = Math.floor(Math.random()*(2.9 - 0)+0)
+        batalhaMusicArr[musicBatalhaRandon].currentTime = 0
+        batalhaMusicArr[musicBatalhaRandon].play()
 
-    document.getElementById(`inimigoImg-${n}`).src = pokemonInimigo.sprites.other.showdown.front_default
-    document.getElementById(`seuImg-${n}`).src = seuPokemon.sprites.other.showdown.back_default
-    document.getElementById(`inimigoVida-${n}`).innerHTML = pokemonInimigo.name
-    document.getElementById(`inimigoTipo-${n}`).innerHTML = pokemonInimigo.types[0].type.name
-    document.getElementById(`seuVida-${n}`).innerHTML = seuPokemon.name
-    document.getElementById(`seuTipo-${n}`).innerHTML = seuPokemon.types[0].type.name
-    document.getElementById(`inimigoBarra-${n}`).value = `${pokemonInimigo.stats[0].base_stat}`
-    document.getElementById(`inimigoBarra-${n}`).setAttribute(`max`, `${pokemonInimigo.stats[0].base_stat}`)
-    document.getElementById(`seuBarra-${n}`).value = `${seuPokemon.stats[0].base_stat}`
-    document.getElementById(`seuBarra-${n}`).setAttribute(`max`, `${seuPokemon.stats[0].base_stat}`)
-    document.getElementById(`seuVidaText-${n}`).innerHTML = `${seuPokemon.stats[0].base_stat}/${seuPokemon.stats[0].base_stat}`
-    document.getElementById(`nomeMove1-${n}`).innerHTML  = `${moveSeu[0].name}`
-    document.getElementById(`nomeMove2-${n}`).innerHTML  = `${moveSeu[1].name}`
-    document.getElementById(`tipoMove1-${n}`).innerHTML  = `${moveSeu[0].type.name}`
-    document.getElementById(`tipoMove2-${n}`).innerHTML  = `${moveSeu[1].type.name}`
-    document.getElementById(`ppMove1-${n}`).innerHTML  = `${moveSeu[0].pp}/${moveSeu[0].pp}`
-    document.getElementById(`ppMove2-${n}`).innerHTML  = `${moveSeu[1].pp}/${moveSeu[1].pp}`
+        document.getElementById(`inimigoImg-${n}`).src = pokemonInimigo.sprites.other.showdown.front_default
+        document.getElementById(`seuImg-${n}`).src = seuPokemon.sprites.other.showdown.back_default
+        document.getElementById(`inimigoVida-${n}`).innerHTML = pokemonInimigo.name
+        document.getElementById(`inimigoTipo-${n}`).innerHTML = pokemonInimigo.types[0].type.name
+        document.getElementById(`seuVida-${n}`).innerHTML = seuPokemon.name
+        document.getElementById(`seuTipo-${n}`).innerHTML = seuPokemon.types[0].type.name
+        document.getElementById(`inimigoBarra-${n}`).value = `${pokemonInimigo.stats[0].base_stat}`
+        document.getElementById(`inimigoBarra-${n}`).setAttribute(`max`, `${pokemonInimigo.stats[0].base_stat}`)
+        document.getElementById(`seuBarra-${n}`).value = `${seuPokemon.stats[0].base_stat}`
+        document.getElementById(`seuBarra-${n}`).setAttribute(`max`, `${seuPokemon.stats[0].base_stat}`)
+        document.getElementById(`seuVidaText-${n}`).innerHTML = `${seuPokemon.stats[0].base_stat}/${seuPokemon.stats[0].base_stat}`
+        document.getElementById(`nomeMove1-${n}`).innerHTML  = `${moveSeu[0].name}`
+        document.getElementById(`nomeMove2-${n}`).innerHTML  = `${moveSeu[1].name}`
+        document.getElementById(`tipoMove1-${n}`).innerHTML  = `${moveSeu[0].type.name}`
+        document.getElementById(`tipoMove2-${n}`).innerHTML  = `${moveSeu[1].type.name}`
+        document.getElementById(`ppMove1-${n}`).innerHTML  = `${moveSeu[0].pp}/${moveSeu[0].pp}`
+        document.getElementById(`ppMove2-${n}`).innerHTML  = `${moveSeu[1].pp}/${moveSeu[1].pp}`
+    }
 }
 
 var tipoAtacante;

@@ -50,14 +50,14 @@
 
 
         <section class="batalha_section">
-            <div class="searchPokemon">
+            <div class="searchPokemon" id="searchPokemon-1">
                 <h2>Escolher pokémon</h2>
                 <div>
                     <input type="text" id="inputSearchEquipe" name="inputSearch">
                     <button onclick="searchPokemon(2, 1)">Buscar</button>
                 </div>
             </div>
-            <div class="equipe_pokemons">
+            <div class="equipe_pokemons" id="equipePokemon-1">
                 <div class="pokemon_container" id="pokemonUm" >
                     <input type="radio" value="pokemonUm" onclick="selectPokemonContainer(1)" checked name="pokeCont">
                     <label for="pokemonUm" class="selecionado equipe1-1">
@@ -160,7 +160,7 @@
                 <button onclick="iniciarBatalha(1)">Iniciar batalha</button>
             </div>
 
-            <div class="batalha_pokemon">
+            <div class="batalha_pokemon" id="batalhaPokemon-1">
                 <div class="display_pokemons">
                     <div class="pokemonInimigo batalha">
                         <img src="" id="inimigoImg-1">
@@ -258,8 +258,8 @@
             </div>
         </section>
         <section class="liga_section">
-            <div class="suaEquipe">
-                <div class="searchPokemon">
+            <div class="suaEquipe" id="equipePokemon-2">
+                <div class="searchPokemon" id="searchPokemon-2">
                     <h2>Escolher pokémon</h2>
                     <div>
                         <input type="text" id="inputSearchLiga" name="inputSearch" >
@@ -369,6 +369,102 @@
                     <h1>Elite Lorelei</h1>
                     <div class="elite_container">
                         <img src="./assets/lorelei.png">
+                    </div>
+                </div>
+            </div>
+            <div class="batalha_pokemon" id="batalhaPokemon-2">
+                <div class="display_pokemons">
+                    <div class="pokemonInimigo batalha">
+                        <img src="" id="inimigoImg-2">
+                        <img src="./assets/ataqueGif.gif" class="ataque_gif" id="gifatkInimigo-2">
+                        <img src="./assets/inimigoGif.gif" class="trainer" id="trainerInimigo-2">
+                    </div>
+                    <div class="seuPokemon batalha">
+                        <img src="" id="seuImg-2">
+                        <img src="./assets/ataqueGif.gif" class="ataque_gif" id="gifatkSeu-2">
+                        <img src="./assets/treinador.png" class="trainer" id="trainerSeu-2">
+                    </div>
+                    <div class="status_inimigo batalha">
+                        <div class="infoPoke">
+                            <h1 id="inimigoVida-2"></h1>
+                            <h1 id="inimigoTipo-2"></h1>
+                        </div>
+                        <div class="Vida">
+                            <progress value="" max="" id="inimigoBarra-2"></progress>
+                        </div>
+                    </div>
+                    <div class="status_seuPokemon batalha">
+                        <div class="infoPoke">
+                            <h1 id="seuVida-2"></h1>
+                            <h1 id="seuTipo-2"></h1>
+                        </div>
+                        <div class="Vida">
+                            <progress value="" max="" id="seuBarra-2"></progress>
+                            <p id="seuVidaText-2"></p>
+                        </div>
+                    </div>
+                    <div class="fim_batalha" id="fimBatalha-2">
+                        <div>
+                            <img src="" id="pokemonVencedor-2">
+                        </div>
+                    </div>
+                </div>
+                <div class="acoes_pokemon">
+                    <div id="seuTurno-2" class="seu_turno">
+                        <button onclick="movimentos(1, 1)">Atacar</button>
+                        <button onclick="mochila(1, 1)">Mochila</button>
+                    </div>
+                    <div class="desc_acao" id="descAcao-2">
+                        <p id="descricao-2"></p>
+                        <button onclick="resetBattle(1)" id="btnFinalizar-2">Finalizar</button>
+                    </div>
+                    <div class="moves_container" id="movesContainer-2">
+                        <button class="btn_voltar" onclick="movimentos(2, 1)">&lt;</button>
+                        <button class="movimento" onclick="atacar(0, 1)">
+                            <h2 id="nomeMove1-2"></h2>
+                            <div>
+                                <p id="tipoMove1-2"></p>
+                                <span id="ppMove1-2"></p>
+                            </div>
+                        </button>
+                        <button class="movimento" onclick="atacar(1, 1)">
+                            <h2 id="nomeMove2-2"></h2>
+                            <div>
+                                <p id="tipoMove2-2"></p>
+                                <span id="ppMove2-2"></p>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="mochila_container">
+                        <button class="btn_voltar" onclick="mochila(2, 1)">&lt;</button>
+                        <div class="item_container">
+                            <button onclick="usarPocao(1)">
+                                <img src="./assets/potion.png" alt="">
+                                <span>Poção</span>
+                                <p id="quantPocoes-2">2x</p>
+                            </button>
+                        </div>
+                        <div class="item_container">
+                            <button onclick="usarItem(2, 1)">
+                                <img src="./assets/x_attack.png" alt="">
+                                <span>X Attack</span>
+                                <p id="quantAttack-2">2x</p>
+                            </button>
+                        </div>
+                        <div class="item_container">
+                            <button onclick="usarItem(3, 1)">
+                                <img src="./assets/x_special.png" alt="">
+                                <span>X S. Defend</span>
+                                <p id="quantDefend-2">2x</p>
+                            </button>
+                        </div>
+                        <div class="item_container">
+                            <button onclick="usarItem(1, 1)">
+                                <img src="./assets/x_speed.png" alt="">
+                                <span>X S. Speed</span>
+                                <p id="quantSpeed-2">2x</p>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
