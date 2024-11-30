@@ -162,12 +162,12 @@
 
             <div class="batalha_pokemon" id="batalhaPokemon-1">
                 <div class="display_pokemons">
-                    <div class="pokemonInimigo batalha">
+                    <div class="pokemonInimigo batalha" id="pokemonInimigo-1">
                         <img src="" id="inimigoImg-1">
                         <img src="./assets/ataqueGif.gif" class="ataque_gif" id="gifatkInimigo-1">
                         <img src="./assets/inimigoGif.gif" class="trainer" id="trainerInimigo-1">
                     </div>
-                    <div class="seuPokemon batalha">
+                    <div class="seuPokemon batalha" id="seuPokemon-1">
                         <img src="" id="seuImg-1">
                         <img src="./assets/ataqueGif.gif" class="ataque_gif" id="gifatkSeu-1">
                         <img src="./assets/treinador.png" class="trainer" id="trainerSeu-1">
@@ -223,10 +223,10 @@
                             </div>
                         </button>
                     </div>
-                    <div class="mochila_container">
+                    <div class="mochila_container" id="mochilaContainer-1">
                         <button class="btn_voltar" onclick="mochila(2, 1)">&lt;</button>
                         <div class="item_container">
-                            <button onclick="usarPocao(1)">
+                            <button onclick="usarPocao('', 1)">
                                 <img src="./assets/potion.png" alt="">
                                 <span>Poção</span>
                                 <p id="quantPocoes-1">2x</p>
@@ -361,7 +361,7 @@
                     </div>
                 </div>
                 <div class="btnStartBattle" id="btnStart2">
-                    <button onclick="iniciarBatalha(2)">Iniciar batalha</button>
+                    <button onclick="iniciarBatalha(2, 0, 0, 0)">Iniciar batalha</button>
                 </div>
             </div>
             <div class="oponenteEquipe">
@@ -373,13 +373,13 @@
                 </div>
             </div>
             <div class="batalha_pokemon" id="batalhaPokemon-2">
-                <div class="display_pokemons">
-                    <div class="pokemonInimigo batalha">
+                <div class="display_elite">
+                    <div class="pokemonInimigo batalha" id="pokemonInimigo-2">
                         <img src="" id="inimigoImg-2">
                         <img src="./assets/ataqueGif.gif" class="ataque_gif" id="gifatkInimigo-2">
-                        <img src="./assets/inimigoGif.gif" class="trainer" id="trainerInimigo-2">
+                        <img src="./assets/lorelei.png" class="trainer" id="trainerInimigo-2">
                     </div>
-                    <div class="seuPokemon batalha">
+                    <div class="seuPokemon batalha" id="seuPokemon-2">
                         <img src="" id="seuImg-2">
                         <img src="./assets/ataqueGif.gif" class="ataque_gif" id="gifatkSeu-2">
                         <img src="./assets/treinador.png" class="trainer" id="trainerSeu-2">
@@ -411,23 +411,23 @@
                 </div>
                 <div class="acoes_pokemon">
                     <div id="seuTurno-2" class="seu_turno">
-                        <button onclick="movimentos(1, 1)">Atacar</button>
-                        <button onclick="mochila(1, 1)">Mochila</button>
+                        <button onclick="movimentos(1, 2)">Atacar</button>
+                        <button onclick="mochila(1, 2)">Mochila</button>
                     </div>
                     <div class="desc_acao" id="descAcao-2">
                         <p id="descricao-2"></p>
                         <button onclick="resetBattle(1)" id="btnFinalizar-2">Finalizar</button>
                     </div>
                     <div class="moves_container" id="movesContainer-2">
-                        <button class="btn_voltar" onclick="movimentos(2, 1)">&lt;</button>
-                        <button class="movimento" onclick="atacar(0, 1)">
+                        <button class="btn_voltar" onclick="movimentos(2, 2)">&lt;</button>
+                        <button class="movimento" onclick="atacar(0, 2)">
                             <h2 id="nomeMove1-2"></h2>
                             <div>
                                 <p id="tipoMove1-2"></p>
                                 <span id="ppMove1-2"></p>
                             </div>
                         </button>
-                        <button class="movimento" onclick="atacar(1, 1)">
+                        <button class="movimento" onclick="atacar(1, 2)">
                             <h2 id="nomeMove2-2"></h2>
                             <div>
                                 <p id="tipoMove2-2"></p>
@@ -435,31 +435,31 @@
                             </div>
                         </button>
                     </div>
-                    <div class="mochila_container">
-                        <button class="btn_voltar" onclick="mochila(2, 1)">&lt;</button>
+                    <div class="mochila_container" id="mochilaContainer-2">
+                        <button class="btn_voltar" onclick="mochila(2, 2)">&lt;</button>
                         <div class="item_container">
-                            <button onclick="usarPocao(1)">
+                            <button onclick="usarPocao('', 2)">
                                 <img src="./assets/potion.png" alt="">
                                 <span>Poção</span>
                                 <p id="quantPocoes-2">2x</p>
                             </button>
                         </div>
                         <div class="item_container">
-                            <button onclick="usarItem(2, 1)">
+                            <button onclick="usarItem(2, 2)">
                                 <img src="./assets/x_attack.png" alt="">
                                 <span>X Attack</span>
                                 <p id="quantAttack-2">2x</p>
                             </button>
                         </div>
                         <div class="item_container">
-                            <button onclick="usarItem(3, 1)">
+                            <button onclick="usarItem(3, 2)">
                                 <img src="./assets/x_special.png" alt="">
                                 <span>X S. Defend</span>
                                 <p id="quantDefend-2">2x</p>
                             </button>
                         </div>
                         <div class="item_container">
-                            <button onclick="usarItem(1, 1)">
+                            <button onclick="usarItem(1, 2)">
                                 <img src="./assets/x_speed.png" alt="">
                                 <span>X S. Speed</span>
                                 <p id="quantSpeed-2">2x</p>

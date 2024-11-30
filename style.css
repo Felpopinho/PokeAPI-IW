@@ -344,19 +344,25 @@ main{
     height: 100%;
     flex-direction: column;
 }
-.display_pokemons{
+.display_pokemons,.display_elite{
     width: 100%;
     height: 70%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    background-image: url('./assets/d9spuwer2c491.webp');
-    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     z-index: 1;
     user-select: none;
+}
+.display_pokemons{
+    background-image: url('./assets/d9spuwer2c491.webp');
+    background-position: center;
+}
+.display_elite{
+    background-image: url('./assets/fundoElite.jpg');
+    background-position: bottom;
 }
 .pokemonInimigo{
     position: absolute;
@@ -370,7 +376,7 @@ main{
     transition: all 0.5s ease;
 }
 .pokemonInimigo img{
-    transform: scale(3);
+    transform: scale(3) translateY(20%);
     z-index: 2;
 }
 .seuPokemon{
@@ -387,13 +393,14 @@ main{
 }
 .seuPokemon img{
     transform: scale(4);
+    transition: all 0.5s ease;
 }
 .ataque_gif{
     position: absolute;
     width: 100px;
     display: none;
 }
-#gifatkSeu{
+#gifatkSeu-1,#gifatkSeu-1{
     transform: translate(10px 0) scale(4);
 }
 .trainer{
@@ -406,7 +413,13 @@ main{
     transform: scale(1.5) translate(30%, 0px);
     z-index: 0;
 }
-#trainerSeu-1{
+#trainerInimigo-2{
+    top: 15%;
+    left: 0px;
+    transform: scale(1.1) translate(80%, 0px);
+    z-index: 0;
+}
+#trainerSeu-1, #trainerSeu-2{
     right: 0px;
     transform: scale(5) translate(-50px, 0px);
 }
@@ -450,19 +463,25 @@ main{
     justify-content: center;
     height: 40px;
     border-radius: 20px;
-    transition: all 0.5 ease;
+    border-radius: 20px;
+    overflow: hidden;
 }
 .Vida progress::-webkit-progress-value{
-    border-radius: 20px;
+    border-radius: 20px 0 0 20px;
     background: linear-gradient(45deg, rgb(83, 156, 128), green);
+    transition: all 0.5s ease;
 }
 .Vida progress::-webkit-progress-bar{
     border-radius: 20px;
 }
 .Vida progress[value]{
-    width: 95%;
+    width: 100%;
     height: 100%;
     border-radius: 20px;
+}
+.vida progress{
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .Vida p{
@@ -559,6 +578,7 @@ main{
     background-color: rgb(179, 179, 179);
     font-size: 1.5rem;
     border-radius: 10px;
+    color: white;
 }
 .movimento div span{
     font-size: 1.3rem;
