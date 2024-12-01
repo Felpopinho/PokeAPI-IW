@@ -20,22 +20,59 @@
             <a onclick="changeSection(2)" class="btnNav">Batalha</a>
             <a onclick="changeSection(3)" class="btnNav">Liga Elite</a>
         </div>
-        
     </header>
     <main>
         <section class="pokedex_section">
-            <div class="pokeinfo_container">
+            <div class="poke_container">
                 <div class="idnomePokemon">
-                    <h1 id="idPokemon">1</h1>
-                    <h1 id="nomePokemon">Bulbasaur</h1>
+                    <h1 id="nomePokemon">1 - Bulbasaur</h1>
                 </div>
-                <div class="imgPokemon_container">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/1.gif" alt="" id="imgPokemon">
-                </div>
-                <div class="especificacoes_container">
-                    <p>Tipo:<span id="tipoPokemon">grass, poison</span></p>
-                    <p>Altura:<span id="altPokemon">0.7</span></p>
-                    <p>Peso:<span id="pesoPokemon">6.9</span></p>
+                <div class="pokeinfo_container">
+                    <div class="imgPokemon_container">
+                        <button class="btnChangeSrc" id="antChange" onclick="mudarSrcPokemon(1)">&lt;</button>
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/1.gif" alt="" id="imgPokemon">
+                        <button class="btnChangeSrc" id="proxChange" onclick="mudarSrcPokemon(2)">&gt;</button>
+                    </div>
+                    <div class="especificacoes_container">
+                        <div class="especificacoes">
+                            <div class="esp">
+                                <h1>Tipo</h1>
+                                <p id="tipoPokemon">grass, poison</p>
+                            </div>
+                            <div class="esp">
+                                <h1>Altura</h1>
+                                <p id="altPokemon">0.7</p>
+                            </div>
+                            <div class="esp">
+                                <h1>Peso</h1>
+                                <p id="pesoPokemon">6.9</p>
+                            </div>
+                            <div class="stats_cont">
+                                <h2>Status</h2>
+                                <div class="stats">
+                                    <p id="hp"></p>
+                                    <p id="atk"></p>
+                                    <p id="def"></p>
+                                    <p id="satk"></p>
+                                    <p id="sdef"></p>
+                                    <p id="spd"></p>
+                                </div>
+                            </div>
+                            <div class="stats_cont">
+                                <h2>Habilidades</h2>
+                                <div id="habilidadesContainer">
+                                    <span>overgrow</span>
+                                    <span>chlorophyll</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="allMoves">
+                            <h1>Movimentos</h1>
+                            <div id="moveCont">
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="searchPokedex">
                     <button onclick="changePokemon(1)" disabled id="antPokemon">&lt;</button>

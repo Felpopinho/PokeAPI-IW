@@ -71,63 +71,199 @@ main{
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
 }
-.pokeinfo_container{
-    width: 40%;
-    height: auto;
+.poke_container{
     padding: 20px;
     background-color: rgb(167, 45, 45);
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
     flex-direction: column;
+    width: 80%;
+    height: 80%;
+}
+.pokeinfo_container{
+    display: flex;
+    flex-direction: row;
+    height: 80%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 }
 .idnomePokemon{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 5px;
     z-index: 2;
+    column-gap: 50px;
+    width: 100%;
+    height: 10%;
 }
-#nomePokemon, #idPokemon{
+#nomePokemon{
     text-transform: capitalize;
     font-family: "Bangers", system-ui;
     letter-spacing: 2.5px;
     z-index: 2;
+    font-size: 2.5rem;
 }
 .imgPokemon_container{
-    width: 100%;
+    width: 35%;
     height: 100%;
-    border-radius: 10px;
+    border-radius: 10px 0 0 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-image: url('./assets/background_img.jpg');
     background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
     z-index: 2;
+    position: relative;
 }
 .imgPokemon_container img{
-    transform: scale(1.5);
+    position: absolute;
+    top: 60%;
+    transform: scale(2) translateY(-40%); 
+}
+.btnChangeSrc{
+    position: absolute;
+    bottom: 5%;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+}
+#antChange{
+    left: 5%;
+}
+#proxChange{
+    right: 5%;
 }
 .searchPokedex{
     z-index: 2;
     width: 100%;
     display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    height: 10%;
+}
+#antPokemon, #proxPokemon{
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+}
+.searchPokedex div{
+    display: flex;
+    width: 100%;
+    padding: 0 10px;
+}
+.searchPokedex div input{
+    width: 100%;
+    border-radius: 10px 0 0 10px;
+    padding: 5px;
+    font-size: 1.5rem;
+}
+.searchPokedex div button{
+    width: 100px;
+    border-radius: 0 10px 10px 0 ;
 }
 .especificacoes_container{
     z-index: 2;
+    background-color: rgb(51, 51, 51);
+    border-radius: 0 10px 10px 0;
+    gap: 10px;
+    width: 65%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.especificacoes_container p{
-    font-size: 1.5rem;
+.especificacoes{
+    z-index: 2;
+    background-color: rgb(51, 51, 51);
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
+    row-gap: 20px;
+}
+.esp{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+}
+.stats_cont{
+    width: 90%;
+}
+.stats_cont h2{
+    width: 100%;
+}
+.stats{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+}
+.especificacoes p{
+    font-weight: 400;
+    font-size: 1.2rem;
+}
+.stats p{
+    min-width: 120px;
+    width: 50%;
+    text-align: center;
+    font-weight: 400;
+}
+.stats span{
     font-weight: bold;
-    z-index: 5;
 }
-.especificacoes_container p span{
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin-left: 6px;
+#habilidadesContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+    column-gap: 10px;
 }
+.allMoves{
+    height: 90%;
+    width: 60%;
+    overflow: hidden;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.allMoves h1{
+    margin-bottom: 5px;
+}
+#moveCont{
+    overflow-y: scroll;
+    height: 90%;
+    width: 100%;
+    background-color: rgb(75, 75, 75);
+    padding: 10px;
+    border-radius: 10px;
+}
+#moveCont div{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+}
+#moveCont div span{
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+
 .batalha_section{
     display: none;
     align-items: center;

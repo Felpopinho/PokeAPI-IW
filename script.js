@@ -1,5 +1,4 @@
 const iSearch = document.getElementById("inputSearch")
-const idPokemon = document.getElementById("idPokemon")
 const nomePokemon = document.getElementById("nomePokemon")
 const tipoPokemon = document.getElementById("tipoPokemon")
 const imgPokemon = document.getElementById("imgPokemon")
@@ -11,6 +10,8 @@ const inputLigaSearch = document.getElementById("inputSearchLiga")
 const pokemonUm = document.getElementById("pokemonUm")
 const pokemonDois = document.getElementById("pokemonDois")
 
+var idPokemon = 1
+var srcPokemon = -1
 var pokemonAtualCont = 1
 
 var pokemonUmSelecionado = false;
@@ -92,16 +93,12 @@ async function searchPokemon(section, s, n){
     }else{
         var input = n
     }
+    srcPokemon = -1
     
     const url = `https://pokeapi.co/api/v2/pokemon/${input.toLowerCase()}`;
 
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Pokémon not found');
-        }
-        const pokemon = await response.json();
-        console.log(pokemon);
+    await fetch(url).then(async res=>{
+        const pokemon = await res.json();
         if(section === 1){
             visualizarPokemon(pokemon);
         } else if(section === 2){
@@ -109,13 +106,13 @@ async function searchPokemon(section, s, n){
         } else{
             setElitePokemons(pokemon)
         }
-    } catch (error) {
-        console.log(error.message);
-    }
-    if(parseInt(idPokemon.innerText) <= 1){
+    }).catch(error=>{
+        alert("Pokemon não encontrado")
+    })
+    if(parseInt(idPokemon) <= 1){
         document.getElementById("antPokemon").setAttribute("disabled",  "")
         document.getElementById("proxPokemon").removeAttribute("disabled")
-    } else if(parseInt(idPokemon.innerText) >= 1025){
+    } else if(parseInt(idPokemon) >= 1025){
         document.getElementById("antPokemon").removeAttribute("disabled")
         document.getElementById("proxPokemon").setAttribute("disabled",  "")
     } else{
@@ -124,6 +121,7 @@ async function searchPokemon(section, s, n){
     }
 }
 
+searchPokemon(1, "", "Bulbasaur")
 searchPokemon("", "", "Jynx")
 searchPokemon("", "", "Lapras")
 searchPokemon("", "", "Onix")
@@ -134,20 +132,101 @@ searchPokemon("", "", "Dragonite")
 searchPokemon("", "", "Gyarados")
 
 function visualizarPokemon(data){
-    idPokemon.innerText = `${data.id}`
-    nomePokemon.innerText = `${data.name}`
-    imgPokemon.src = `${data.sprites.other.showdown.front_default}`
+    imgPokemon.style.transform = "scale(2) translateY(-40%)"
+    idPokemon = data.id
+    document.getElementById(`habilidadesContainer`).innerHTML =""
+    document.getElementById("moveCont").innerHTML =""
+    nomePokemon.innerText = `${data.id} - ${data.name}`
+    if(data.sprites.other.showdown.front_default === null){
+        imgPokemon.src = data.sprites.front_default
+        imgPokemon.style.transform = "scale(2.6) translateY(-20%)"
+        srcPokemon = 0
+    } else{
+        imgPokemon.src = data.sprites.other.showdown.front_default
+    }
     tipoPokemon.innerText = `${data.types.map(type => type.type.name).join(', ')}`
     altPokemon.innerText = `${data.height / 10}`
     pesoPokemon.innerText = `${data.weight / 10}`
+    const hp = document.getElementById(`hp`)
+    const atk = document.getElementById(`atk`)
+    const def = document.getElementById(`def`)
+    const satk = document.getElementById(`satk`)
+    const sdef = document.getElementById(`sdef`)
+    const spd = document.getElementById(`spd`)
+    hp.innerHTML = `<span>HP: </span>${data.stats[0].base_stat}/${data.stats[0].base_stat}`
+    atk.innerHTML = `<span>Ataque: </span>${data.stats[1].base_stat}`
+    def.innerHTML = `<span>Defesa: </span>${data.stats[2].base_stat}`
+    satk.innerHTML = `<span>S. Atq: </span>${data.stats[3].base_stat}`
+    sdef.innerHTML = `<span>S. Def: </span>${data.stats[4].base_stat}`
+    spd.innerHTML = `<span>Velocidade: </span>${data.stats[5].base_stat}`
+
+    data.abilities.map(hab => {
+        let tHab = document.createElement("p")
+        tHab.innerHTML = `${hab.ability.name}`
+        document.getElementById(`habilidadesContainer`).appendChild(tHab)
+    })
+
+    data.moves.map(async move =>{
+        var moveN = document.createElement("p")
+        var typeN = document.createElement("span")
+        var contM = document.createElement("div")
+
+        const urlMove = "https://pokeapi.co/api/v2/move//"
+
+        try {
+            const res = await fetch(urlMove+move.move.name)
+            if (!res.ok) {
+                throw new Error('Move not found');
+            }
+            var movs = await res.json();
+        } catch (error) {
+            alert(error)
+        }
+        moveN.innerHTML = `${movs.name}`
+        typeN.innerHTML = `${movs.type.name}`
+
+        document.getElementById("moveCont").appendChild(contM)
+        contM.appendChild(moveN)
+        contM.appendChild(typeN)
+        setBackground("", typeN, movs.type.name);
+    })
+}
+
+async function mudarSrcPokemon(n){
+    await fetch(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`).then(async res=>{
+        const pokemon = await res.json();
+        const arraySprite = Object.entries(pokemon.sprites).filter(([key,value]) => value !== null && key !== 'versions' && key !== 'other')
+        if(n === 2){
+            srcPokemon = srcPokemon+1
+        } else{
+            srcPokemon = srcPokemon-1
+        }
+        if((srcPokemon === arraySprite.length || srcPokemon === -1) && pokemon.sprites.other.showdown.front_default !== null){
+            srcPokemon = -1
+            imgPokemon.style.transform = "scale(2) translateY(-40%)"
+            return imgPokemon.src = `${pokemon.sprites.other.showdown.front_default}`
+        } else if(srcPokemon === -2){
+            imgPokemon.style.transform = "scale(2.6) translateY(-20%)"
+            srcPokemon = arraySprite.length - 1
+        } else if(pokemon.sprites.other.showdown.front_default === null && (srcPokemon === arraySprite.length || srcPokemon === -1)){
+            imgPokemon.style.transform = "scale(2.6) translateY(-20%)"
+            srcPokemon = 0
+            return imgPokemon.src = `${pokemon.sprites.front_default}`
+        }else{
+            imgPokemon.style.transform = "scale(2.6) translateY(-20%)"
+        }
+        return imgPokemon.src = `${arraySprite[srcPokemon][1]}`
+    }).catch(error=>{
+        alert("Pokemon não encontrado")
+    })
 }
 
 async function changePokemon(n){
     var url;
     if (n===1){
-        url = `https://pokeapi.co/api/v2/pokemon/${parseInt(idPokemon.innerText)-1}`;
+        url = `https://pokeapi.co/api/v2/pokemon/${parseInt(idPokemon)-1}`;
     } else{
-        url = `https://pokeapi.co/api/v2/pokemon/${parseInt(idPokemon.innerText)+1}`;
+        url = `https://pokeapi.co/api/v2/pokemon/${parseInt(idPokemon)+1}`;
     }
     try {
         const response = await fetch(url);
@@ -155,15 +234,14 @@ async function changePokemon(n){
             throw new Error('Pokémon not found');
         }
         const pokemon = await response.json();
-        console.log(pokemon);
         visualizarPokemon(pokemon);
     } catch (error) {
         console.log(error.message);
     }
-    if(parseInt(idPokemon.innerText) <= 1){
+    if(parseInt(idPokemon) <= 1){
         document.getElementById("antPokemon").setAttribute("disabled",  "")
         document.getElementById("proxPokemon").removeAttribute("disabled")
-    } else if(parseInt(idPokemon.innerText) >= 1025){
+    } else if(parseInt(idPokemon) >= 1025){
         document.getElementById("antPokemon").removeAttribute("disabled")
         document.getElementById("proxPokemon").setAttribute("disabled",  "")
     } else{
@@ -173,7 +251,7 @@ async function changePokemon(n){
 }
 
 function adicionarPokemon(pokemon, n){
-
+    idPokemon = pokemon.id
     document.getElementById(`move1-${pokemonAtualCont}-${n}`).innerHTML = "<option></option>"
     document.getElementById(`move2-${pokemonAtualCont}-${n}`).innerHTML = "<option></option>"
 
@@ -216,7 +294,7 @@ function adicionarPokemon(pokemon, n){
     id.innerText = `${pokemon.id}`
     nome.innerText = `${pokemon.name}`
     tipo.innerText = `${pokemon.types.map(type => type.type.name).join(', ')}`
-    img.src = pokemon.sprites.other.showdown.front_default === "null" ? pokemon.sprites.front_default : pokemon.sprites.other.showdown.front_default
+    img.src = pokemon.sprites.other.showdown.front_default === null ? pokemon.sprites.front_default : pokemon.sprites.other.showdown.front_default
     vida.value = `${pokemon.stats[0].base_stat}`
     vida.setAttribute("max", `${pokemon.stats[0].base_stat}`)
     hp.innerHTML = `${pokemon.stats[0].base_stat}/${pokemon.stats[0].base_stat}`
@@ -300,6 +378,10 @@ function setBackground(pokemon, element, attack){
         element.style.backgroundColor = "rgb(59, 59, 59)"
     }else if (e === "fairy"){
         element.style.backgroundColor = "pink"
+    }else if (e === "dark"){
+        element.style.backgroundColor = "rgb(30, 30, 30)"
+    }else if (e === "ice"){
+        element.style.backgroundColor = "rgb(0, 143, 168)"
     } else{
         return
     }
@@ -367,8 +449,6 @@ async function iniciarLiga(p,n,sp,v){
     eliteP = p
     seuP = sp
     eliteN = n
-    console.log(pokemonsInimigo)
-    console.log(movesInimigo)
 
     if(v === 1){
         if(eliteN === 0 && eliteP === 0){
@@ -491,8 +571,6 @@ async function iniciarBatalha(n, p, e, sp){
     }
     setBackground("", document.getElementById(`tipoMove1-${n}`), moveSeu[0].type.name)
     setBackground("", document.getElementById(`tipoMove2-${n}`), moveSeu[1].type.name)
-    console.log(moveSeu);
-    console.log(moveInimigo);
     
 
     document.querySelectorAll(".batalha").forEach(e =>{
@@ -545,7 +623,6 @@ var def;
 var sAtq;
 
 function movimentos(n, s){
-    console.log("a")
     if(n === 1){
         document.getElementById(`seuTurno-${s}`).style.display = "none"
         document.getElementById(`descAcao-${s}`).style.display = "none"
@@ -571,7 +648,6 @@ function atacar(n, s){
         def =  (s === 2 ? pokemonsInimigo[eliteP].stats[2].base_stat : pokemonBatalha[1].stats[2].base_stat);
         sAtq = (s === 2 ? pokemonBatalha[seuP].stats[3].base_stat : pokemonBatalha[0].stats[3].base_stat)
         ppSeu[n] = ppSeu[n] - 1
-        console.log(ppSeu)
         document.getElementById(`ppMove${n+1}-${s}`).innerHTML  = `${ppSeu[n]}/${moveSeu[n].pp}`
         desc.innerHTML = `Você usa ${moveSeu[n].name} com ${pokemonBatalha[0].name}`
         const textoArray = desc.innerHTML.split('');
@@ -643,8 +719,6 @@ function atacar(n, s){
                     desc.innerHTML += letra;
                 }, 75 * i)
             });
-
-            console.log(bonus)
 
             atackSound.play()
             document.getElementById(`${seuTurno == false ? `gifatkInimigo-${s}` : `gifatkSeu-${s}`}`).style.display = "block"
