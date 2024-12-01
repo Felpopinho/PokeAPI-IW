@@ -820,7 +820,7 @@ main{
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: row;
     background-position: bottom;
     background-repeat: no-repeat;
     background-size: cover;
@@ -828,5 +828,6 @@ main{
     border-radius: 10px;
 }
 .elite_container img{
-    width: 15vw;
+    height: 190px;
+    transform: scale(0.8);
 }
