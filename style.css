@@ -41,7 +41,7 @@ header{
 }
 .nav{
     width: 25%;
-    min-width: 300px;
+    min-width: 400px;
     display: flex;
     justify-content: space-between;
     user-select: none;
@@ -61,6 +61,7 @@ header{
 }
 main{
     width: 100%;
+    min-height: 85vh;
     height: 85vh;
     background-color: rgb(112, 149, 209);
     position: relative;
@@ -97,7 +98,6 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px;
     z-index: 2;
     column-gap: 50px;
     width: 100%;
@@ -123,6 +123,7 @@ main{
     background-size: cover;
     z-index: 2;
     position: relative;
+    overflow: hidden;
 }
 .imgPokemon_container img{
     position: absolute;
@@ -132,9 +133,11 @@ main{
 .btnChangeSrc{
     position: absolute;
     bottom: 5%;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 10px;
+    z-index: 9;
+    background-color: rgba(255, 255, 255, 0.616);
 }
 #antChange{
     left: 5%;
@@ -147,12 +150,12 @@ main{
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 10px;
     height: 10%;
+    padding-top: 10px;
 }
 #antPokemon, #proxPokemon{
     width: 50px;
-    height: 50px;
+    height: 100%;
     border-radius: 10px;
 }
 .searchPokedex div{
@@ -282,10 +285,10 @@ main{
 .searchPokemon{
     display: block;
     position: absolute;
-    top: 5%;
+    top: 0%;
     background-color: rgb(51, 51, 51);
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 0 0 5px 5px;
     z-index: 4;
 }
 .searchPokemon h2{
@@ -325,6 +328,15 @@ main{
 #inicial1-1 h2, #inicial2-1 h2, #inicial1-2 h2, #inicial2-2 h2{
     text-align: center;
 }
+.progressVida_container{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 10px 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
 .contIEquipe1-1, .contIEquipe2-1, .contIEquipe1-2, .contIEquipe2-2{
     display: none;
 }
@@ -353,15 +365,6 @@ main{
 #nome1-1, #nome2-1, #nome1-2, #nome2-2{
     text-transform: capitalize;
 }
-.progressVida_container{
-    position: relative;
-    width: 100%;
-    height: 50px;
-    margin: 10px 0;
-    display: none;
-    align-items: center;
-    justify-content: center;
-}
 .progressVida_container progress{
     position: absolute;
     z-index: 1;
@@ -369,6 +372,9 @@ main{
     height: 30px;
     background: rgb(106, 155, 91);
     border-radius: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
 }
 .progressVida_container progress::-webkit-progress-bar{
     background: rgb(106, 155, 91);
@@ -382,6 +388,9 @@ main{
 .progressVida_container p{
     position: absolute;
     z-index: 2;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
 }
 .pokemonImg_container{
     position: relative;
@@ -780,12 +789,12 @@ main{
 
 .liga_section{
     display: none;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     height: 100%;
 }
 .suaEquipe{
-    width: 65%;
+    width: 60%;
     height: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -804,8 +813,8 @@ main{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: auto;
-    height: auto;
+    width: 95%;
+    height: 50%;
     background-color: rgb(59, 59, 59);
     padding: 25px;
     border-radius: 20px;
@@ -824,10 +833,171 @@ main{
     background-position: bottom;
     background-repeat: no-repeat;
     background-size: cover;
-    height: auto;
+    height: 100%;
     border-radius: 10px;
+    position: relative;
+    width: 100%;
 }
 .elite_container img{
-    height: 190px;
-    transform: scale(0.8);
+    position: absolute;
+}
+#lorelei{
+    left: 10%;
+    transform: scale(0.9) translate(-50%);
+}
+#bruno{
+    left: 35%;
+    transform: scale(1) translate(-50%);
+}
+#lance{
+    left: 60%;
+    transform: scale(1.2) translate(-50%);
+}
+#agatha{
+    left: 85%;
+    transform: scale(1) translate(-50%);
+}
+
+.btnesp_container, .voltarStats{
+    display: none;
+}
+
+@media screen and (max-width: 1380px) {
+    .equipe_pokemons{
+        flex-direction: column;
+        height: 100%;
+        width: 90%;
+        justify-content: space-evenly;
+    }
+    .selecionado{
+        display: grid;
+        grid-template-columns: 35% 1fr;
+        grid-template-rows: 10% 20% 1fr;
+        column-gap: 5%;
+        padding: 20px;
+    }
+    .pokemonImg_container{
+        grid-column: 1/2;
+        grid-row: 1/4;
+        height: 100%;
+        padding: 0;
+    }
+    .pokemonImg_container img{
+        transform: scale(1.5) translate(-50%, -10%);
+    }
+    .progressVida_container{
+        height: 100%;
+    }
+    #inicial1-1, #inicial2-1,#inicial1-2, #inicial2-2{
+        grid-column: 1/3;
+        grid-row: 1/4;
+    }
+    .moves{
+        top: -20%;
+        bottom: unset;
+        left: 2%;
+    }
+}
+@media screen and (max-width: 920px) {
+    header{
+        flex-direction: column;
+        height: 18vh;
+        justify-content: space-evenly;
+    }
+    main{
+        height: 82vh;
+    }
+    .poketitle{
+        height: 50%;
+    }
+    .poketitle img{
+        width: 200px;
+    }
+    .pokelogo{
+        display: none;
+    }
+    .nav{
+        width: 50%;
+        min-width: 350px;
+    }
+    .nav a{
+        font-size: 1.2rem;
+    }
+    .esp{
+        flex-wrap: wrap;
+    }
+}
+@media screen and (max-width: 800px) {
+    .pokeinfo_container{
+        flex-direction: column;
+    }
+    .imgPokemon_container{
+        width: 100%;
+        height: 50%;
+        border-radius: 10px 10px 0 0;
+    }
+    .especificacoes_container{
+        width: 100%;
+        height: 50%;
+        border-radius: 0 0 10px 10px;
+        overflow: hidden;
+    }
+    .especificacoes{
+        overflow-y: scroll;
+        justify-content: start;
+        padding: 10px;
+        height: 90%;
+        row-gap: 10px;
+    }
+    #habilidadesContainer{
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .especificacoes_container{
+        flex-direction: column;
+        gap: 0;
+        position: relative;
+    }
+    .especificacoes{
+        display: none;
+        width: 95%;
+        height: 95%;
+        padding: 0;
+    }
+    .allMoves{
+        display: none;
+        height: 95%;
+        width: 95%;
+        padding: 0;
+    }
+    .btnesp_container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 95%;
+        height: 95%;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    .btnesp_container button{
+        width: 95%;
+        height: 45%;
+        font-size: 1.5rem;
+    }
+    .voltarStats{
+        width: 30px;
+        height: 30px;
+        border-radius: 20px;
+        position: absolute;
+        top: 5%;
+        left: 5%;
+        z-index: 10;
+        background-color: rgba(255, 255, 255, 0.493);
+    }
+    #nomePokemon{
+        font-size: 1.6rem;
+    }
 }

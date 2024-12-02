@@ -192,6 +192,25 @@ function visualizarPokemon(data){
     })
 }
 
+function openEspecificacoes(n, v){
+    if(n === 1){
+        document.querySelector(".allMoves").style.display = "none"
+        document.querySelector(".btnesp_container").style.display = "none"
+        document.querySelector(".voltarStats").style.display = "block"
+        document.querySelector(".especificacoes").style.display = "flex"
+    } else if(n===2){
+        document.querySelector(".btnesp_container").style.display = "none"
+        document.querySelector(".especificacoes").style.display = "none"
+        document.querySelector(".voltarStats").style.display = "block"
+        document.querySelector(".allMoves").style.display = "flex"
+    }else{
+        document.querySelector(".allMoves").style.display = "none"
+        document.querySelector(".especificacoes").style.display = "none"
+        document.querySelector(".voltarStats").style.display = "none"
+        document.querySelector(".btnesp_container").style.display = "flex"
+    }
+}
+
 async function mudarSrcPokemon(n){
     await fetch(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`).then(async res=>{
         const pokemon = await res.json();
@@ -392,18 +411,16 @@ function changeSection(n){
         document.querySelector(".batalha_section").style.display = "none"
         document.querySelector(".liga_section").style.display = "none"
         document.querySelector(".pokedex_section").style.display = "flex"
-        pokemonAtualCont = 1
     } else if (n===2){
         document.querySelector(".pokedex_section").style.display = "none"
         document.querySelector(".liga_section").style.display = "none"
         document.querySelector(".batalha_section").style.display = "flex"
-        pokemonAtualCont = 1
     } else{
         document.querySelector(".pokedex_section").style.display = "none"
         document.querySelector(".batalha_section").style.display = "none"
         document.querySelector(".liga_section").style.display = "flex"
-        pokemonAtualCont = 1
     }
+    pokemonAtualCont = 1
 }
 
 function selectPokemonContainer(n){

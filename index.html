@@ -34,6 +34,11 @@
                         <button class="btnChangeSrc" id="proxChange" onclick="mudarSrcPokemon(2)">&gt;</button>
                     </div>
                     <div class="especificacoes_container">
+                        <button onclick="openEspecificacoes(3)" class="voltarStats" id="voltarStats">&lt;</button>
+                        <div class="btnesp_container">
+                            <button onclick="openEspecificacoes(1)" class="btnStats" id="antStats">Status</button>
+                            <button onclick="openEspecificacoes(2)" class="btnStats" id="proxStats">Movimentos</button>
+                        </div>
                         <div class="especificacoes">
                             <div class="esp">
                                 <h1>Tipo</h1>
@@ -405,10 +410,10 @@
                 <div class="oponente_container">
                     <h1>Elite dos 4</h1>
                     <div class="elite_container">
-                        <img src="./assets/lorelei.png">
-                        <img src="./assets/bruno.png">
-                        <img src="./assets/agatha.png">
-                        <img src="./assets/lance.png">
+                        <img id="lorelei" src="./assets/lorelei.png">
+                        <img id="bruno" src="./assets/bruno.png">
+                        <img id="agatha" src="./assets/agatha.png">
+                        <img id="lance" src="./assets/lance.png">
                     </div>
                 </div>
             </div>
