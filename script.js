@@ -588,6 +588,8 @@ async function iniciarBatalha(n, p, e, sp){
     }
     setBackground("", document.getElementById(`tipoMove1-${n}`), moveSeu[0].type.name)
     setBackground("", document.getElementById(`tipoMove2-${n}`), moveSeu[1].type.name)
+
+    console.log(moveSeu)
     
 
     document.querySelectorAll(".batalha").forEach(e =>{
@@ -1391,23 +1393,23 @@ function fimLiga(n){
 
 function fimBatalha(vencedor, s){
     
-    const desc = document.getElementById(`descricao-${s}`)
+    const desc = document.getElementById(`descricao-1`)
     let perdedor;
     musicVitoriaRandon = Math.floor(Math.random()*(2.9 - 0)+0)
     vitoriaMusicArr[musicVitoriaRandon].currentTime = 0
     document.querySelectorAll(".batalha").forEach(e =>{
         e.style.display = "none"
     })
-    document.getElementById(`fimBatalha-${s}`).style.display = "flex"
-    document.getElementById(`pokemonVencedor-${s}`).src = vencedor.sprites.other.showdown.front_default
+    document.getElementById(`fimBatalha-1`).style.display = "flex"
+    document.getElementById(`pokemonVencedor-1`).src = vencedor.sprites.other.showdown.front_default
 
-    document.getElementById(`seuTurno-${s}`).style.display = "none"
-    document.getElementById(`descAcao-${s}`).style.display = "flex"
+    document.getElementById(`seuTurno-1`).style.display = "none"
+    document.getElementById(`descAcao-1`).style.display = "flex"
 
     document.querySelector(".display_pokemons").style.backgroundImage = "url('./assets/background_pokemon.avif')"
     document.querySelector(".display_pokemons").style.backgroundPosition = "bottom"
 
-    document.getElementById(`btnFinalizar-${s}`).style.display = "block"
+    document.getElementById(`btnFinalizar-1`).style.display = "block"
 
     s === 2 ? batalhaMusic4.pause() : batalhaMusicArr[musicBatalhaRandon].pause()
 
@@ -1454,6 +1456,6 @@ function resetBattle(n){
     document.getElementById(`seuTurno-${n}`).style.display = "none"
     document.getElementById(`descAcao-${n}`).style.display = "none"
 
-    document.getElementById(`${n === 1 ? 'display_pokemons' : 'display_elite'}`).style.backgroundImage = `url(${n === 1 ? './assets/d9spuwer2c491.webp' : './assets/fundoElite.jpg'})`
-    document.getElementById(`${n === 1 ? 'display_pokemons' : 'display_elite'}`).style.backgroundPosition = "center"
+    document.querySelector(`${n === 1 ? '.display_pokemons' : '.display_elite'}`).style.backgroundImage = `url(${n === 1 ? './assets/d9spuwer2c491.webp' : './assets/fundoElite.jpg'})`
+    document.querySelector(`${n === 1 ? '.display_pokemons' : '.display_elite'}`).style.backgroundPosition = "center"
 }
