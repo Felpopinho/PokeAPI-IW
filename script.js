@@ -122,15 +122,19 @@ async function searchPokemon(section, s, n){
     }
 }
 
-searchPokemon(1, "", "Bulbasaur")
-searchPokemon("", "", "Jynx")
-searchPokemon("", "", "Lapras")
-searchPokemon("", "", "Onix")
-searchPokemon("", "", "Machamp")
-searchPokemon("", "", "Arbok")
-searchPokemon("", "", "Gengar")
-searchPokemon("", "", "Dragonite")
-searchPokemon("", "", "Gyarados")
+async function setPokemonsElite() {
+    await searchPokemon(1, "", "Bulbasaur").then(
+        await searchPokemon("", "", "Jynx").then(
+            await searchPokemon("", "", "Lapras").then(
+                await searchPokemon("", "", "Onix").then(
+                    await searchPokemon("", "", "Machamp").then(
+                        await searchPokemon("", "", "Arbok").then(
+                            await searchPokemon("", "", "Gengar").then(
+                                await searchPokemon("", "", "Dragonite").then(
+                                    await searchPokemon("", "", "Gyarados")
+))))))))};
+
+setPokemonsElite()
 
 function visualizarPokemon(data){
     imgPokemon.style.transform = "scale(2) translateY(-40%)"
@@ -533,7 +537,7 @@ async function iniciarLiga(p,n,sp,v){
     document.getElementById(`inimigoTipo-2`).innerHTML = pokemonsInimigo[p].types[0].type.name
     document.getElementById(`seuVida-2`).innerHTML = seusPokemon[seuP].name
     document.getElementById(`seuTipo-2`).innerHTML = seusPokemon[seuP].types[0].type.name
-    document.getElementById(`inimigoBarra-2`).value = 1//`${v === 2 ? document.getElementById(`inimigoBarra-2`).value : pokemonsInimigo[p].stats[0].base_stat}`
+    document.getElementById(`inimigoBarra-2`).value = `${v === 2 ? document.getElementById(`inimigoBarra-2`).value : pokemonsInimigo[p].stats[0].base_stat}`
     document.getElementById(`inimigoBarra-2`).setAttribute(`max`, `${pokemonsInimigo[p].stats[0].base_stat}`)
     document.getElementById(`seuBarra-2`).value = `${v === 1 ? document.getElementById(`seuBarra-2`).value : seusPokemon[seuP].stats[0].base_stat}`
     document.getElementById(`seuBarra-2`).setAttribute(`max`, `${seusPokemon[seuP].stats[0].base_stat}`)
@@ -564,10 +568,10 @@ async function iniciarBatalha(n, p, e, sp){
     atqSeu = pokemonBatalha[0].stats[1].base_stat;
     atqInimigo = pokemonBatalha[1].stats[1].base_stat;
 
-    document.getElementById(`quantPocoes`).innerHTML = `${suasPocoes}x`
-    document.getElementById(`quantSpeed`).innerHTML = `${suasSpeed}x`
-    document.getElementById(`quantAttack`).innerHTML = `${suasAttack}x`
-    document.getElementById(`quantDefend`).innerHTML = `${suasDefend}x`
+    document.getElementById(`quantPocoes-${n}`).innerHTML = `${suasPocoes}x`
+    document.getElementById(`quantSpeed-${n}`).innerHTML = `${suasSpeed}x`
+    document.getElementById(`quantAttack-${n}`).innerHTML = `${suasAttack}x`
+    document.getElementById(`quantDefend-${n}`).innerHTML = `${suasDefend}x`
 
     const url = "https://pokeapi.co/api/v2/move//"
 
