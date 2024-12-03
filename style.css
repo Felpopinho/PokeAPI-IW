@@ -711,6 +711,9 @@ main{
 .fim_batalha div img{
     transform: scale(1.8);
 }
+#trainerVencedor{
+    height: 50%;
+}
 .moves_container{
     display: none;
     width: 85%;

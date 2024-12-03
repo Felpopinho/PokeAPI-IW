@@ -106,6 +106,7 @@ async function searchPokemon(section, s, n){
         } else{
             setElitePokemons(pokemon)
         }
+        console.log(pokemon)
     }).catch(error=>{
         alert("Pokemon não encontrado")
     })
@@ -456,6 +457,12 @@ var seuP;
 var pokemonsInimigo;
 var seusPokemon;
 var eliteN;
+var xattack = 1;
+var xattackI = 1;
+var xdefend = 1;
+var xdefendI = 1;
+var xspeed = 1
+var xspeedI = 1
 
 async function iniciarLiga(p,n,sp,v){
     pokemonsInimigo = [elitePokemons[n][0], elitePokemons[n][1]]
@@ -526,7 +533,7 @@ async function iniciarLiga(p,n,sp,v){
     document.getElementById(`inimigoTipo-2`).innerHTML = pokemonsInimigo[p].types[0].type.name
     document.getElementById(`seuVida-2`).innerHTML = seusPokemon[seuP].name
     document.getElementById(`seuTipo-2`).innerHTML = seusPokemon[seuP].types[0].type.name
-    document.getElementById(`inimigoBarra-2`).value = `${v === 2 ? document.getElementById(`inimigoBarra-2`).value : pokemonsInimigo[p].stats[0].base_stat}`
+    document.getElementById(`inimigoBarra-2`).value = 1//`${v === 2 ? document.getElementById(`inimigoBarra-2`).value : pokemonsInimigo[p].stats[0].base_stat}`
     document.getElementById(`inimigoBarra-2`).setAttribute(`max`, `${pokemonsInimigo[p].stats[0].base_stat}`)
     document.getElementById(`seuBarra-2`).value = `${v === 1 ? document.getElementById(`seuBarra-2`).value : seusPokemon[seuP].stats[0].base_stat}`
     document.getElementById(`seuBarra-2`).setAttribute(`max`, `${seusPokemon[seuP].stats[0].base_stat}`)
@@ -556,6 +563,11 @@ async function iniciarBatalha(n, p, e, sp){
     moveInimigo  = [document.getElementById(`move1-2-${n}`).value, document.getElementById(`move2-2-${n}`).value];
     atqSeu = pokemonBatalha[0].stats[1].base_stat;
     atqInimigo = pokemonBatalha[1].stats[1].base_stat;
+
+    document.getElementById(`quantPocoes`).innerHTML = `${suasPocoes}x`
+    document.getElementById(`quantSpeed`).innerHTML = `${suasSpeed}x`
+    document.getElementById(`quantAttack`).innerHTML = `${suasAttack}x`
+    document.getElementById(`quantDefend`).innerHTML = `${suasDefend}x`
 
     const url = "https://pokeapi.co/api/v2/move//"
 
@@ -665,7 +677,19 @@ function atacar(n, s){
         tipoAtacante = moveSeu[n].type.name;
         tipoVitima = (s === 2 ? pokemonsInimigo[eliteP].types[0].type.name : pokemonBatalha[1].types[0].type.name)
         def =  (s === 2 ? pokemonsInimigo[eliteP].stats[2].base_stat : pokemonBatalha[1].stats[2].base_stat);
-        sAtq = (s === 2 ? pokemonBatalha[seuP].stats[3].base_stat : pokemonBatalha[0].stats[3].base_stat)
+        if(s===2){
+            if(moveSeu[n].damage_class === "physical"){
+                atqSeu = pokemonBatalha[seuP].stats[1].base_stat
+            }else{
+                atqSeu = pokemonBatalha[seuP].stats[3].base_stat
+            }
+        } else{
+            if(moveSeu[n].damage_class === "phisical"){
+                atqSeu = pokemonBatalha[0].stats[1].base_stat
+            }else{
+                atqSeu = pokemonBatalha[0].stats[3].base_stat
+            }
+        }
         ppSeu[n] = ppSeu[n] - 1
         document.getElementById(`ppMove${n+1}-${s}`).innerHTML  = `${ppSeu[n]}/${moveSeu[n].pp}`
         desc.innerHTML = `Você usa ${moveSeu[n].name} com ${pokemonBatalha[0].name}`
@@ -729,7 +753,7 @@ function atacar(n, s){
             let stab = (moveSeu[n].type.name === (s === 2 ? pokemonsInimigo[eliteP].types[0].type.name : pokemonBatalha[1].types[0].type.name) ? 1.5 : 1)
             let na = Math.floor(Math.random() * (100 - 85 + 1)) + 85
             let atkPower = moveSeu[n].power
-            let dano = ((((2*1/5+2) * atqSeu * atkPower/def)/50 + 2) * stab * bonus * na/100)
+            let dano = ((((2*1/5+2) * (atqSeu*xattack) * atkPower/def)/50 + 2) * stab * bonus * na/100)
             desc.innerHTML = `${seuTurno === false ? (s === 2 ? pokemonBatalha[seuP].name : pokemonBatalha[0].name) : (s === 2 ? pokemonsInimigo[eliteP].name : pokemonBatalha[1].name)} acerta um ataque ${bonus === 1/2 ? "pouco efetivo" : bonus === 2 ? "super efetivo" : bonus === 0 ? "sem efeito" : ""}`
             const textoArray = desc.innerHTML.split('');
             desc.innerHTML = ' ';
@@ -1067,7 +1091,7 @@ function usarItem(n, s){
             } else{
                 suasSpeed = suasSpeed - 1
                 item = ["X Speed", `quantSpeed-${s}`, suasSpeed]
-                accuracySeu = accuracySeu + 10
+                xspeed = xspeed + 1.5
             }
         } else if (n===2){
             if(suasAttack <= 0){
@@ -1075,7 +1099,7 @@ function usarItem(n, s){
             } else{
                 suasAttack = suasAttack - 1
                 item = ["X Attack", `quantAttack-${s}`, suasAttack]
-                atqSeu = atqSeu + 10 
+                xattack = xattack + 0.5
             }
         } else{
             if(suasDefend <= 0){
@@ -1083,7 +1107,7 @@ function usarItem(n, s){
             } else{
                 suasDefend = suasDefend - 1
                 item = ["X Defend", `quantDefend-${s}`, suasDefend]
-                evasionSeu = evasionSeu + 10
+                xdefend = xdefend + 0.5
             }
         }
 
@@ -1114,7 +1138,7 @@ function usarItem(n, s){
             } else{
                 inimigoSpeed = inimigoSpeed - 1
                 item = ["X Speed", `quantSpeed-${s}`, suasSpeed]
-                accuracyInimigo = accuracyInimigo + 10
+                xspeed = xspeed + 1.5
             }
         } else if(nAleatorio >= 66){
             if(inimigoAttack <= 0){
@@ -1122,7 +1146,7 @@ function usarItem(n, s){
             } else{
                 inimigoAttack = inimigoAttack - 1
                 item = ["X Attack", `quantAttack-${s}`, suasAttack]
-                atqInimigo = atqInimigo + 10
+                xattackI = xattackI + 0.5
             }  
         } else{
             if(inimigoDefend <= 0){
@@ -1130,7 +1154,7 @@ function usarItem(n, s){
             } else{
                 inimigoDefend = inimigoDefend - 1
                 item = ["X Defend", `quantDefend-${s}`, suasDefend]
-                evasionInimigo = evasionInimigo + 10
+                xdefendI = xdefendI + 0.5
             } 
         }
 
@@ -1202,7 +1226,7 @@ function usarPocao(n, s){
             })
             setTimeout(()=>{
                 atacar(n, s)
-            }, "4500")
+            }, "3000")
         } else{
             inimigoPocoes = inimigoPocoes - 1
             desc.innerHTML = `O inimigo usou uma poção em ${s === 2 ? pokemonsInimigo[eliteP].name : pokemonBatalha[1].name}`
@@ -1224,7 +1248,7 @@ function usarPocao(n, s){
                 document.getElementById(`inimigoBarra-${s}`).value = parseInt(document.getElementById(`inimigoBarra-${s}`).value + 20)
                 document.getElementById(`seuTurno-${s}`).style.display = "flex"
                 document.getElementById(`descAcao-${s}`).style.display = "none"
-            },"4500")
+            },"3000")
         }
     }
 }
