@@ -531,8 +531,8 @@ async function iniciarLiga(p,n,sp,v){
     }
 
     document.getElementById("trainerInimigo-2").src = eliteData[n].img
-    document.getElementById(`inimigoImg-2`).src = pokemonsInimigo[p].sprites.other.showdown.front_default
-    document.getElementById(`seuImg-2`).src = seusPokemon[seuP].sprites.other.showdown.back_default
+    document.getElementById(`inimigoImg-2`).src = pokemonsInimigo[p].sprites.other.showdown.front_default === null ? pokemonsInimigo[p].sprites.front_default : pokemonsInimigo[p].sprites.other.showdown.front_default
+    document.getElementById(`seuImg-2`).src = seusPokemon[seuP].sprites.other.showdown.back_default === null ? seusPokemon[seuP].sprites.back_default : seusPokemon[seuP].sprites.other.showdown.back_default
     document.getElementById(`inimigoVida-2`).innerHTML = pokemonsInimigo[p].name
     document.getElementById(`inimigoTipo-2`).innerHTML = pokemonsInimigo[p].types[0].type.name
     document.getElementById(`seuVida-2`).innerHTML = seusPokemon[seuP].name
@@ -632,8 +632,8 @@ async function iniciarBatalha(n, p, e, sp){
         batalhaMusicArr[musicBatalhaRandon].currentTime = 0
         batalhaMusicArr[musicBatalhaRandon].play()
 
-        document.getElementById(`inimigoImg-${n}`).src = pokemonInimigo.sprites.other.showdown.front_default
-        document.getElementById(`seuImg-${n}`).src = seuPokemon.sprites.other.showdown.back_default
+        document.getElementById(`inimigoImg-${n}`).src = pokemonInimigo.sprites.other.showdown.front_default === null ? pokemonInimigo.sprites.front_default : pokemonInimigo.sprites.other.showdown.front_default
+        document.getElementById(`seuImg-${n}`).src = seuPokemon.sprites.other.showdown.back_default === null ? seuPokemon.sprites.back_default : seuPokemon.sprites.other.showdown.back_default
         document.getElementById(`inimigoVida-${n}`).innerHTML = pokemonInimigo.name
         document.getElementById(`inimigoTipo-${n}`).innerHTML = pokemonInimigo.types[0].type.name
         document.getElementById(`seuVida-${n}`).innerHTML = seuPokemon.name
